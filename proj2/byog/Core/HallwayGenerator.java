@@ -18,7 +18,7 @@ public class HallwayGenerator {
      *  and corner contructors as necessary.
      */
     public HallwayGenerator(position one, position two) { // Position class not compiling?
-        // TODO: Algorithim to select what hallways needed to connect two posiitons.
+        // TODO: Algorithim to select what hallways needed to connect two positions.
 
     }
 
@@ -29,7 +29,7 @@ public class HallwayGenerator {
 
         private horizontalHallway(int length, int horizPos, int vertPos) {
 
-            TETile[][] hallway = new TETile[length][height];
+            TETile[][] hallway = new TETile[horizPos + length][height];
 
         }
 
