@@ -25,8 +25,8 @@ public class BoringWorldDemo {
         }
 
         // fills in a block 14 tiles wide by 4 tiles tall
-        for (int x = 20; x < 40; x += 2) {
-            for (int y = 5; y < 20; y += 3) {
+        for (int x = 0; x < 20; x += 1) {
+            for (int y = 0; y < 20; y += 1) {
                 world[x][y] = Tileset.MOUNTAIN;
             }
         }
