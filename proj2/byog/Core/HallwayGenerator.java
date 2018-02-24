@@ -18,7 +18,7 @@ public class HallwayGenerator {
     /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
      *  and corner contructors as necessary.
      */
-    public HallwayGenerator(position one, position two, TETile[][] world) { // Position class not compiling?
+    public HallwayGenerator(Position one, Position two, TETile[][] world) { // Position class not compiling?
         // TODO: Algorithim to select what hallways needed to connect two positions.
 
     }
