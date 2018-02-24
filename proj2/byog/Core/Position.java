@@ -17,4 +17,12 @@ public class Position {
         x = coord_x;
         y = coord_y;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
