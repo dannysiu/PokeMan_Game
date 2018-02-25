@@ -36,7 +36,7 @@ public class TestHallway {
             }
         }
 
-        // Now for testing hallways. 
+        // Now for testing hallways.
 
 
 
