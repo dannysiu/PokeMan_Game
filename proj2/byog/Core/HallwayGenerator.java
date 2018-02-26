@@ -3,6 +3,7 @@ package byog.Core;
 import byog.Core.WorldGenerator;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
+import javafx.geometry.Pos;
 
 /** A class to handle hallway generation.
  *  Assumes that rooms are already created and randomly dispersed in world. Will look for
@@ -21,6 +22,7 @@ public class HallwayGenerator {
         /** TODO: Algorithm to select what hallways needed to connect two positions.
          *  TODO: Determine what kind of corner hallway to use in a given situation.
          *  REMEMBER: corner directions are: leftTop, rightTop, leftBottom, leftBottom
+         *  What if I made HallwayGenerator recursive?
          */
 
 
@@ -42,13 +44,61 @@ public class HallwayGenerator {
 //        // END OF TESTING COMPONENTS
     }
 
+    /** Helper class object to determine what should be starting point of two positions for
+     *  hallway construction.
+     *  Optimal starting Position is by smallest x, then smallest y (left-most, bottom-most)
+     */
+    private class WhereToStart {
+        Position start;
+        Position end;
 
+        private WhereToStart(Position one, Position two) {
+            if (one.getX() < two.getX()) {
+                start = one;
+                end = two;
+            } else if (one.getX() > two.getX()) {
+                start = two;
+                end = one;
+            } else if (one.getX() == two.getX()) {
+                if (one.getY() < two.getY()) {
+                    start = one;
+                    end = two;
+                } else {
+                    start = two;
+                    end = one;
+                }
+            }
+        }
+
+
+
+    }
+
+    /** Helper method for determining which Position to start from */
     private Position farthestLeft(Position one, Position two) {
         if (one.getX() <= two.getX()) {
             return one;
         } else {
             return two;
         }
+    }
+
+
+
+    /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
+     *  Assume that @params one and two are either horizontally aligned or vertically aligned.
+     *  Assume that the left-most or bottom-most Position is @param one.
+     */
+    private boolean unobstructed(Position one, Position two, TETile[][] world) {
+
+        for (int x = one.getX(); x <= two.getX(); x += 1) {
+            for (int y = one.getY(); y <= two.getY(); y += 1) {
+                if (world[x][y].equals(Tileset.WALL)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
