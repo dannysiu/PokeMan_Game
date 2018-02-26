@@ -35,6 +35,11 @@ public class HallwayGenerator {
      */
     public void buildHallway(Position start, int distance, String direction, TETile[][] world) {
 
+        if (direction == "right") {
+            horizontalHallway(distance, start.getX(), start.getY(), world);
+        }
+         
+
 
 
     }

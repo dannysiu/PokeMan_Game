@@ -15,8 +15,8 @@
       <file leaf-file-name="HallwayGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/byog/Core/HallwayGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="42" column="42" lean-forward="false" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+            <state relative-caret-position="321">
+              <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -82,8 +82,8 @@
         <option value="$PROJECT_DIR$/byog/Core/Room.java" />
         <option value="$PROJECT_DIR$/byog/Core/RoomGenerator.java" />
         <option value="$PROJECT_DIR$/byog/Core/WorldGenerator.java" />
-        <option value="$PROJECT_DIR$/byog/Core/HallwayGenerator.java" />
         <option value="$PROJECT_DIR$/byog/Core/Position.java" />
+        <option value="$PROJECT_DIR$/byog/Core/HallwayGenerator.java" />
       </list>
     </option>
   </component>
@@ -819,8 +819,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/byog/Core/HallwayGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="42" column="42" lean-forward="false" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+        <state relative-caret-position="321">
+          <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
           <folding />
         </state>
       </provider>
