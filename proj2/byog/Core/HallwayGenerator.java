@@ -5,6 +5,8 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import javafx.geometry.Pos;
 
+import java.security.InvalidParameterException;
+
 /** A class to handle hallway generation.
  *  Assumes that rooms are already created and randomly dispersed in world. Will look for
  *  "doorways" (unlocked doors) and create hallways between them.
@@ -21,25 +23,44 @@ public class HallwayGenerator {
     public HallwayGenerator() { }
 
 
-
-
-
-
-    /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
-     *  Assume that @params one and two are either horizontally aligned or vertically aligned.
-     *  Assume that the left-most or bottom-most Position is @param one.
+    /** The publicly-used method for making a hallway. Decides what kind of hallway to make
+     *  depending on the parameters.
+     * @param start = Position where building starts
+     * @param distance = how long to make hallway. Assume 0 for corners
+     * @param direction = tells where hallway is going. Can be:
+     *                    "left", "right" (horizontal)
+     *                    "up", "down" (vertical)
+     *                    "leftTop", "rightTop", "rightBottom", "leftBottom" (corner)
+     * @param world = world that hallways are being put in
      */
-    private boolean unobstructed(Position one, Position two, TETile[][] world) {
+    public void buildHallway(Position start, int distance, String direction, TETile[][] world) {
 
-        for (int x = one.getX(); x <= two.getX(); x += 1) {
-            for (int y = one.getY(); y <= two.getY(); y += 1) {
-                if (world[x][y].equals(Tileset.WALL) || world[x][y].equals(Tileset.FLOOR)) {
-                    return false;
-                }
-            }
-        }
-        return true;
+
+
     }
+
+
+    // MOVED THIS METHOD TO POSITION CLASS
+//    /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
+//     *  Assume that @params one and two are either horizontally aligned or vertically aligned.
+//     *  Assume that the left-most or bottom-most Position is @param one.
+//     */
+//    private boolean unobstructed(Position one, Position two, TETile[][] world) {
+//
+//        if ((two.getX() - one.getX()) != 0 || (two.getY() - one.getY()) != 0) {
+//            throw new IllegalArgumentException("Positions one and two are not horizontally" +
+//                    "aligned or vertically aligned.");
+//        }
+//
+//        for (int x = one.getX(); x <= two.getX(); x += 1) {
+//            for (int y = one.getY(); y <= two.getY(); y += 1) {
+//                if (world[x][y].equals(Tileset.WALL) || world[x][y].equals(Tileset.FLOOR)) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
 
 
