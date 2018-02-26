@@ -15,73 +15,15 @@ import javafx.geometry.Pos;
  */
 public class HallwayGenerator {
 
+
+
     /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
      *  and corner constructors as necessary.
      */
-    public HallwayGenerator(Position one, Position two, TETile[][] world) {
-        /** TODO: Algorithm to select what hallways needed to connect two positions.
-         *  TODO: Determine what kind of corner hallway to use in a given situation.
-         *  REMEMBER: corner directions are: leftTop, rightTop, leftBottom, leftBottom
-         *  What if I made HallwayGenerator recursive?
-         */
+    public HallwayGenerator() { }
 
 
 
-
-
-
-
-
-
-//        // FOR TESTING PURPOSES
-//        int oneX = one.getX();
-//        int twoX = two.getX();
-//        int oneY = one.getY();
-//        int twoY = two.getY();
-//        horizontalHallway((twoX - oneX), oneX, oneY, world);
-//        cornerHallway("leftTop", two, world);
-//        verticalHallway(10, twoX, twoY + 1, world);
-//        // END OF TESTING COMPONENTS
-    }
-
-    /** Helper class object to determine what should be starting point of two positions for
-     *  hallway construction.
-     *  Optimal starting Position is by smallest x, then smallest y (left-most, bottom-most)
-     */
-    private class WhereToStart {
-        Position start;
-        Position end;
-
-        private WhereToStart(Position one, Position two) {
-            if (one.getX() < two.getX()) {
-                start = one;
-                end = two;
-            } else if (one.getX() > two.getX()) {
-                start = two;
-                end = one;
-            } else if (one.getX() == two.getX()) {
-                if (one.getY() < two.getY()) {
-                    start = one;
-                    end = two;
-                } else {
-                    start = two;
-                    end = one;
-                }
-            }
-        }
-
-
-
-    }
-
-    /** Helper method for determining which Position to start from */
-    private Position farthestLeft(Position one, Position two) {
-        if (one.getX() <= two.getX()) {
-            return one;
-        } else {
-            return two;
-        }
-    }
 
 
 
@@ -93,7 +35,7 @@ public class HallwayGenerator {
 
         for (int x = one.getX(); x <= two.getX(); x += 1) {
             for (int y = one.getY(); y <= two.getY(); y += 1) {
-                if (world[x][y].equals(Tileset.WALL)) {
+                if (world[x][y].equals(Tileset.WALL) || world[x][y].equals(Tileset.FLOOR)) {
                     return false;
                 }
             }
@@ -108,7 +50,6 @@ public class HallwayGenerator {
 
 
     /** Creates a horizonatal hallway.
-     *  TODO: change so it can also build hallways right to left.
      */
     private void horizontalHallway(int length, int horizPos, int vertPos, TETile[][] world) {
 
@@ -121,7 +62,6 @@ public class HallwayGenerator {
 
 
     /** Creates a vertical hallway.
-     *  TODO: change so it can also build hallways up-to-down.
      */
     private void verticalHallway(int height, int horizPos, int vertPos, TETile[][] world) {
 
@@ -161,5 +101,65 @@ public class HallwayGenerator {
             world[hingeX + 1][hingeY] = Tileset.WALL;
         }
     }
+
+
+
+
+
+
+
+    //////////////////DEPRECATED AND TRASH CONTENT///////////////////////
+    // Uncomment this code if needed again.
+
+
+//    /** Helper class object to determine what should be starting point of two positions for
+//     *  hallway construction.
+//     *  Optimal starting Position is by smallest x, then smallest y (left-most, bottom-most)
+//     */
+//    private class WhereToStart {
+//        Position start;
+//        Position end;
+//        String path; // Options: "up", "down", "left", "right"
+//
+//        private WhereToStart(Position one, Position two) {
+//            if (one.getX() < two.getX()) { // Favor Position with lower x
+//                start = one;
+//                end = two;
+//            } else if (one.getX() > two.getX()) {
+//                start = two;
+//                end = one;
+//            } else if (one.getX() == two.getX()) { // Same x, favor Position with lower y
+//                if (one.getY() < two.getY()) {
+//                    start = one;
+//                    end = two;
+//                } else {
+//                    start = two;
+//                    end = one;
+//                }
+//            }
+//        }
+//
+//        /** Return the direction that hallway should start being built */
+//        private String direction() {
+//            if (start.getX() < end.getX()) { // Begin by moving to right
+//                //never finished
+//            }
+//            return "none";
+//        }
+//    }
+//
+//    /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
+//     *  and corner constructors as necessary.
+//     */
+//    public void connect(Position one, Position two, TETile[][] world) {
+//        /** TODO: Algorithm to select what hallways needed to connect two positions.
+//         *  TODO: Determine what kind of corner hallway to use in a given situation.
+//         *  REMEMBER: corner directions are: leftTop, rightTop, leftBottom, leftBottom
+//         *  What if I made HallwayGenerator recursive?
+//         */
+//
+//        WhereToStart spot = new WhereToStart(one, two);
+//
+//    }
 
 }
