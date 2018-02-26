@@ -47,7 +47,7 @@ public class HallwayGenerator {
      *                    "leftUp", "rightUp", "rightDown", "leftDown" (corner)
      * @param world = world that hallways are being put in
      */
-    public void buildHallway(Position start, int distance, String direction, TETile[][] world) {
+    public WhereToNext buildHallway(Position start, int distance, String direction, TETile[][] world) {
         if ((! DirectionsCorner.contains(direction)) && (! DirectionsStraight.contains(direction))) {
             throw new IllegalArgumentException(direction + " is not a valid direction");
         }
@@ -64,9 +64,11 @@ public class HallwayGenerator {
         if (direction == "down") {
             verticalHallway(distance, start.getX(), (start.getY() - distance), world);
         }
-        if (direction == "leftUp" || direction == "rightUp" || direction == "leftDown" || direction == "rightDown") {
+        if (DirectionsCorner.contains(direction)) {
             cornerHallway(direction, start.getX(), start.getY(), world);
         }
+
+        return new WhereToNext(direction, start, distance, world);
 //        if (direction == "rightUp") {
 //            cornerHallway(direction, start.getX(), start.getY(), world);
 //        }

@@ -33,13 +33,18 @@ public class Position {
 
     /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
      *  Assume that this and @param two are either horizontally aligned or vertically aligned.
-     *  Assume that the left-most or bottom-most Position is this.
      */
     public boolean unobstructedHallway(Position two, TETile[][] world) {
 
         if ((two.getX() - this.getX()) != 0 || (two.getY() - this.getY()) != 0) {
             throw new IllegalArgumentException("Positions one and two are not horizontally" +
                     "aligned or vertically aligned.");
+        }
+
+        if (this.getX() > two.getX()) { // Allows user to not worry about which Position is "lower"
+            return two.unobstructedHallway(this, world);
+        } else if ((this.getX() == two.getX()) && (this.getY() > two.getY())) {
+            return two.unobstructedHallway(this, world);
         }
 
         for (int x = this.getX(); x <= two.getX(); x += 1) {
