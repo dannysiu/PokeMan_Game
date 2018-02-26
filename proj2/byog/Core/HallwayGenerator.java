@@ -16,11 +16,18 @@ import byog.TileEngine.Tileset;
 public class HallwayGenerator {
 
     /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
-     *  and corner contructors as necessary.
+     *  and corner constructors as necessary.
      */
     public HallwayGenerator(Position one, Position two, TETile[][] world) { // Position class not compiling?
-        // TODO: Algorithim to select what hallways needed to connect two positions.
+        // TODO: Algorithm to select what hallways needed to connect two positions.
 
+        // FOR TESTING PURPOSES
+        int oneX = one.getX();
+        int twoX = two.getX();
+        int oneY = one.getY();
+        int twoY = two.getY();
+//        horizontalHallway((twoX - oneX), oneX, oneY, world);
+        verticalHallway((twoY - oneY), oneX, oneY, world);
     }
 
     /** Creates a horizonatal hallway. */

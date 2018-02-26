@@ -1,7 +1,7 @@
 package byog.Core;
 
 import byog.TileEngine.TETile;
-import static byog.TileEngine.Tileset.*;
+import byog.TileEngine.Tileset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class WorldGenerator {
 
         for (int xPos = 0; xPos < 80; xPos += 1) { // Using 80 for width and 30 for height because of default values
             for (int yPos = 0; yPos < 30; yPos += 1) { // that Game.java uses to make a world
-                if (world[xPos][yPos].equals(UNLOCKED_DOOR)) {
+                if (world[xPos][yPos].equals(Tileset.UNLOCKED_DOOR)) {
                     Position p = new Position(xPos, yPos);
                     allUnlocked.add(p);
 //                    index += 1; // Index only increments as UNLOCKED_DOOR positions added

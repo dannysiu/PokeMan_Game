@@ -25,10 +25,14 @@ public class TestHallway {
 
     /** Visual inspection test. Change width and height declared near beginning to affect world. */
     public static void main (String[] args) {
+        // ~~~ Make changes to these variables to change test ~~~
         TERenderer ter;
         int width = 80;
         int height = 30;
+        Position start = new Position(40, 5);
+        Position end = new Position(40, 25);
 
+        // ~~~ End of change zone for test ~~~
         TETile[][] world = new TETile[width][height];
         for (int x = 0; x < width; x += 1) {
             for (int y = 0; y < height; y += 1) {
@@ -38,8 +42,9 @@ public class TestHallway {
 
         // Now for testing hallways.
 
+        new HallwayGenerator(start, end, world);
 
-
+        // End of testing hallways.
 
         ter = new TERenderer();
         ter.initialize(width, height);
