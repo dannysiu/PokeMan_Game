@@ -11,26 +11,55 @@ import byog.TileEngine.Tileset;
  *  TODO: Method to create vertical hallways.
  *  TODO: Method to create corners.
  *  TODO: Method to link hallways together.
- *  TODO: Create a test class to assess functionality.
  */
 public class HallwayGenerator {
 
     /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
      *  and corner constructors as necessary.
      */
-    public HallwayGenerator(Position one, Position two, TETile[][] world) { // Position class not compiling?
-        // TODO: Algorithm to select what hallways needed to connect two positions.
+    public HallwayGenerator(Position one, Position two, TETile[][] world) {
+        /** TODO: Algorithm to select what hallways needed to connect two positions.
+         *  TODO: Determine what kind of corner hallway to use in a given situation.
+         *  REMEMBER: corner directions are: leftTop, rightTop, leftBottom, leftBottom
+         */
 
-        // FOR TESTING PURPOSES
-        int oneX = one.getX();
-        int twoX = two.getX();
-        int oneY = one.getY();
-        int twoY = two.getY();
+
+
+
+
+
+
+
+
+//        // FOR TESTING PURPOSES
+//        int oneX = one.getX();
+//        int twoX = two.getX();
+//        int oneY = one.getY();
+//        int twoY = two.getY();
 //        horizontalHallway((twoX - oneX), oneX, oneY, world);
-        verticalHallway((twoY - oneY), oneX, oneY, world);
+//        cornerHallway("leftTop", two, world);
+//        verticalHallway(10, twoX, twoY + 1, world);
+//        // END OF TESTING COMPONENTS
     }
 
-    /** Creates a horizonatal hallway. */
+
+    private Position farthestLeft(Position one, Position two) {
+        if (one.getX() <= two.getX()) {
+            return one;
+        } else {
+            return two;
+        }
+    }
+
+
+
+    /////////////ABSTRACTION BARRIER: NO POSITION OBJECTS BENEATH THIS POINT///////////
+
+
+
+    /** Creates a horizonatal hallway.
+     *  TODO: change so it can also build hallways right to left.
+     */
     private void horizontalHallway(int length, int horizPos, int vertPos, TETile[][] world) {
 
         for (int i = horizPos; i < (horizPos + length); i += 1) {
@@ -41,7 +70,9 @@ public class HallwayGenerator {
     }
 
 
-    /** Creates a vertical hallway. */
+    /** Creates a vertical hallway.
+     *  TODO: change so it can also build hallways up-to-down.
+     */
     private void verticalHallway(int height, int horizPos, int vertPos, TETile[][] world) {
 
         for (int i = vertPos; i < (vertPos + height); i += 1) {
@@ -51,11 +82,34 @@ public class HallwayGenerator {
         }
     }
 
-    /** Creates an L corner connecting hallways. */
-    private class cornerHallway {
+    /** Creates an L corner connecting hallways.
+     *  @param direction is either leftTop, rightTop, rightBottom, leftBottom
+     *  @param hingeX is the hoirzontal position of floor piece where hallway changes directions
+     *  @param hingeY is the vertical position of floor piece where hallway changes directions
+     */
+    private void cornerHallway(String direction, int hingeX, int hingeY, TETile[][] world) {
+        world[hingeX][hingeY] = Tileset.FLOOR;
 
-
-
+        if (direction == "leftTop") { // <^
+            world[hingeX][hingeY - 1] = Tileset.WALL;
+            world[hingeX + 1][hingeY - 1] = Tileset.WALL;
+            world[hingeX + 1][hingeY] = Tileset.WALL;
+        }
+        if (direction == "rightTop") { // ^>
+            world[hingeX][hingeY - 1] = Tileset.WALL;
+            world[hingeX - 1][hingeY - 1] = Tileset.WALL;
+            world[hingeX - 1][hingeY] = Tileset.WALL;
+        }
+        if (direction == "rightBottom") { // v>
+            world[hingeX][hingeY + 1] = Tileset.WALL;
+            world[hingeX - 1][hingeY + 1] = Tileset.WALL;
+            world[hingeX - 1][hingeY] = Tileset.WALL;
+        }
+        if (direction == "leftBottom") { // <v
+            world[hingeX][hingeY + 1] = Tileset.WALL;
+            world[hingeX + 1][hingeY + 1] = Tileset.WALL;
+            world[hingeX + 1][hingeY] = Tileset.WALL;
+        }
     }
 
 }

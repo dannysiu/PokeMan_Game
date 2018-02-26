@@ -28,9 +28,10 @@ public class TestHallway {
         // ~~~ Make changes to these variables to change test ~~~
         TERenderer ter;
         int width = 80;
-        int height = 30;
-        Position start = new Position(40, 5);
-        Position end = new Position(40, 25);
+        int height = 40;
+        Position start = new Position(10, 10);
+        Position end = new Position(40, 10);
+
 
         // ~~~ End of change zone for test ~~~
         TETile[][] world = new TETile[width][height];
@@ -40,11 +41,7 @@ public class TestHallway {
             }
         }
 
-        // Now for testing hallways.
-
         new HallwayGenerator(start, end, world);
-
-        // End of testing hallways.
 
         ter = new TERenderer();
         ter.initialize(width, height);
