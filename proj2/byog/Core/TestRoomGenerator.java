@@ -1,11 +1,8 @@
 package byog.Core;
 
-import byog.Core.HallwayGenerator;
-import static org.junit.Assert.*;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-import org.junit.Test;
 import java.util.Random;
 
 public class TestRoomGenerator {
@@ -13,8 +10,8 @@ public class TestRoomGenerator {
     public static void main (String[] args) {
         //Draw the screen
         TERenderer ter;
-        int WIDTH = 80;
-        int HEIGHT = 50;
+        int WIDTH = 50;
+        int HEIGHT = 30;
 
         TETile[][] world = new TETile[WIDTH][HEIGHT];
         for (int x = 0; x < WIDTH; x += 1) {
@@ -33,8 +30,8 @@ public class TestRoomGenerator {
             int posX = RandomUtils.uniform(randomGenerator, WIDTH);
             int posY = RandomUtils.uniform(randomGenerator, HEIGHT);
             Position roomLocation = new Position(posX, posY);
-            int roomWidth = RandomUtils.uniform(randomGenerator, WIDTH/3);
-            int roomHeight = RandomUtils.uniform(randomGenerator, HEIGHT/3);
+            int roomWidth = RandomUtils.uniform(randomGenerator, 3, WIDTH/3);
+            int roomHeight = RandomUtils.uniform(randomGenerator, 3, HEIGHT/3);
             rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
         }
 

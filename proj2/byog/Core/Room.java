@@ -42,7 +42,7 @@ public class Room {
 
     public Room(TETile[][] world, Position p, int w, int h) {
 
-        bottomLeft = p;
+        bottomLeft = p;  //p equals bottom left corner; use as p in the rest of code for brevity
         width = w;
         height = h;
 
@@ -53,11 +53,9 @@ public class Room {
 
 
         //draw the INSIDE of the room with floor tiles
-        for (int x_incr = 1; x_incr < width - 1; x_incr += 1) {
-            for (int y_incr = 1; y_incr < height - 1; y_incr += 1) {
-                int new_x = bottomLeft.getX() + x_incr;
-                int new_y = bottomLeft.getY() + y_incr;
-                world[new_x][new_y] = Tileset.FLOOR;
+        for (int x = p.getX() + 1; x < p.getX() + width - 1; x += 1) {
+            for (int y = p.getY() + 1; y < p.getY() + height - 1; y += 1) {
+                world[x][y] = Tileset.FLOOR;
             }
         }
 
@@ -65,13 +63,11 @@ public class Room {
         // the room is filled with floor tiles, so will only place walls where not equal floor
         // add positions to perimeter list for future door creation
         // **will need to add doors later
-        for (int x_incr = 0; x_incr < width; x_incr += 1) {
-            for (int y_incr = 0; y_incr < height; y_incr += 1) {
-                int new_x = bottomLeft.getX() + x_incr;
-                int new_y = bottomLeft.getY() + y_incr;
-                if (world[new_x][new_y] != Tileset.FLOOR) {
-                    world[new_x][new_y] = Tileset.WALL;
-                    Position perim  = new Position(new_x, new_y);
+        for (int x = p.getX(); x < p.getX() + w; x += 1) {
+            for (int y = p.getY(); y < p.getY() + h; y += 1) {
+                if (world[x][y] != Tileset.FLOOR) {
+                    world[x][y] = Tileset.WALL;
+                    Position perim  = new Position(x, y);
                     perimeterList.add(perim);
                 }
             }
@@ -93,6 +89,16 @@ public class Room {
     public void makeDoors(TETile[][] world) {
         Random randomGenerator = new Random();
         int numDoors = RandomUtils.uniform(randomGenerator, 1, 4);  //between 1 to 3 doors allowed
+
+//        //Test
+//        System.out.println("Elements in perimeter list are ");
+//        for (Position p : perimeterList) {
+//            System.out.println(p);
+//        }
+//
+//        System.out.println("number of items in perimeter list = " + perimeterList.size());
+//        //Test ends
+
 
         for (int i = 0; i < numDoors; i += 1) {
             int randomInt = RandomUtils.uniform(randomGenerator, perimeterList.size());

@@ -25,15 +25,20 @@ public class RoomGenerator {
         //check that for the whole border of the potential room, it doesn't overlap with another room
         //aka, tile in the world doesn't equal wall or floor/ equals tile.nothing
 
-        int worldHeight = world[0].length;
         int worldWidth = world.length;
+        int worldHeight = world[0].length;
 
 
         boolean buildCuzYouCan = true;
         for (int x = p.getX(); x < p.getX() + w; x += 1) {
             for (int y = p.getY(); y < p.getY() + h; y += 1) {
-                if ((x > worldWidth) && (y > worldHeight) && (world[x][y] != Tileset.NOTHING)) {
+                if ((x >= worldWidth) || (y >= worldHeight)){
                     buildCuzYouCan = false;
+                    return;
+                }
+                else if (world[x][y] != Tileset.NOTHING) {
+                    buildCuzYouCan = false;
+                    return;
                 }
             }
         }
