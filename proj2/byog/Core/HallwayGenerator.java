@@ -6,6 +6,8 @@ import byog.TileEngine.Tileset;
 import javafx.geometry.Pos;
 
 import java.security.InvalidParameterException;
+import java.util.HashSet;
+import java.util.Set;
 
 /** A class to handle hallway generation.
  *  Assumes that rooms are already created and randomly dispersed in world. Will look for
@@ -13,14 +15,24 @@ import java.security.InvalidParameterException;
  *  TODO: Method to link hallways together.
  */
 public class HallwayGenerator {
-
+    private Set<String> allowedDirections;
 
 
     /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
      *  and corner constructors as necessary.
      *  Currently no need to have a HG object except for calling methods
      */
-    public HallwayGenerator() { }
+    public HallwayGenerator() {
+        allowedDirections = new HashSet<>();
+        allowedDirections.add("left");
+        allowedDirections.add("right");
+        allowedDirections.add("up");
+        allowedDirections.add("down");
+        allowedDirections.add("leftTop");
+        allowedDirections.add("rightTop");
+        allowedDirections.add("leftBottom");
+        allowedDirections.add("rightBottom");
+    }
 
 
     /** The publicly-used method for making a hallway. Decides what kind of hallway to make
@@ -34,38 +46,52 @@ public class HallwayGenerator {
      * @param world = world that hallways are being put in
      */
     public void buildHallway(Position start, int distance, String direction, TETile[][] world) {
+        if (! allowedDirections.contains(direction)) {
+            throw new IllegalArgumentException(direction + "is not a valid direction");
+        }
 
         if (direction == "right") {
             horizontalHallway(distance, start.getX(), start.getY(), world);
         }
-         
-
-
-
+        if (direction == "left") {
+            horizontalHallway(distance, (start.getX() - distance), start.getY(), world);
+        }
+        if (direction == "up") {
+            verticalHallway(distance, start.getX(), start.getY(), world);
+        }
+        if (direction == "down") {
+            verticalHallway(distance, start.getX(), (start.getY() - distance), world);
+        }
+        if (direction == "leftTop" || direction == "rightTop" || direction == "leftBottom" || direction == "rightBottom") {
+            cornerHallway(direction, start.getX(), start.getY(), world);
+        }
+//        if (direction == "rightTop") {
+//            cornerHallway(direction, start.getX(), start.getY(), world);
+//        }
+//        if (direction == "leftBottom") {
+//            cornerHallway(direction, start.getX(), start.getY(), world);
+//        }
+//        if (direction == "rightBottom") {
+//            cornerHallway(direction, start.getX(), start.getY(), world);
+//        }
     }
 
+    /** An object to be returned by buildHallway method above. Tells WorldGeneration algorithm where
+     *  to start the next build and in what direction the current hallway is pointed.
+     */
+    private class WhereToNext {
+        String newDirection;
+        Position newPosition;
+        Boolean noRoom; // False if a room can't go here (ie. just turned a corner)
 
-    // MOVED THIS METHOD TO POSITION CLASS
-//    /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
-//     *  Assume that @params one and two are either horizontally aligned or vertically aligned.
-//     *  Assume that the left-most or bottom-most Position is @param one.
-//     */
-//    private boolean unobstructed(Position one, Position two, TETile[][] world) {
-//
-//        if ((two.getX() - one.getX()) != 0 || (two.getY() - one.getY()) != 0) {
-//            throw new IllegalArgumentException("Positions one and two are not horizontally" +
-//                    "aligned or vertically aligned.");
-//        }
-//
-//        for (int x = one.getX(); x <= two.getX(); x += 1) {
-//            for (int y = one.getY(); y <= two.getY(); y += 1) {
-//                if (world[x][y].equals(Tileset.WALL) || world[x][y].equals(Tileset.FLOOR)) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
+        private WhereToNext(String direction, Position start, int distance, TETile[][] world) {
+            // TODO: use unobstructedHallway method to figure out for corners the next direction
+            // TODO: make sure newPosition is 1 away from wherever buildHallway finished
+
+
+        }
+
+    }
 
 
 
@@ -176,14 +202,35 @@ public class HallwayGenerator {
 //     *  and corner constructors as necessary.
 //     */
 //    public void connect(Position one, Position two, TETile[][] world) {
-//        /** TODO: Algorithm to select what hallways needed to connect two positions.
-//         *  TODO: Determine what kind of corner hallway to use in a given situation.
+//        /**
 //         *  REMEMBER: corner directions are: leftTop, rightTop, leftBottom, leftBottom
 //         *  What if I made HallwayGenerator recursive?
 //         */
 //
 //        WhereToStart spot = new WhereToStart(one, two);
 //
+//    }
+
+    // MOVED THIS METHOD TO POSITION CLASS
+//    /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
+//     *  Assume that @params one and two are either horizontally aligned or vertically aligned.
+//     *  Assume that the left-most or bottom-most Position is @param one.
+//     */
+//    private boolean unobstructed(Position one, Position two, TETile[][] world) {
+//
+//        if ((two.getX() - one.getX()) != 0 || (two.getY() - one.getY()) != 0) {
+//            throw new IllegalArgumentException("Positions one and two are not horizontally" +
+//                    "aligned or vertically aligned.");
+//        }
+//
+//        for (int x = one.getX(); x <= two.getX(); x += 1) {
+//            for (int y = one.getY(); y <= two.getY(); y += 1) {
+//                if (world[x][y].equals(Tileset.WALL) || world[x][y].equals(Tileset.FLOOR)) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
 //    }
 
 }
