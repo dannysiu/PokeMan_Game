@@ -8,9 +8,6 @@ import javafx.geometry.Pos;
 /** A class to handle hallway generation.
  *  Assumes that rooms are already created and randomly dispersed in world. Will look for
  *  "doorways" (unlocked doors) and create hallways between them.
- *  TODO: Method to create horizontal hallways.
- *  TODO: Method to create vertical hallways.
- *  TODO: Method to create corners.
  *  TODO: Method to link hallways together.
  */
 public class HallwayGenerator {
@@ -19,6 +16,7 @@ public class HallwayGenerator {
 
     /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
      *  and corner constructors as necessary.
+     *  Currently no need to have a HG object except for calling methods
      */
     public HallwayGenerator() { }
 
@@ -49,7 +47,7 @@ public class HallwayGenerator {
 
 
 
-    /** Creates a horizonatal hallway.
+    /** Creates a horizontal hallway.
      */
     private void horizontalHallway(int length, int horizPos, int vertPos, TETile[][] world) {
 
