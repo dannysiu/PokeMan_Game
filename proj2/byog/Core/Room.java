@@ -16,10 +16,10 @@ public class Room {
     public ArrayList<Position> cornerList;  //cannot make doors where there are corners
 
 
-    private Position topLeft;  //these room corner positions will be used to ensure rooms don't overlap
-    private Position topRight;
-    private Position bottomLeft;
+    private Position bottomLeft; //these room corner positions will be used to ensure rooms don't overlap
     private Position bottomRight;
+    private Position topLeft;
+    private Position topRight;
 
 
     /**
@@ -42,7 +42,7 @@ public class Room {
 
     public Room(TETile[][] world, Position p, int w, int h) {
 
-        topLeft = p;
+        bottomLeft = p;
         width = w;
         height = h;
 
@@ -55,8 +55,8 @@ public class Room {
         //draw the INSIDE of the room with floor tiles
         for (int x_incr = 1; x_incr < width - 1; x_incr += 1) {
             for (int y_incr = 1; y_incr < height - 1; y_incr += 1) {
-                int new_x = topLeft.getX() + x_incr;
-                int new_y = topLeft.getY() + y_incr;
+                int new_x = bottomLeft.getX() + x_incr;
+                int new_y = bottomLeft.getY() + y_incr;
                 world[new_x][new_y] = Tileset.FLOOR;
             }
         }
@@ -67,8 +67,8 @@ public class Room {
         // **will need to add doors later
         for (int x_incr = 0; x_incr < width; x_incr += 1) {
             for (int y_incr = 0; y_incr < height; y_incr += 1) {
-                int new_x = topLeft.getX() + x_incr;
-                int new_y = topLeft.getY() + y_incr;
+                int new_x = bottomLeft.getX() + x_incr;
+                int new_y = bottomLeft.getY() + y_incr;
                 if (world[new_x][new_y] != Tileset.FLOOR) {
                     world[new_x][new_y] = Tileset.WALL;
                     Position perim  = new Position(new_x, new_y);
@@ -77,14 +77,15 @@ public class Room {
             }
         }
 
-        topRight = new Position(topLeft.getX() + width, topLeft.getY());  //documenting the corner positions
-        bottomLeft = new Position(topLeft.getX(), topLeft.getY() + height);
-        bottomRight = new Position(topLeft.getX() + width, topLeft.getY());
+        bottomRight = new Position(bottomLeft.getX() + width, bottomLeft.getY());  //documenting the corner positions
+        topLeft = new Position(bottomLeft.getX(), bottomLeft.getY() + height);
+        topRight = new Position(bottomLeft.getX() + width, bottomLeft.getY() + height);
 
-        cornerList.add(topLeft); //add the corner positions to the cornerList
-        cornerList.add(topRight);
-        cornerList.add(bottomLeft);
+
+        cornerList.add(bottomLeft); //add the corner positions to the cornerList
         cornerList.add(bottomRight);
+        cornerList.add(topLeft);
+        cornerList.add(topRight);
     }
 
 
@@ -96,9 +97,11 @@ public class Room {
         for (int i = 0; i < numDoors; i += 1) {
             int randomInt = RandomUtils.uniform(randomGenerator, perimeterList.size());
             Position door = perimeterList.get(randomInt);
-            if (!doorList.contains(door) ) {
-                world[door.getX()][door.getY()] = Tileset.UNLOCKED_DOOR;
-                doorList.add(door);
+            for (Position d : doorList) {  //ensure no overlapping of hallways by keeping 2-tiles distance between doors
+                if (d.calcDistance(door) <= 2.0) {
+                    world[door.getX()][door.getY()] = Tileset.UNLOCKED_DOOR;
+                    doorList.add(door);
+                }
             }
         }
     }
@@ -113,5 +116,6 @@ public class Room {
     public ArrayList<Position> getCornerList() { //hallways not allowed at corner locations
         return cornerList;
     }
+
 
 }

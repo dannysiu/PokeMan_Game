@@ -8,11 +8,6 @@ public class Position {
     private int x;
     private int y;
 
-//    public Position() {
-//        x = 0;
-//        y = 0;
-//    }
-
     public Position(int coord_x, int coord_y) {
         x = coord_x;
         y = coord_y;
@@ -26,9 +21,9 @@ public class Position {
         return y;
     }
 
-//    public double calcDistance(Position p) {
-//        double
-//        return Math.sqrt()
-//
-//    }
+    public double calcDistance(Position p) {
+        double x_dist = (this.getX() - p.getX()) * (this.getX() - p.getX());
+        double y_dist = (this.getY() - p.getY()) * (this.getY() - p.getY());
+        return Math.sqrt(x_dist + y_dist);
+    }
 }
