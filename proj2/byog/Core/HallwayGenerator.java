@@ -4,6 +4,7 @@ import byog.Core.WorldGenerator;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import javafx.geometry.Pos;
+import javafx.scene.control.skin.TextInputControlSkin;
 
 import java.security.InvalidParameterException;
 import java.util.HashSet;
@@ -15,23 +16,24 @@ import java.util.Set;
  *  TODO: Method to link hallways together.
  */
 public class HallwayGenerator {
-    private Set<String> allowedDirections;
-
+    private Set<String> DirectionsStraight;
+    private Set<String> DirectionsCorner;
 
     /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
      *  and corner constructors as necessary.
      *  Currently no need to have a HG object except for calling methods
      */
     public HallwayGenerator() {
-        allowedDirections = new HashSet<>();
-        allowedDirections.add("left");
-        allowedDirections.add("right");
-        allowedDirections.add("up");
-        allowedDirections.add("down");
-        allowedDirections.add("leftTop");
-        allowedDirections.add("rightTop");
-        allowedDirections.add("leftBottom");
-        allowedDirections.add("rightBottom");
+        DirectionsStraight = new HashSet<>();
+        DirectionsCorner = new HashSet<>();
+        DirectionsStraight.add("left");
+        DirectionsStraight.add("right");
+        DirectionsStraight.add("up");
+        DirectionsStraight.add("down");
+        DirectionsCorner.add("leftTop");
+        DirectionsCorner.add("rightTop");
+        DirectionsCorner.add("leftBottom");
+        DirectionsCorner.add("rightBottom");
     }
 
 
@@ -46,8 +48,8 @@ public class HallwayGenerator {
      * @param world = world that hallways are being put in
      */
     public void buildHallway(Position start, int distance, String direction, TETile[][] world) {
-        if (! allowedDirections.contains(direction)) {
-            throw new IllegalArgumentException(direction + "is not a valid direction");
+        if ((! DirectionsCorner.contains(direction)) && (! DirectionsStraight.contains(direction))) {
+            throw new IllegalArgumentException(direction + " is not a valid direction");
         }
 
         if (direction == "right") {
@@ -79,15 +81,19 @@ public class HallwayGenerator {
     /** An object to be returned by buildHallway method above. Tells WorldGeneration algorithm where
      *  to start the next build and in what direction the current hallway is pointed.
      */
-    private class WhereToNext {
+    public class WhereToNext {
         String newDirection;
         Position newPosition;
-        Boolean noRoom; // False if a room can't go here (ie. just turned a corner)
+        Boolean noRoom; // True if a room can't go here (ie. just turned a corner)
 
         private WhereToNext(String direction, Position start, int distance, TETile[][] world) {
             // TODO: use unobstructedHallway method to figure out for corners the next direction
             // TODO: make sure newPosition is 1 away from wherever buildHallway finished
 
+            if (DirectionsStraight.contains(direction)) {
+                newDirection = direction;
+                noRoom = false;
+            }
 
         }
 
