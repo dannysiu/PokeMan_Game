@@ -30,10 +30,10 @@ public class HallwayGenerator {
         DirectionsStraight.add("right");
         DirectionsStraight.add("up");
         DirectionsStraight.add("down");
-        DirectionsCorner.add("leftTop");
-        DirectionsCorner.add("rightTop");
-        DirectionsCorner.add("leftBottom");
-        DirectionsCorner.add("rightBottom");
+        DirectionsCorner.add("leftUp");
+        DirectionsCorner.add("rightUp");
+        DirectionsCorner.add("leftDown");
+        DirectionsCorner.add("rightDown");
     }
 
 
@@ -44,7 +44,7 @@ public class HallwayGenerator {
      * @param direction = tells where hallway is going. Can be:
      *                    "left", "right" (horizontal)
      *                    "up", "down" (vertical)
-     *                    "leftTop", "rightTop", "rightBottom", "leftBottom" (corner)
+     *                    "leftUp", "rightUp", "rightDown", "leftDown" (corner)
      * @param world = world that hallways are being put in
      */
     public void buildHallway(Position start, int distance, String direction, TETile[][] world) {
@@ -64,39 +64,18 @@ public class HallwayGenerator {
         if (direction == "down") {
             verticalHallway(distance, start.getX(), (start.getY() - distance), world);
         }
-        if (direction == "leftTop" || direction == "rightTop" || direction == "leftBottom" || direction == "rightBottom") {
+        if (direction == "leftUp" || direction == "rightUp" || direction == "leftDown" || direction == "rightDown") {
             cornerHallway(direction, start.getX(), start.getY(), world);
         }
-//        if (direction == "rightTop") {
+//        if (direction == "rightUp") {
 //            cornerHallway(direction, start.getX(), start.getY(), world);
 //        }
-//        if (direction == "leftBottom") {
+//        if (direction == "leftDown") {
 //            cornerHallway(direction, start.getX(), start.getY(), world);
 //        }
-//        if (direction == "rightBottom") {
+//        if (direction == "rightDown") {
 //            cornerHallway(direction, start.getX(), start.getY(), world);
 //        }
-    }
-
-    /** An object to be returned by buildHallway method above. Tells WorldGeneration algorithm where
-     *  to start the next build and in what direction the current hallway is pointed.
-     */
-    public class WhereToNext {
-        String newDirection;
-        Position newPosition;
-        Boolean noRoom; // True if a room can't go here (ie. just turned a corner)
-
-        private WhereToNext(String direction, Position start, int distance, TETile[][] world) {
-            // TODO: use unobstructedHallway method to figure out for corners the next direction
-            // TODO: make sure newPosition is 1 away from wherever buildHallway finished
-
-            if (DirectionsStraight.contains(direction)) {
-                newDirection = direction;
-                noRoom = false;
-            }
-
-        }
-
     }
 
 
@@ -129,29 +108,29 @@ public class HallwayGenerator {
     }
 
     /** Creates an L corner connecting hallways.
-     *  @param direction is either leftTop, rightTop, rightBottom, leftBottom
+     *  @param direction is either leftUp, rightUp, rightDown, leftDown
      *  @param hingeX is the hoirzontal position of floor piece where hallway changes directions
      *  @param hingeY is the vertical position of floor piece where hallway changes directions
      */
     private void cornerHallway(String direction, int hingeX, int hingeY, TETile[][] world) {
         world[hingeX][hingeY] = Tileset.FLOOR;
 
-        if (direction == "leftTop") { // <^
+        if (direction == "leftUp") { // <^
             world[hingeX][hingeY - 1] = Tileset.WALL;
             world[hingeX + 1][hingeY - 1] = Tileset.WALL;
             world[hingeX + 1][hingeY] = Tileset.WALL;
         }
-        if (direction == "rightTop") { // ^>
+        if (direction == "rightUp") { // ^>
             world[hingeX][hingeY - 1] = Tileset.WALL;
             world[hingeX - 1][hingeY - 1] = Tileset.WALL;
             world[hingeX - 1][hingeY] = Tileset.WALL;
         }
-        if (direction == "rightBottom") { // v>
+        if (direction == "rightDown") { // v>
             world[hingeX][hingeY + 1] = Tileset.WALL;
             world[hingeX - 1][hingeY + 1] = Tileset.WALL;
             world[hingeX - 1][hingeY] = Tileset.WALL;
         }
-        if (direction == "leftBottom") { // <v
+        if (direction == "leftDown") { // <v
             world[hingeX][hingeY + 1] = Tileset.WALL;
             world[hingeX + 1][hingeY + 1] = Tileset.WALL;
             world[hingeX + 1][hingeY] = Tileset.WALL;
@@ -209,7 +188,7 @@ public class HallwayGenerator {
 //     */
 //    public void connect(Position one, Position two, TETile[][] world) {
 //        /**
-//         *  REMEMBER: corner directions are: leftTop, rightTop, leftBottom, leftBottom
+//         *  REMEMBER: corner directions are: leftUp, rightUp, leftDown, rightDown
 //         *  What if I made HallwayGenerator recursive?
 //         */
 //

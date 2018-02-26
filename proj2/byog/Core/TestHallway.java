@@ -114,6 +114,7 @@ public class TestHallway {
         Position startUp = new Position(30, 1);
         Position startDown = new Position(45, 32);
 //        Position shouldFail = new Position(20, 35);
+        Position cornerAxis = new Position(55, 25);
 
 
         hg.buildHallway(startRight, 20, "right", world);
@@ -121,6 +122,8 @@ public class TestHallway {
         hg.buildHallway(startUp, 7, "up", world);
         hg.buildHallway(startDown, 31, "down", world);
 //        hg.buildHallway(shouldFail, 15, "up", world);
+        hg.buildHallway(cornerAxis, 0, "rightUp", world);
+
 
 
         ter.initialize(width, height);

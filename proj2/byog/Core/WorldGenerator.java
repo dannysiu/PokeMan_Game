@@ -26,8 +26,8 @@ public class WorldGenerator {
         int worldW = world.length; // Dynamic size of world
         int worldH = world[0].length;
 
-        for (int xPos = 0; xPos < worldW; xPos += 1) { // Using 80 for width and 30 for height because of default values
-            for (int yPos = 0; yPos < worldH; yPos += 1) { // that Game.java uses to make a world
+        for (int xPos = 0; xPos < worldW; xPos += 1) {
+            for (int yPos = 0; yPos < worldH; yPos += 1) {
                 if (world[xPos][yPos].equals(Tileset.UNLOCKED_DOOR)) {
                     Position p = new Position(xPos, yPos);
                     allUnlocked.add(p);
