@@ -25,4 +25,10 @@ public class Position {
     public int getY() {
         return y;
     }
+
+//    public double calcDistance(Position p) {
+//        double
+//        return Math.sqrt()
+//
+//    }
 }

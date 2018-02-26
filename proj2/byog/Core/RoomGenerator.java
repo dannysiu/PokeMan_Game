@@ -11,8 +11,14 @@ public class RoomGenerator {
 
     public ArrayList roomList;
 
+    /** Object will be used to make new rooms */
+    public RoomGenerator() {
+        roomList = new ArrayList(5);
+    }
+
 
     public Room makeRoom(TETile[][] world, Position p, int w, int h) {
+//        if (p.getX())
         Room newRoom = new Room(world, p, w, h);
         roomList.add(newRoom);
         return newRoom;
