@@ -6,11 +6,12 @@ import byog.TileEngine.Tileset;
 
 import java.util.Random;
 
-import org.junit.Test;
 
 public class TestRoomsWHallways {
 
-    /** Visual inspection test. Change width and height declared near beginning to affect world. */
+    /** Visual inspection test. Check that rooms and doorways are made correctly.
+     *  Simulate making many rooms to save time when checking and check room interactions.
+     *  */
     public static void main (String[] args) {
         //Draw the screen
         TERenderer ter;
@@ -39,10 +40,33 @@ public class TestRoomsWHallways {
             rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
         }
 
-
         for (Room r : rg.getRoomList()) {  //add doors to all the rooms that exist
             r.makeDoors(world);
+
         }
+
+
+        HallwayGenerator hg = new HallwayGenerator();
+
+        Position startRight = new Position(1, 20);
+        Position startLeft = new Position(16, 30);
+        Position startUp = new Position(30, 1);
+        Position startDown = new Position(45, 32);
+//        Position shouldFail = new Position(20, 35);
+        Position cornerAxis = new Position(55, 25);
+
+
+        hg.buildHallway(startRight, 20, "right", world);
+        hg.buildHallway(startLeft, 15, "left", world);
+        hg.buildHallway(startUp, 7, "up", world);
+        hg.buildHallway(startDown, 31, "down", world);
+//        hg.buildHallway(shouldFail, 15, "up", world);
+        hg.buildHallway(cornerAxis, 0, "rightUp", world);
+
+
+
+
+
 
         ter = new TERenderer();
 

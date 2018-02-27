@@ -6,7 +6,9 @@ import byog.TileEngine.Tileset;
 import java.util.Random;
 
 public class TestRoomGenerator {
-    /** Visual inspection test. Change width and height declared near beginning to affect world. */
+    /** Visual inspection test. Check that rooms and doorways are made correctly.
+     *  Simulate making many rooms to save time when checking and check room interactions.
+     *  */
     public static void main (String[] args) {
         //Draw the screen
         TERenderer ter;

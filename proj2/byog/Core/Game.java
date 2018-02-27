@@ -34,5 +34,22 @@ public class Game {
 
         TETile[][] finalWorldFrame = null;
         return finalWorldFrame;
+
+        /**
+         * Pseudocode:
+         * RoomGenerator rg = new RoomGenerator();
+         * while (rg.roomList.isEmpty()) {
+         *     rg.makeRoom();
+         * }
+
+        */
     }
+
+    /**Plan for building the world:
+     * Start with making one room
+     * build hallways at the doors
+     * decide using whereToNext whether to make deadends, rooms, or more hallways
+     * Finish after a certain number of cycles of this
+     * */
+
 }
