@@ -191,7 +191,7 @@ public class TestHallway {
         // Individual tests above. Comment out as needed
 //        tester.TestBuildHallway();
 //        tester.TestWhereToNext();
-        tester.TestWhereToNextTurn();
+//        tester.TestWhereToNextTurn();
 
     }
 

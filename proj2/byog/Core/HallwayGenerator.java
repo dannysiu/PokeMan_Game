@@ -34,30 +34,72 @@ public class HallwayGenerator {
         DirectionsCorner.add("rightDown");
     }
 
-
+    /**
+     * @param allRooms = List of all rooms in world. Try to connect all of them with a straight
+     * @param world
+     */
     public void connectRoomsStraight(ArrayList<Room> allRooms, TETile[][] world) {
-        for (Room room : allRooms) {
-            singleRoomStraight(room, world);
+        for (int passes = 0; passes < 3; passes += 1) { // Tries to connect unconnected rooms 3 times
+            for (Room room : allRooms) {
+                if (!room.connected) {
+                    singleRoomConnect(room, world);
+                }
+            }
         }
     }
 
 
-    private void singleRoomStraight(Room room, TETile[][] world) {
+    private void singleRoomConnect(Room room, TETile[][] world) {
         List<Position> perimeter = room.getPerimeterList(); // an ArrayList
+        String direction;
 
-
+        for (Position perimeterSpot : perimeter) {
+            direction = whereIsOutside(perimeterSpot, world);
+            if (canConnect(perimeterSpot, direction, world)) {
+                // Use a while loop to build the appropriate hallway in appropriate direction 1 at a time
+                room.connected = true;
+            }
+        }
     }
 
-
+    /** Determines what direction the outside of the room is.
+     * @param perimeterSpot = a Position on the perimeter. Should exclude
+     * @param world
+     * @return
+     */
     private String whereIsOutside(Position perimeterSpot, TETile[][] world) {
         String outside = "none"; // used if perimeterSpot is on edge of world
+        int pX = perimeterSpot.getX();
+        int pY = perimeterSpot.getY();
 
         // To the left
-//        if (world[][] == Tileset.NOTHING)
-
+        if (world[pX - 1][pY] == Tileset.NOTHING) {
+            outside = "left";
+        }
+        // To the right
+        if (world[pX + 1][pY] == Tileset.NOTHING) {
+            outside = "right";
+        }
+        // To the up
+        if (world[pX][pY + 1] == Tileset.NOTHING) {
+            outside = "up";
+        }
+        // To the down
+        if (world[pX][pY - 1] == Tileset.NOTHING) {
+            outside = "down";
+        }
 
         return outside;
     }
+
+    private boolean canConnect(Position start, String direction, TETile[][] world) {
+        boolean verdict;
+
+
+
+        return false; // place holder
+    }
+
 
 
 

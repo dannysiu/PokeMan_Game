@@ -40,10 +40,11 @@ public class TestRoomsWHallways {
             rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
         }
 
-        for (Room r : rg.getRoomList()) {  //add doors to all the rooms that exist
-            r.makeDoors(world, randomGenerator);
-
-        }
+        // doors no longer used in this approach
+//        for (Room r : rg.getRoomList()) {  //add doors to all the rooms that exist
+//            r.makeDoors(world, randomGenerator);
+//
+//        }
 
 
         HallwayGenerator hg = new HallwayGenerator();
