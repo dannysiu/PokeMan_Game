@@ -41,23 +41,26 @@ public class HallwayGenerator {
     public void connectRoomsStraight(ArrayList<Room> allRooms, TETile[][] world) {
         for (int passes = 0; passes < 3; passes += 1) { // Tries to connect unconnected rooms 3 times
             for (Room room : allRooms) {
-                if (!room.connected) {
-                    singleRoomConnect(room, world);
+                if (! room.connected) {
+                    singleRoomConnectMaybe(room, world);
                 }
             }
         }
     }
 
 
-    private void singleRoomConnect(Room room, TETile[][] world) {
+    private void singleRoomConnectMaybe(Room room, TETile[][] world) {
         List<Position> perimeter = room.getPerimeterList(); // an ArrayList
         String direction;
 
-        for (Position perimeterSpot : perimeter) {
-            direction = whereIsOutside(perimeterSpot, world);
-            if (canConnect(perimeterSpot, direction, world)) {
-                // Use a while loop to build the appropriate hallway in appropriate direction 1 at a time
+        for (Position pSpot : perimeter) {
+            direction = whereIsOutside(pSpot, world);
+            int distance = canConnect(pSpot, direction, world); // negative is cannot connect
+
+            if (distance > 0) {
+                buildHallway(pSpot, distance, direction, world);
                 room.connected = true;
+                break;
             }
         }
     }
@@ -92,12 +95,63 @@ public class HallwayGenerator {
         return outside;
     }
 
-    private boolean canConnect(Position start, String direction, TETile[][] world) {
-        boolean verdict;
 
+    /** Checks whether a wall to connect to exists in desired direction.
+     *  Returns an integer that is -1 if it cannot connect and, if it can, will be the distance to the next room.
+     */
+    private int canConnect(Position start, String direction, TETile[][] world) {
+        int increment;
 
-
-        return false; // place holder
+        // Checking rightwards of start
+        if (direction == "right") { //TODO
+            for (increment = start.getX() + 1; increment < world.length; increment += 1) {
+                if (world[increment][start.getY()] == Tileset.WALL) {
+                    if (world[increment][start.getY() + 1] == Tileset.WALL &&
+                            world[increment][start.getY() - 1] == Tileset.WALL) {
+                        return increment - start.getX(); // Only true if can confirm that the wall I hit is not a corner
+                    }
+                    break; // break after I hit a wall no matter what, even if it's a corner
+                }
+            }
+        }
+        // Checking leftwards of start
+        if (direction == "left") { //TODO
+            for (increment = start.getX() - 1; increment > 0; increment -= 1) {
+                if (world[increment][start.getY()] == Tileset.WALL) {
+                    if (world[increment][start.getY() + 1] == Tileset.WALL &&
+                            world[increment][start.getY() - 1] == Tileset.WALL) {
+                        return start.getX() - increment; // Only true if can confirm that the wall I hit is not a corner
+                    }
+                    break; // break after I hit a wall no matter what, even if it's a corner
+                }
+            }
+        }
+        // Checking upwards of start
+        if (direction == "up") { //TODO
+            for (increment = start.getY() + 1; increment < world[0].length; increment += 1) {
+                if (world[start.getX()][increment] == Tileset.WALL) {
+                    if (world[start.getX() + 1][increment] == Tileset.WALL &&
+                            world[start.getX() - 1][increment] == Tileset.WALL) {
+                        return increment - start.getY();
+                    }
+                    break;
+                }
+            }
+        }
+        // Checking downwards of start
+        if (direction == "down") { //TODO
+            for (increment = start.getY() - 1; increment > 0; increment -= 1) {
+                if (world[start.getX()][increment] == Tileset.WALL) {
+                    if (world[start.getX() + 1][increment] == Tileset.WALL &&
+                            world[start.getX() - 1][increment] == Tileset.WALL) {
+                        return start.getY() - increment;
+                    }
+                    break;
+                }
+            }
+        }
+        increment = -1;
+        return increment;
     }
 
 
