@@ -20,7 +20,7 @@ public class Room {
     private Position topLeft;
     private Position topRight;
 
-    public boolean connected = true;
+    public boolean connected;
 
     /**
      * Criteria to consider when making a room:
@@ -43,6 +43,7 @@ public class Room {
     public Room(TETile[][] world, Position p, int w, int h) {
         width = w;
         height = h;
+        connected = false;
 
         doorList = new ArrayList<Position>(2);
         perimeterList = new ArrayList<Position>(10);
