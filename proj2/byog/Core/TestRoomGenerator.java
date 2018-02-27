@@ -38,7 +38,7 @@ public class TestRoomGenerator {
         }
 
         for (Room r : rg.getRoomList()) {  //add doors to all the rooms that exist
-            r.makeDoors(world);
+            r.makeDoors(world, randomGenerator);
 
         }
 

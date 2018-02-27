@@ -3,7 +3,6 @@ package byog.Core;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import java.util.ArrayList;
-import byog.Core.RandomUtils;
 import java.util.Random;
 
 public class Room {
@@ -77,11 +76,7 @@ public class Room {
                     Position perim = new Position(x, y);
 
                     boolean addToPerimList = true;  //add to perimLxist ONLY if not a corner
-//                    for (Position corner : cornerList) {
-//                        if (corner.getX() == perim.getX() && corner.getY() == perim.getY()) {
-//                            addToPerimList = false;
-//                        }
-//                    }
+
                     for (Position corner : cornerList) {
                         if (corner.equals(perim)) {
                             addToPerimList = false;
@@ -101,13 +96,11 @@ public class Room {
 
 
     /** method to choose doors from room perimeter and store their positions */
-    public void makeDoors(TETile[][] world) {
-        Random randomGenerator = new Random();
-        int numDoors = RandomUtils.uniform(randomGenerator, 1, 4);  //between 1 to 3 doors allowed
-
+    public void makeDoors(TETile[][] world, Random random) {
+        int numDoors = RandomUtils.uniform(random, 1, 4);  //between 1 to 3 doors allowed
 
         for (int i = 0; i < numDoors; i += 1) {
-            int randomInt = RandomUtils.uniform(randomGenerator, perimeterList.size());
+            int randomInt = RandomUtils.uniform(random, perimeterList.size());
             Position door = perimeterList.get(randomInt);
 
             /** Check that doors are not on corners and have 2-tiles distance between other doors,
