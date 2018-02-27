@@ -6,6 +6,10 @@ import byog.TileEngine.TETile;
 import java.util.HashSet;
 import java.util.Set;
 
+
+// DEPRECATED! DO NOT USE! SWITCHING APPROACH ENTIRELY
+
+
 /** An object to be returned by buildHallway method above. Tells WorldGeneration algorithm where
  *  to start the next build and in what direction the current hallway is pointed.
  */

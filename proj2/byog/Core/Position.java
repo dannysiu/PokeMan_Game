@@ -41,8 +41,11 @@ public class Position {
 
     /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
      *  Assume that this and @param two are either horizontally aligned or vertically aligned.
+     *
+     *  NOTE: THIS METHOD IS BUGGY AND BAD. DO NOT USE!!!!
+     *
      */
-    public boolean unobstructedHallway(Position two, TETile[][] world) {
+    public Boolean unobstructedHallway(Position two, TETile[][] world) {
 
         if (outOfThisWorld(two, world)) {
             return false;
@@ -78,13 +81,7 @@ public class Position {
     }
 
 
-
-
-
-
-
-
-    private Boolean outOfThisWorld(Position two, TETile[][] world) {
+    private boolean outOfThisWorld(Position two, TETile[][] world) {
         if ((two.getX() > world.length) || (two.getY() > world[0].length) ||
                 this.getX() > world.length || this.getY() > world[0].length) {
             // Position two outside world
@@ -94,7 +91,7 @@ public class Position {
         return false;
     }
 
-    private Boolean unalignedPositionsForUnobstructed(Position two) {
+    private boolean unalignedPositionsForUnobstructed(Position two) {
         if ((two.getX() - this.getX()) != 0 && (two.getY() - this.getY()) != 0) {
 //            throw new IllegalArgumentException("Positions one and two are not horizontally" +
 //                    "aligned or vertically aligned.");
@@ -104,3 +101,27 @@ public class Position {
     }
 
 }
+
+//    public boolean freeSpaceMaybe(String direction, int distance, TETile[][] world) {
+//        int worldWidth = world.length;
+//        int worldHeight = world[0].length;
+//        boolean verdict;
+//
+//        if (direction == "right") {
+//
+//        }
+//        if (direction == "left") {
+//
+//        }
+//        if (direction == "up") {
+//
+//        }
+//        if (direction == "down") {
+//
+//        }
+//
+//        return verdict = false; // place holder
+//    }
+
+
+
