@@ -36,7 +36,7 @@ public class Position {
      */
     public boolean unobstructedHallway(Position two, TETile[][] world) {
 
-        if ((two.getX() - this.getX()) != 0 || (two.getY() - this.getY()) != 0) {
+        if ((two.getX() - this.getX()) != 0 && (two.getY() - this.getY()) != 0) {
             throw new IllegalArgumentException("Positions one and two are not horizontally" +
                     "aligned or vertically aligned.");
         }
@@ -47,13 +47,35 @@ public class Position {
             return two.unobstructedHallway(this, world);
         }
 
-        for (int x = this.getX(); x <= two.getX(); x += 1) {
-            for (int y = this.getY(); y <= two.getY(); y += 1) {
-                if (world[x][y].equals(Tileset.WALL) || world[x][y].equals(Tileset.FLOOR)) {
+        if (two.getY() - this.getY() == 0) { // Horizontal alignment
+            for (int x = this.getX() + 1; x <= two.getX(); x += 1) {
+                if (world[x][this.getY()].equals(Tileset.WALL) ||
+                        world[x][this.getY()].equals(Tileset.FLOOR)) {
+                    return false;
+                }
+
+            }
+        } else if (two.getX() - this.getX() == 0) { // Vertical alignment
+            for (int y = this.getY() + 1; y <= two.getY(); y += 1) {
+                if (world[this.getX()][y].equals(Tileset.WALL) ||
+                        world[this.getX()][y].equals(Tileset.FLOOR)) {
                     return false;
                 }
             }
+        } else {
+            return true;
         }
+
+
+
+//        for (int x = this.getX(); x <= two.getX(); x += 1) {
+//            for (int y = this.getY(); y <= two.getY(); y += 1) {
+//                if (world[x][y].equals(Tileset.WALL) || world[x][y].equals(Tileset.FLOOR)) {
+//                    System.out.printf("Obstructed at (%d, %d)\n", x, y);
+//                    return false;
+//                }
+//            }
+//        }
         return true;
     }
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
+import javafx.geometry.Pos;
 import org.junit.Test;
 
 /** For testing the HallwayGenerator.java class. Most tests will have to be by visual inspection */
@@ -78,22 +79,21 @@ public class TestHallway {
 
     @Test
     public void TestUnobstructed() {
-        // TODO: update this test to account for unobstructrd method being moved to Position.java
-        /** Tests whether unobstructed class in HallwayGenerator.java works */
+        /** Tests whether unobstructed method in Position class works */
         TestHallway tester = new TestHallway();
         TETile[][] world = tester.TestWorldMaker(80, 40);
         TERenderer ter = new TERenderer();
         RoomGenerator rg = new RoomGenerator();
-        HallwayGenerator hg = new HallwayGenerator();
+//        HallwayGenerator hg = new HallwayGenerator();
 
         Position roomP = new Position(30, 10);
-        Position start = new Position(20, 20);
-//        Position end = new Position(60, 20); // No longer use 2 positions to make hallway
+        Position start = new Position(29, 10);
+        Position end = new Position(28, 10); // No longer use 2 positions to make hallway
 
         rg.makeRoom(world, roomP, 20, 20);
 
-//        Boolean actual = rg.unobstructed(start, end, world);
-//        assertFalse(actual);
+        Boolean actual = start.unobstructedHallway(roomP, world);
+        assertFalse(actual);
 
     }
 
@@ -124,12 +124,34 @@ public class TestHallway {
 //        hg.buildHallway(shouldFail, 15, "up", world);
         hg.buildHallway(cornerAxis, 0, "rightUp", world);
 
-
-
         ter.initialize(width, height);
         ter.renderFrame(world);
     }
 
+    @Test
+    public void TestWhereToNext() {
+        /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway
+         *  while using returned WhereToNext object to decide where next hallway goes.
+         *  Will use a world with a mountain perimeter to have a visual reference.
+         */
+        int width = 40;
+        int height = 20;
+        TestHallway tester = new TestHallway();
+        TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
+        TERenderer ter = new TERenderer();
+        HallwayGenerator hg = new HallwayGenerator();
+
+        Position start = new Position(20, 5);
+
+        WhereToNext next1 = hg.buildHallway(start, 7, "up", world);
+        WhereToNext next2 = hg.buildHallway(next1.getNextPosition(), 0, "rightDown", world);
+        WhereToNext next3 = hg.buildHallway(next2.getNextPosition(), 10, next2.getNextDirection(), world);
+        WhereToNext next4 = hg.buildHallway(next3.getNextPosition(), 0, "leftDown", world);
+        hg.buildHallway(next4.getNextPosition(), 7, next4.getNextDirection(), world);
+
+        ter.initialize(width, height);
+        ter.renderFrame(world);
+    }
 
     /** Visual inspection test. Change width and height declared near beginning to affect world. */
     public static void main (String[] args) {
@@ -137,7 +159,8 @@ public class TestHallway {
         TestHallway tester = new TestHallway();
 
         // Individual tests above. Comment out as needed
-        tester.TestBuildHallway();
+//        tester.TestBuildHallway();
+        tester.TestWhereToNext();
 
     }
 

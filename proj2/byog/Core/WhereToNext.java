@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class WhereToNext {
 
-    private Set<String> DirectionsStraight;
+    private static Set<String> DirectionsStraight;
 
     private String newDirection;
     private Position newPosition;
@@ -42,10 +42,10 @@ public class WhereToNext {
         }
     }
 
-    public String getNewDirection() {
+    public String getNextDirection() {
         return this.newDirection;
     }
-    public Position getNewPosition() {
+    public Position getNextPosition() {
         return this.newPosition;
     }
     public Boolean getNoRoom() {
@@ -65,16 +65,16 @@ public class WhereToNext {
         this.newPosition = new Position(0, 0); // arbitrary
 
         if (direction == "right") {
-            this.newPosition = new Position((start.getX() + distance + 1), start.getY());
+            this.newPosition = new Position((start.getX() + distance), start.getY());
         }
         if (direction == "left") {
-            this.newPosition = new Position((start.getX() - distance - 1), start.getY());
+            this.newPosition = new Position((start.getX() - distance), start.getY());
         }
         if (direction == "up") {
-            this.newPosition = new Position(start.getX(), (start.getY() + distance + 1));
+            this.newPosition = new Position(start.getX(), (start.getY() + distance));
         }
         if (direction == "down") {
-            this.newPosition = new Position(start.getX(), (start.getY() - distance - 1));
+            this.newPosition = new Position(start.getX(), (start.getY() - distance));
         }
     }
 
@@ -83,14 +83,12 @@ public class WhereToNext {
      *  This is for corners.
      */
     private void nextPositionDirectionCorner(String direction, Position start, TETile[][] world) {
-        Position goingUp;
-        Position goingDown;
-        Position goingLeft;
-        Position goingRight;
+        Position goingUp = new Position(start.getX(), start.getY() + 1);
+        Position goingDown = new Position(start.getX(), start.getY() - 1);
+        Position goingLeft = new Position(start.getX() - 1, start.getY());
+        Position goingRight = new Position(start.getX() + 1, start.getY());
 
         if (direction == "rightUp") {
-            goingUp = new Position(start.getX(), start.getY() + 1);
-            goingRight = new Position(start.getX() + 1, start.getY());
             if (start.unobstructedHallway(goingUp, world)) {
                 this.newPosition = goingUp;
                 this.newDirection = "up";
@@ -101,8 +99,6 @@ public class WhereToNext {
 
         }
         if (direction == "leftUp") {
-            goingUp = new Position(start.getX(), start.getY() + 1);
-            goingLeft = new Position(start.getX() - 1, start.getY());
             if (start.unobstructedHallway(goingUp, world)) {
                 this.newPosition = goingUp;
                 this.newDirection = "up";
@@ -113,8 +109,6 @@ public class WhereToNext {
 
         }
         if (direction == "rightDown") {
-            goingDown = new Position(start.getX(), start.getY() - 1);
-            goingRight = new Position(start.getX() + 1, start.getY());
             if (start.unobstructedHallway(goingRight, world)) {
                 this.newPosition = goingRight;
                 this.newDirection = "right";
@@ -125,8 +119,6 @@ public class WhereToNext {
 
         }
         if (direction == "leftDown") {
-            goingDown = new Position(start.getX(), start.getY() - 1);
-            goingLeft = new Position(start.getX() - 1, start.getY());
             if (start.unobstructedHallway(goingLeft, world)) {
                 this.newPosition = goingLeft;
                 this.newDirection = "left";

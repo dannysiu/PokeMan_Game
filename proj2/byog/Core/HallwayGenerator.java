@@ -69,15 +69,6 @@ public class HallwayGenerator {
         }
 
         return new WhereToNext(direction, start, distance, world);
-//        if (direction == "rightUp") {
-//            cornerHallway(direction, start.getX(), start.getY(), world);
-//        }
-//        if (direction == "leftDown") {
-//            cornerHallway(direction, start.getX(), start.getY(), world);
-//        }
-//        if (direction == "rightDown") {
-//            cornerHallway(direction, start.getX(), start.getY(), world);
-//        }
     }
 
 

@@ -10,13 +10,18 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/proj2$TestHallway.coverage" NAME="TestHallway Coverage Results" MODIFIED="1519691732809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>byog.Core.*</FILTER>
+    </SUITE>
+  </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="HallwayGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HallwayGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/byog/Core/HallwayGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="549">
-              <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <state relative-caret-position="162">
+              <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -25,8 +30,8 @@
       <file leaf-file-name="WhereToNext.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/byog/Core/WhereToNext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+            <state relative-caret-position="107">
+              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -35,8 +40,8 @@
       <file leaf-file-name="Position.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/byog/Core/Position.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="57" column="61" lean-forward="false" selection-start-line="57" selection-start-column="61" selection-end-line="57" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -52,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestHallway.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TestHallway.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/byog/Core/TestHallway.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="124" column="47" lean-forward="false" selection-start-line="124" selection-start-column="47" selection-end-line="124" selection-end-column="47" />
+            <state relative-caret-position="494">
+              <caret line="149" column="85" lean-forward="false" selection-start-line="149" selection-start-column="85" selection-end-line="149" selection-end-column="85" />
               <folding />
             </state>
           </provider>
@@ -97,10 +102,10 @@
         <option value="$PROJECT_DIR$/byog/Core/Room.java" />
         <option value="$PROJECT_DIR$/byog/Core/RoomGenerator.java" />
         <option value="$PROJECT_DIR$/byog/Core/WorldGenerator.java" />
-        <option value="$PROJECT_DIR$/byog/Core/TestHallway.java" />
-        <option value="$PROJECT_DIR$/byog/Core/Position.java" />
-        <option value="$PROJECT_DIR$/byog/Core/WhereToNext.java" />
         <option value="$PROJECT_DIR$/byog/Core/HallwayGenerator.java" />
+        <option value="$PROJECT_DIR$/byog/Core/WhereToNext.java" />
+        <option value="$PROJECT_DIR$/byog/Core/Position.java" />
+        <option value="$PROJECT_DIR$/byog/Core/TestHallway.java" />
       </list>
     </option>
   </component>
@@ -344,9 +349,9 @@
     <recent_temporary>
       <list size="4">
         <item index="0" class="java.lang.String" itemvalue="Application.TestHallway" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.TestHallway.TestBuildHallway" />
-        <item index="2" class="java.lang.String" itemvalue="Application.TestRoomGenerator" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TestHallway.TestUnobstructed" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TestHallway.TestUnobstructed" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.TestHallway.TestBuildHallway" />
+        <item index="3" class="java.lang.String" itemvalue="Application.TestRoomGenerator" />
       </list>
     </recent_temporary>
   </component>
@@ -376,16 +381,25 @@
     <history-entry file="TestHallway_TestBuildHallway - 2018.02.26 at 14h 00m 10s.xml">
       <configuration name="TestHallway.TestBuildHallway" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestHallway_TestUnobstructed - 2018.02.25 at 22h 10m 57s.xml">
+    <history-entry file="TestHallway_TestUnobstructed - 2018.02.26 at 16h 26m 27s.xml">
       <configuration name="TestHallway.TestUnobstructed" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestHallway_TestUnobstructed - 2018.02.25 at 22h 11m 19s.xml">
+    <history-entry file="TestHallway_TestUnobstructed - 2018.02.26 at 16h 26m 42s.xml">
       <configuration name="TestHallway.TestUnobstructed" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestHallway_TestUnobstructed - 2018.02.25 at 22h 11m 57s.xml">
+    <history-entry file="TestHallway_TestUnobstructed - 2018.02.26 at 16h 27m 00s.xml">
       <configuration name="TestHallway.TestUnobstructed" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestHallway_TestUnobstructed - 2018.02.26 at 00h 21m 41s.xml">
+    <history-entry file="TestHallway_TestUnobstructed - 2018.02.26 at 16h 27m 11s.xml">
+      <configuration name="TestHallway.TestUnobstructed" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestHallway_TestUnobstructed - 2018.02.26 at 16h 32m 00s.xml">
+      <configuration name="TestHallway.TestUnobstructed" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestHallway_TestUnobstructed - 2018.02.26 at 16h 32m 13s.xml">
+      <configuration name="TestHallway.TestUnobstructed" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestHallway_TestUnobstructed - 2018.02.26 at 16h 33m 44s.xml">
       <configuration name="TestHallway.TestUnobstructed" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -402,7 +416,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293944" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Style Checker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -477,18 +492,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/byog/Core/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/byog/Core/TestHallway.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
@@ -839,6 +847,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/byog/Core/HallwayGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/byog/Core/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="57" column="61" lean-forward="false" selection-start-line="57" selection-start-column="61" selection-end-line="57" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/byog/TileEngine/TETile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-13">
+          <caret line="177" column="28" lean-forward="true" selection-start-line="177" selection-start-column="28" selection-end-line="177" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/byog/Core/WorldGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -847,34 +879,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/byog/Core/TestHallway.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="124" column="47" lean-forward="false" selection-start-line="124" selection-start-column="47" selection-end-line="124" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/byog/Core/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/byog/Core/WhereToNext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+        <state relative-caret-position="107">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/byog/Core/HallwayGenerator.java">
+    <entry file="file://$PROJECT_DIR$/byog/Core/TestHallway.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+        <state relative-caret-position="494">
+          <caret line="149" column="85" lean-forward="false" selection-start-line="149" selection-start-column="85" selection-end-line="149" selection-end-column="85" />
           <folding />
         </state>
       </provider>
