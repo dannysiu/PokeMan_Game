@@ -44,14 +44,9 @@ public class Position {
      */
     public boolean unobstructedHallway(Position two, TETile[][] world) {
 
-        if ((two.getX() > world.length) || (two.getY() > world[0].length)) { // Position two outside world
-            throw new IllegalArgumentException("Position two is outside the bounds of the world");
-        }
+        outOfThisWorld(two, world);
 
-        if ((two.getX() - this.getX()) != 0 && (two.getY() - this.getY()) != 0) {
-            throw new IllegalArgumentException("Positions one and two are not horizontally" +
-                    "aligned or vertically aligned.");
-        }
+        unalignedPositionsForUnobstructed(two);
 
         if (this.getX() > two.getX()) { // Allows user to not worry about which Position is "lower"
             return two.unobstructedHallway(this, world);
@@ -77,18 +72,20 @@ public class Position {
         } else {
             return true;
         }
-
-
-
-//        for (int x = this.getX(); x <= two.getX(); x += 1) {
-//            for (int y = this.getY(); y <= two.getY(); y += 1) {
-//                if (world[x][y].equals(Tileset.WALL) || world[x][y].equals(Tileset.FLOOR)) {
-//                    System.out.printf("Obstructed at (%d, %d)\n", x, y);
-//                    return false;
-//                }
-//            }
-//        }
         return true;
+    }
+
+    private void outOfThisWorld(Position two, TETile[][] world) {
+        if ((two.getX() > world.length) || (two.getY() > world[0].length)) { // Position two outside world
+            throw new IllegalArgumentException("Position two is outside the bounds of the world");
+        }
+    }
+
+    private void unalignedPositionsForUnobstructed(Position two) {
+        if ((two.getX() - this.getX()) != 0 && (two.getY() - this.getY()) != 0) {
+            throw new IllegalArgumentException("Positions one and two are not horizontally" +
+                    "aligned or vertically aligned.");
+        }
     }
 
 }

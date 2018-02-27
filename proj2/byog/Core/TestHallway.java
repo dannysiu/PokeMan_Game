@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-import javafx.geometry.Pos;
 import org.junit.Test;
 
 /** For testing the HallwayGenerator.java class. Most tests will have to be by visual inspection */
@@ -48,7 +47,7 @@ public class TestHallway {
 
 
     @Test
-    public void FirstTestIWrote() {
+    private void FirstTestIWrote() {
         /** Forgot what this test was supposed to do. Moved out of main method
          *  in order to clean up.
          *  I believe this test corresponds to an older version of HallwayGenerator, no
@@ -78,7 +77,7 @@ public class TestHallway {
 
 
     @Test
-    public void TestUnobstructed() {
+    private void TestUnobstructed() {
         /** Tests whether unobstructed method in Position class works */
         TestHallway tester = new TestHallway();
         TETile[][] world = tester.TestWorldMaker(80, 40);
@@ -98,7 +97,7 @@ public class TestHallway {
     }
 
     @Test
-    public void TestBuildHallway() {
+    private void TestBuildHallway() {
         /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway.
          *  Will use a world with a mountain perimeter to have a visual reference.
          */
@@ -129,7 +128,7 @@ public class TestHallway {
     }
 
     @Test
-    public void TestWhereToNext() {
+    private void TestWhereToNext() {
         /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway
          *  while using returned WhereToNext object to decide where next hallway goes.
          *  Will use a world with a mountain perimeter to have a visual reference.
@@ -152,7 +151,7 @@ public class TestHallway {
 
 
     @Test
-    public void TestWhereToNextTurn() {
+    private void TestWhereToNextTurn() {
         /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway
          *  while using returned WhereToNext object to decide where next hallway goes.
          *  Will use a world with a mountain perimeter to have a visual reference.
@@ -177,6 +176,10 @@ public class TestHallway {
         ter.initialize(width, height);
         ter.renderFrame(world);
     }
+
+
+
+    ////////////////////////// MAIN METHOD ///////////////////////////////
 
     /** Visual inspection test. Change width and height declared near beginning to affect world. */
     public static void main (String[] args) {

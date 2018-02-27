@@ -21,14 +21,15 @@ public class WorldGenerator {
      *  TODO: at the end of world building, check for doors at the world perimeter and set to wall
      */
 
-    long seed;
+    Random randomGenerator;
     List<String> fromLeftTurns;
     List<String> fromRightTurns;
     List<String> fromUpTurns;
     List<String> fromDownTurns;
 
-    public WorldGenerator(long userSeed) {
-        this.seed = userSeed;
+    public WorldGenerator(Random random) {
+        this.randomGenerator = random;
+
         fromLeftTurns = new ArrayList<>(2);
         fromLeftTurns.add("rightUp");
         fromLeftTurns.add("rightDown");
@@ -56,33 +57,68 @@ public class WorldGenerator {
      * @param random = a Random made with initial seed.
      * @return = a new WhereToNext that randomHallways can use to recursively call itself.
      */
-    public WhereToNext randomHallways(WhereToNext next, Random random) {
+    public void randomHallways(WhereToNext next, Random random, TETile[][] world) {
 
         HallwayGenerator hg = new HallwayGenerator();
         RoomGenerator rg = new RoomGenerator();
-        int decision = RandomUtils.uniform(random, 0, 3);
+        WhereToNext newNext;
+        int decision = RandomUtils.uniform(random, 0, 3); // Change to allow more options
 
         // Option 0: build hallway
         if (decision == 0) {
             int length = RandomUtils.uniform(random, 1, 6);
+
             try {
-//                Position destination = new Position();
+                WhereToNext destination = new WhereToNext(next.getNextDirection(), next.getNextPosition(), length, world);
+                // I realized I could use WhereToNext constructor to help me get a Position for purpose of checking
+                // if hallway would be unobstructed or not.
 
+                Position nextP = next.getNextPosition(); // To make debugging easier
+                Position destinationP = destination.getNextPosition();
+
+                nextP.unobstructedHallway(destinationP, world);
             } catch (IllegalArgumentException e) {
-                // do something
+                randomHallways(next, random, world); // Recursively try again if hallway would be too long
             }
-
-
+            newNext = hg.buildHallway(next.getNextPosition(), length, next.getNextDirection(), world);
+            randomHallways(newNext, random, world); // Recursively call
         }
 
-        // Option 1: turn
+        // Option 1: dead-end
+        if (decision == 1) { // could make this an else statement
+            hg.deadEnd(next.getNextPosition(), next.getNextDirection(), world);
+        }
 
-        // Option 2: build room
+        // Option 2: turn
+        if (decision == 2) {
+            String typeOfTurn = whereToTurn(next, random);
+            newNext = hg.buildHallway(next.getNextPosition(), 0, typeOfTurn, world);
+            randomHallways(newNext, random, world); // Recursively call
+        }
 
-        // Option 3: dead-end
+        // Option 3: build room
+//        if (decision == 3) {
+//
+//
+//        }
+
+    }
 
 
-        return null;
+    private String whereToTurn(WhereToNext next, Random random) {
+        int choice = RandomUtils.uniform(random, 0, 1);
+
+        if (next.getNextDirection() == "right") {
+            return fromRightTurns.get(choice);
+        }
+        if (next.getNextDirection() == "left") {
+            return fromLeftTurns.get(choice);
+        }
+        if (next.getNextDirection() == "up") {
+            return fromUpTurns.get(choice);
+        } else { // assume next.getNextDirection() == "down"
+            return fromDownTurns.get(choice);
+        }
     }
 
 

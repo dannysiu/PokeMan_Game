@@ -60,8 +60,9 @@ public class WhereToNext {
 
     /** Helper method to return the next Position for WhereToNext object.
      *  This is for straights.
+     *  UPDATE: used to be private, but made public so that WorldGenerator randomHallway algorithm could use it
      */
-    private void nextPositionStraight(String direction, Position start, int distance) {
+    public void nextPositionStraight(String direction, Position start, int distance) {
         this.newPosition = new Position(0, 0); // arbitrary
 
         if (direction == "right") {
