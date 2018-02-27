@@ -26,19 +26,17 @@ public class TestRoomGenerator {
 
 
         RoomGenerator rg = new RoomGenerator();
-        for (int i = 0; i < 1; i += 1) {   //make up to 50 rooms in the world; some will overlap and fail to exist
+        for (int i = 0; i < 50; i += 1) {   //make up to 50 rooms in the world; some will overlap and fail to exist
             int posX = RandomUtils.uniform(randomGenerator, WIDTH);
             int posY = RandomUtils.uniform(randomGenerator, HEIGHT);
             Position roomLocation = new Position(posX, posY);
             int roomWidth = RandomUtils.uniform(randomGenerator, 3, WIDTH/3);
             int roomHeight = RandomUtils.uniform(randomGenerator, 3, HEIGHT/3);
             rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
-            rg.getRoomList();
         }
 
         for (Room r : rg.getRoomList()) {  //add doors to all the rooms that exist
             r.makeDoors(world);
-            System.out.println(r.getPerimeterList().size() + "  ...should be " + (2*(r.width + r.height)-4-4));
 
         }
 

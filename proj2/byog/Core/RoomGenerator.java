@@ -51,8 +51,5 @@ public class RoomGenerator {
 
     public ArrayList<Room> getRoomList() {
         return roomList;
-//        for (Room r : roomList) {
-//            System.out.println("Width: " + r.width + ",  Height: " + r.height);
-//        }
     }
 }

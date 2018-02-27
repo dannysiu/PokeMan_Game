@@ -76,17 +76,17 @@ public class Room {
                     world[x][y] = Tileset.WALL;
                     Position perim = new Position(x, y);
 
-                    boolean addToPerimList = true;
+                    boolean addToPerimList = true;  //add to perimLxist ONLY if not a corner
+//                    for (Position corner : cornerList) {
+//                        if (corner.getX() == perim.getX() && corner.getY() == perim.getY()) {
+//                            addToPerimList = false;
+//                        }
+//                    }
                     for (Position corner : cornerList) {
-                        if (corner.getX() == perim.getX() && corner.getY() == perim.getY()) {
+                        if (corner.equals(perim)) {
                             addToPerimList = false;
                         }
                     }
-
-//                        if (corner.equals(perim)) {
-//                            addToPerimList = false;
-//                        }
-
 
                     if (addToPerimList) {
                         perimeterList.add(perim);
@@ -115,7 +115,7 @@ public class Room {
              * */
             boolean noDoorOverlapOrCorners = true;
             for (Position d : doorList) {
-                if (d.calcDistance(door) >= 2.0) {
+                if (d.calcDistance(door) <= 2.0) {
                     noDoorOverlapOrCorners = false;
                 }
             }

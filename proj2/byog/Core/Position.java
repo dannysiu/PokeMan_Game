@@ -30,6 +30,10 @@ public class Position {
         return Math.sqrt(x_dist + y_dist);
     }
 
+    public boolean equals(Position p) {
+        return (this.getX() == p.getX() && this.getY() == p.getY());
+    }
+
 
     /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
      *  Assume that this and @param two are either horizontally aligned or vertically aligned.

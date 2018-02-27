@@ -14,6 +14,8 @@ public class WorldGenerator {
      *  dead end, or create a new room at the end of that hallway.
      *  TODO: implement some sort of stop condition so that we don't use all of the dead space.
      *  TODO: figure out what to do about the unlocked doors at the end of world generation
+     *  small detail:
+     *  TODO: at the end of world building, check for doors at the world perimeter and set to wall
      */
 
 
