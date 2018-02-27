@@ -71,16 +71,25 @@ public class Room {
         // the room is filled with floor tiles, so will only place walls where not equal floor
         // add positions to perimeter list for future door creation, EXCLUDING CORNERS
         // **will need to add doors later
+        int worldWidth = world.length;
+        int worldHeight = world[0].length;
+
         for (int x = p.getX(); x < p.getX() + w; x += 1) {
             for (int y = p.getY(); y < p.getY() + h; y += 1) {
                 if (world[x][y] != Tileset.FLOOR) {
                     world[x][y] = Tileset.WALL;
                     Position perim = new Position(x, y);
 
-                    boolean addToPerimList = true;  //add to perimLxist ONLY if not a corner
+
+                    //add to perimList ONLY if not a corner or not on the world border
+                    //perimList will be used to ensure that hallways have possible connections
+                    boolean addToPerimList = true;
 
                     for (Position corner : cornerList) {
                         if (corner.equals(perim)) {
+                            addToPerimList = false;
+                        } else if (corner.getX() == 0 || corner.getX() == worldWidth - 1 ||
+                                corner.getY() == 0 || corner.getY() == worldHeight - 1) {
                             addToPerimList = false;
                         }
                     }
@@ -92,9 +101,6 @@ public class Room {
             }
         }
     }
-
-
-
 
 
 
