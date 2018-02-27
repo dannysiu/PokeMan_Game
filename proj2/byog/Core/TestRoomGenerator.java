@@ -37,10 +37,10 @@ public class TestRoomGenerator {
             rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
         }
 
-        for (Room r : rg.getRoomList()) {  //add doors to all the rooms that exist
-            r.makeDoors(world, randomGenerator);
-
-        }
+//        for (Room r : rg.getRoomList()) {  //add doors to all the rooms that exist
+//            r.makeDoors(world, randomGenerator);
+//
+//        }
 
         ter = new TERenderer();
 

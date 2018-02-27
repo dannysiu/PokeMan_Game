@@ -11,12 +11,17 @@ public class RoomGenerator {
     TERenderer ter = new TERenderer();  // needed?
 
     private ArrayList<Room> roomList;
+    public static ArrayList<Position> cornerBlacklist;
+    //update corner blacklist when making rooms, so we can ensure hallways don't connect at corners
+    public static int roomCount;
 
     /**
      * Object will be used to make new rooms
      */
     public RoomGenerator() {
         roomList = new ArrayList(5);
+        cornerBlacklist = new ArrayList(4);
+        roomCount = 0;
     }
 
 
@@ -46,17 +51,12 @@ public class RoomGenerator {
         if (buildCuzYouCan) {
             Room newRoom = new Room(world, p, w, h);
             roomList.add(newRoom);
+            cornerBlacklist.addAll(newRoom.getCornerList());
         }
     }
 
-    /**In world algorithm, first room is made, then hallways branch off, then more rooms are made
-     * to follow world building alg, we need to ensure that hallway properly connects to new room
-     * i.e. if WhereToNext object has left direction, then room builds door there on its right side
-     */
-    public ArrayList<Room> getRoomList(TETile[][] world, Position p, int w, int h) {
+
+    public ArrayList<Room> getRoomList() {
         return roomList;
     }
-
-
-
 }

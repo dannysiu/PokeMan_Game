@@ -20,6 +20,7 @@ public class Room {
     private Position topLeft;
     private Position topRight;
 
+    public boolean connected = true;
 
     /**
      * Criteria to consider when making a room:
@@ -95,33 +96,6 @@ public class Room {
 
 
 
-    /** method to choose doors from room perimeter and store their positions */
-    public void makeDoors(TETile[][] world, Random random) {
-        int numDoors = RandomUtils.uniform(random, 1, 4);  //between 1 to 3 doors allowed
-
-        for (int i = 0; i < numDoors; i += 1) {
-            int randomInt = RandomUtils.uniform(random, perimeterList.size());
-            Position door = perimeterList.get(randomInt);
-
-            /** Check that doors are not on corners and have 2-tiles distance between other doors,
-             *  so halls don't overlap
-             * */
-            boolean noDoorOverlapOrCorners = true;
-            for (Position d : doorList) {
-                if (d.calcDistance(door) <= 2.0) {
-                    noDoorOverlapOrCorners = false;
-                }
-            }
-
-            /** if doors don't overlap, then add doors */
-            if (noDoorOverlapOrCorners) {
-                world[door.getX()][door.getY()] = Tileset.UNLOCKED_DOOR;
-                doorList.add(door);
-            }
-        }
-    }
-
-
 
     /** These are methods for getting lists of positions in order to make hallway connections
      * */
@@ -136,4 +110,40 @@ public class Room {
     public ArrayList<Position> getPerimeterList() {
         return perimeterList;
     }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+
+
+//    /** --DEPRECATED METHOD: We no longer make doors after making rooms.
+//     *  Now we make doors wherever hallways connect rooms. -- */
+//
+//    /** method to choose doors from room perimeter and store their positions */
+//    public void makeDoors(TETile[][] world, Random random) {
+//        int numDoors = RandomUtils.uniform(random, 1, 4);  //between 1 to 3 doors allowed
+//
+//        for (int i = 0; i < numDoors; i += 1) {
+//            int randomInt = RandomUtils.uniform(random, perimeterList.size());
+//            Position door = perimeterList.get(randomInt);
+//
+//            /** Check that doors are not on corners and have 2-tiles distance between other doors,
+//             *  so halls don't overlap
+//             * */
+//            boolean noDoorOverlapOrCorners = true;
+//            for (Position d : doorList) {
+//                if (d.calcDistance(door) <= 2.0) {
+//                    noDoorOverlapOrCorners = false;
+//                }
+//            }
+//
+//            /** if doors don't overlap, then add doors */
+//            if (noDoorOverlapOrCorners) {
+//                world[door.getX()][door.getY()] = Tileset.UNLOCKED_DOOR;
+//                doorList.add(door);
+//            }
+//        }
+//    }
+
 }
