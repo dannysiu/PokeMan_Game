@@ -10,7 +10,7 @@ public class RoomGenerator {
 
     TERenderer ter = new TERenderer();  // needed?
 
-    public ArrayList<Room> roomList;
+    private ArrayList<Room> roomList;
 
     /**
      * Object will be used to make new rooms
@@ -47,5 +47,12 @@ public class RoomGenerator {
             Room newRoom = new Room(world, p, w, h);
             roomList.add(newRoom);
         }
+    }
+
+    public ArrayList<Room> getRoomList() {
+        return roomList;
+//        for (Room r : roomList) {
+//            System.out.println("Width: " + r.width + ",  Height: " + r.height);
+//        }
     }
 }
