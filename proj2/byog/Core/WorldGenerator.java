@@ -2,8 +2,11 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
+import javafx.geometry.Pos;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class WorldGenerator {
     /** Our plan for how to approach WorldGeneration algorithm.
@@ -18,13 +21,13 @@ public class WorldGenerator {
      *  TODO: at the end of world building, check for doors at the world perimeter and set to wall
      */
 
-    String seed;
+    long seed;
     List<String> fromLeftTurns;
     List<String> fromRightTurns;
     List<String> fromUpTurns;
     List<String> fromDownTurns;
 
-    public WorldGenerator(String userSeed) {
+    public WorldGenerator(long userSeed) {
         this.seed = userSeed;
         fromLeftTurns = new ArrayList<>(2);
         fromLeftTurns.add("rightUp");
@@ -50,12 +53,33 @@ public class WorldGenerator {
      *  determine whether to build a hallway, turn, make a dead-end, or build a room.
      * NOTE: to start a call to randomHallway, it needs to be given a
      * @param next = a WhereToNext object that specifies how next piece should be built.
-     * @param seed = a random int, presumably the world seed, to keep randomness pseudo.
+     * @param random = a Random made with initial seed.
      * @return = a new WhereToNext that randomHallways can use to recursively call itself.
      */
-    public WhereToNext randomHallways(WhereToNext next, int seed) {
+    public WhereToNext randomHallways(WhereToNext next, Random random) {
+
+        HallwayGenerator hg = new HallwayGenerator();
+        RoomGenerator rg = new RoomGenerator();
+        int decision = RandomUtils.uniform(random, 0, 3);
+
+        // Option 0: build hallway
+        if (decision == 0) {
+            int length = RandomUtils.uniform(random, 1, 6);
+            try {
+//                Position destination = new Position();
+
+            } catch (IllegalArgumentException e) {
+                // do something
+            }
 
 
+        }
+
+        // Option 1: turn
+
+        // Option 2: build room
+
+        // Option 3: dead-end
 
 
         return null;

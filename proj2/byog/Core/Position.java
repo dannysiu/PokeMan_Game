@@ -11,9 +11,13 @@ public class Position {
     private int x;
     private int y;
 
-    public Position(int coord_x, int coord_y) {
-        x = coord_x;
-        y = coord_y;
+    public Position(int coordX, int coordY) {
+        if ((coordX < 0) || (coordY < 0)) {
+            throw new IllegalArgumentException("CoordX: " + coordX + " or CoordY: " + coordY +
+            "is outside bounds of an allowed Position.");
+        }
+        x = coordX;
+        y = coordY;
     }
 
     public int getX() {
@@ -39,6 +43,10 @@ public class Position {
      *  Assume that this and @param two are either horizontally aligned or vertically aligned.
      */
     public boolean unobstructedHallway(Position two, TETile[][] world) {
+
+        if ((two.getX() > world.length) || (two.getY() > world[0].length)) { // Position two outside world
+            throw new IllegalArgumentException("Position two is outside the bounds of the world");
+        }
 
         if ((two.getX() - this.getX()) != 0 && (two.getY() - this.getY()) != 0) {
             throw new IllegalArgumentException("Positions one and two are not horizontally" +
