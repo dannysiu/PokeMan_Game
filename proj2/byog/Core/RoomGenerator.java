@@ -49,7 +49,14 @@ public class RoomGenerator {
         }
     }
 
-    public ArrayList<Room> getRoomList() {
+    /**In world algorithm, first room is made, then hallways branch off, then more rooms are made
+     * to follow world building alg, we need to ensure that hallway properly connects to new room
+     * i.e. if WhereToNext object has left direction, then room builds door there on its right side
+     */
+    public ArrayList<Room> getRoomList(TETile[][] world, Position p, int w, int h) {
         return roomList;
     }
+
+
+
 }
