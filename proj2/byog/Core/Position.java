@@ -14,7 +14,7 @@ public class Position {
     public Position(int coordX, int coordY) {
         if ((coordX < 0) || (coordY < 0)) {
             throw new IllegalArgumentException("CoordX: " + coordX + " or CoordY: " + coordY +
-            "is outside bounds of an allowed Position.");
+            " is outside bounds of an allowed Position.");
         }
         x = coordX;
         y = coordY;
@@ -44,9 +44,12 @@ public class Position {
      */
     public boolean unobstructedHallway(Position two, TETile[][] world) {
 
-        outOfThisWorld(two, world);
-
-        unalignedPositionsForUnobstructed(two);
+        if (outOfThisWorld(two, world)) {
+            return false;
+        }
+        if (unalignedPositionsForUnobstructed(two)) {
+            return false;
+        }
 
         if (this.getX() > two.getX()) { // Allows user to not worry about which Position is "lower"
             return two.unobstructedHallway(this, world);
@@ -60,7 +63,6 @@ public class Position {
                         world[x][this.getY()].equals(Tileset.FLOOR)) {
                     return false;
                 }
-
             }
         } else if (two.getX() - this.getX() == 0) { // Vertical alignment
             for (int y = this.getY() + 1; y <= two.getY(); y += 1) {
@@ -75,17 +77,30 @@ public class Position {
         return true;
     }
 
-    private void outOfThisWorld(Position two, TETile[][] world) {
-        if ((two.getX() > world.length) || (two.getY() > world[0].length)) { // Position two outside world
-            throw new IllegalArgumentException("Position two is outside the bounds of the world");
+
+
+
+
+
+
+
+    private Boolean outOfThisWorld(Position two, TETile[][] world) {
+        if ((two.getX() > world.length) || (two.getY() > world[0].length) ||
+                this.getX() > world.length || this.getY() > world[0].length) {
+            // Position two outside world
+            // throw new IllegalArgumentException("Position two is outside the bounds of the world");
+            return true;
         }
+        return false;
     }
 
-    private void unalignedPositionsForUnobstructed(Position two) {
+    private Boolean unalignedPositionsForUnobstructed(Position two) {
         if ((two.getX() - this.getX()) != 0 && (two.getY() - this.getY()) != 0) {
-            throw new IllegalArgumentException("Positions one and two are not horizontally" +
-                    "aligned or vertically aligned.");
+//            throw new IllegalArgumentException("Positions one and two are not horizontally" +
+//                    "aligned or vertically aligned.");
+            return true;
         }
+        return false;
     }
 
 }

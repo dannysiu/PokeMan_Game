@@ -45,8 +45,8 @@ public class TestWorldGenerator {
     private void TestRandomHallways() {
         /** Tests whether randomHallways method in WorldGenerator
          */
-        int width = 80;
-        int height = 40;
+        int width = 60;
+        int height = 30;
         TestWorldGenerator tester = new TestWorldGenerator();
         TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
         TERenderer ter = new TERenderer();
@@ -55,8 +55,10 @@ public class TestWorldGenerator {
         WorldGenerator wg = new WorldGenerator(random);
 
         // Where the magic happens
-        Position start = new Position(5, 20);
-        WhereToNext next = new WhereToNext("right", start, 5, world);
+        Position start = new Position(19, 15);
+        Position origin = new Position(18, 15);
+        world[origin.getX()][origin.getY()] = Tileset.MOUNTAIN;
+        WhereToNext next = new WhereToNext("right", start, true, true, world);
 
         wg.randomHallways(next, random, world);
         // Where the magic ends

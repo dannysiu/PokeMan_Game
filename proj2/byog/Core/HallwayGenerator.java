@@ -67,6 +67,10 @@ public class HallwayGenerator {
             cornerHallway(direction, start.getX(), start.getY(), world);
         }
 
+        // For debugging
+        System.out.println("I am building a: " + direction + " hallway for: " + distance +
+        " distance starting from position: (" + start.getX() + ", " + start.getY() + ")");
+
         return new WhereToNext(direction, start, distance, world);
     }
 

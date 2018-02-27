@@ -47,7 +47,7 @@ public class WorldGenerator {
         fromUpTurns.add("rightDown");
 
         // TODO: Make a starting random room.
-        // TODO: Make starting WhereToNext objects based on random rooms and where unlocked doors are
+        // TODO: Make starting WhereToNext objects based on random rooms and where unlocked doors are, corners are false
     }
 
     /** A method that is used by WorldGenerator to start making hallways from a room. Will randomly
@@ -62,35 +62,38 @@ public class WorldGenerator {
         HallwayGenerator hg = new HallwayGenerator();
         RoomGenerator rg = new RoomGenerator();
         WhereToNext newNext;
-        int decision = RandomUtils.uniform(random, 0, 3); // Change to allow more options
+        int decision = RandomUtils.uniform(random, 0, 9); // Change to allow more options
 
-        // Option 0: build hallway
-        if (decision == 0) {
+        // Option 0: build hallway (4/9)
+        if (decision >= 0 && decision < 4) {
             int length = RandomUtils.uniform(random, 1, 6);
 
-            try {
-                WhereToNext destination = new WhereToNext(next.getNextDirection(), next.getNextPosition(), length, world);
-                // I realized I could use WhereToNext constructor to help me get a Position for purpose of checking
-                // if hallway would be unobstructed or not.
+            WhereToNext destination = new WhereToNext(next.getNextDirection(), next.getNextPosition(), length, world);
+            // I realized I could use WhereToNext constructor to help me get a Position for purpose of checking
+            // if hallway would be unobstructed or not.
 
-                Position nextP = next.getNextPosition(); // To make debugging easier
-                Position destinationP = destination.getNextPosition();
+            Position nextP = next.getNextPosition(); // To make debugging easier
+            Position destinationP = destination.getNextPosition();
 
-                nextP.unobstructedHallway(destinationP, world);
-            } catch (IllegalArgumentException e) {
-                randomHallways(next, random, world); // Recursively try again if hallway would be too long
+            if (! nextP.unobstructedHallway(destinationP, world)) {
+                randomHallways(next, random, world);
             }
+
             newNext = hg.buildHallway(next.getNextPosition(), length, next.getNextDirection(), world);
             randomHallways(newNext, random, world); // Recursively call
         }
 
-        // Option 1: dead-end
-        if (decision == 1) { // could make this an else statement
+        // Option 1: dead-end (2/9)
+        if (decision >= 4 && decision < 6) { // could make this an else statement
             hg.deadEnd(next.getNextPosition(), next.getNextDirection(), world);
         }
 
-        // Option 2: turn
-        if (decision == 2) {
+        // Option 2: turn (3/9)
+        if (decision >= 5 && decision < 9) {
+            if (next.getNoCorner()) { // If corners not allowed, recursively call and try again
+                randomHallways(next, random, world);
+            }
+
             String typeOfTurn = whereToTurn(next, random);
             newNext = hg.buildHallway(next.getNextPosition(), 0, typeOfTurn, world);
             randomHallways(newNext, random, world); // Recursively call

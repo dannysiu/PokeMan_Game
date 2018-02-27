@@ -18,9 +18,17 @@ public class WhereToNext {
     private Boolean noRoom; // True if a room can't go here (ie. just turned a corner)
     private Boolean noCorner; // True if a corner can't go here (ie. just turned a corner)
 
+
+    /** Constructor for making a WhereToNext object. Returned after each call to buildHallway in order to
+     *  know where next hallway/dead-end/room can be built.
+     *
+     * @param direction = direction that build was going towards.
+     * @param start = position where previous build had started
+     * @param distance = how far previous build went
+     * @param world
+     */
     public WhereToNext(String direction, Position start, int distance, TETile[][] world) {
         // TODO: use unobstructedHallway method to figure out for corners the next direction
-        // TODO: make sure newPosition is 1 away from wherever buildHallway finished
 
         DirectionsStraight = new HashSet<>();
         DirectionsStraight.add("left");
@@ -41,6 +49,30 @@ public class WhereToNext {
             nextPositionDirectionCorner(direction, start, world);
         }
     }
+
+    /** Overloaded WhereToNext constructor for forcing noRoom and noCorner to be true.
+     *  Used for the initial WhereToNext object in a test or immediately after starting off of a room.
+     */
+    public WhereToNext(String direction, Position start, Boolean noCorner,
+                       Boolean noRoom, TETile[][] world) {
+
+        DirectionsStraight = new HashSet<>();
+        DirectionsStraight.add("left");
+        DirectionsStraight.add("right");
+        DirectionsStraight.add("up");
+        DirectionsStraight.add("down");
+
+        int distance = 0;
+
+        if (! DirectionsStraight.contains(direction)) {
+            throw new IllegalArgumentException(direction + " is not a valid starting direction.");
+        }
+        this.newDirection = direction;
+        this.noRoom = noRoom;
+        this.noCorner = noRoom;
+        nextPositionStraight(direction, start, distance);
+    }
+
 
     public String getNextDirection() {
         return this.newDirection;
