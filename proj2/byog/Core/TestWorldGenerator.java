@@ -52,7 +52,7 @@ public class TestWorldGenerator {
         TERenderer ter = new TERenderer();
         Random random = new Random();
         HallwayGenerator hg = new HallwayGenerator();
-        WorldGenerator wg = new WorldGenerator(random);
+        WorldGeneratorOLD wgo = new WorldGeneratorOLD(random);
 
         // Where the magic happens
         Position start = new Position(19, 15);
@@ -60,7 +60,7 @@ public class TestWorldGenerator {
         world[origin.getX()][origin.getY()] = Tileset.MOUNTAIN;
         WhereToNext next = new WhereToNext("right", start, true, true, world);
 
-        wg.randomHallways(next, random, world);
+//        wgo.randomHallways(next, random, world);
         // Where the magic ends
 
         ter.initialize(width, height);

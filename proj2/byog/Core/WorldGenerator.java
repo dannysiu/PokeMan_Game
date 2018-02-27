@@ -28,5 +28,13 @@ public class WorldGenerator {
      *  Step 5.) After all/most rooms connected, make some random hallways that turn and dead-end
      */
 
+     Random randomGenerator;
+
+     public WorldGenerator(Random random) {
+         randomGenerator = random;
+     }
+
+
+
 
 }

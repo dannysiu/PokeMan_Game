@@ -18,8 +18,7 @@ public class HallwayGenerator {
     private Set<String> DirectionsStraight;
     private Set<String> DirectionsCorner;
 
-    /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
-     *  and corner constructors as necessary.
+    /**
      *  Currently no need to have a HG object except for calling methods
      */
     public HallwayGenerator() {
@@ -34,6 +33,32 @@ public class HallwayGenerator {
         DirectionsCorner.add("leftDown");
         DirectionsCorner.add("rightDown");
     }
+
+
+    public void connectRoomsStraight(ArrayList<Room> allRooms, TETile[][] world) {
+        for (Room room : allRooms) {
+            singleRoomStraight(room, world);
+        }
+    }
+
+
+    private void singleRoomStraight(Room room, TETile[][] world) {
+        List<Position> perimeter = room.getPerimeterList(); // an ArrayList
+
+
+    }
+
+
+    private String whereIsOutside(Position perimeterSpot, TETile[][] world) {
+        String outside = "none"; // used if perimeterSpot is on edge of world
+
+        // To the left
+//        if (world[][] == Tileset.NOTHING)
+
+
+        return outside;
+    }
+
 
 
     /** The publicly-used method for making a hallway. Decides what kind of hallway to make
@@ -133,7 +158,7 @@ public class HallwayGenerator {
         }
     }
 
-    /** Creates a dea-end, either vertically or horizontally.
+    /** Creates a dead-end, either vertically or horizontally.
      *  @param direction is either left, right, up, down
      */
     public void deadEnd(Position start, String direction, TETile[][] world) {
