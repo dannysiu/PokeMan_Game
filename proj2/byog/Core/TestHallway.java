@@ -134,6 +134,29 @@ public class TestHallway {
          *  while using returned WhereToNext object to decide where next hallway goes.
          *  Will use a world with a mountain perimeter to have a visual reference.
          */
+        int width = 60;
+        int height = 40;
+        TestHallway tester = new TestHallway();
+        TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
+        TERenderer ter = new TERenderer();
+        HallwayGenerator hg = new HallwayGenerator();
+
+        Position start = new Position(58, 20);
+
+        WhereToNext next1 = hg.buildHallway(start, 5, "left", world);
+        WhereToNext next2 = hg.buildHallway(next1.getNextPosition(), 5, next1.getNextDirection(), world);
+
+        ter.initialize(width, height);
+        ter.renderFrame(world);
+    }
+
+
+    @Test
+    public void TestWhereToNextTurn() {
+        /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway
+         *  while using returned WhereToNext object to decide where next hallway goes.
+         *  Will use a world with a mountain perimeter to have a visual reference.
+         */
         int width = 40;
         int height = 20;
         TestHallway tester = new TestHallway();
@@ -147,7 +170,9 @@ public class TestHallway {
         WhereToNext next2 = hg.buildHallway(next1.getNextPosition(), 0, "rightDown", world);
         WhereToNext next3 = hg.buildHallway(next2.getNextPosition(), 10, next2.getNextDirection(), world);
         WhereToNext next4 = hg.buildHallway(next3.getNextPosition(), 0, "leftDown", world);
-        hg.buildHallway(next4.getNextPosition(), 7, next4.getNextDirection(), world);
+        WhereToNext next5 = hg.buildHallway(next4.getNextPosition(), 7, next4.getNextDirection(), world);
+        WhereToNext next6 = hg.buildHallway(next5.getNextPosition(), 0, "leftUp", world);
+        hg.buildHallway(next6.getNextPosition(), 5, next6.getNextDirection(), world);
 
         ter.initialize(width, height);
         ter.renderFrame(world);
@@ -160,7 +185,8 @@ public class TestHallway {
 
         // Individual tests above. Comment out as needed
 //        tester.TestBuildHallway();
-        tester.TestWhereToNext();
+//        tester.TestWhereToNext();
+        tester.TestWhereToNextTurn();
 
     }
 

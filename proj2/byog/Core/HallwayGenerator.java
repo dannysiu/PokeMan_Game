@@ -3,8 +3,6 @@ package byog.Core;
 import byog.Core.WorldGenerator;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-import javafx.geometry.Pos;
-import javafx.scene.control.skin.TextInputControlSkin;
 
 import java.security.InvalidParameterException;
 import java.util.HashSet;
@@ -13,7 +11,6 @@ import java.util.Set;
 /** A class to handle hallway generation.
  *  Assumes that rooms are already created and randomly dispersed in world. Will look for
  *  "doorways" (unlocked doors) and create hallways between them.
- *  TODO: Method to link hallways together.
  */
 public class HallwayGenerator {
     private Set<String> DirectionsStraight;
@@ -56,13 +53,13 @@ public class HallwayGenerator {
             horizontalHallway(distance, start.getX(), start.getY(), world);
         }
         if (direction == "left") {
-            horizontalHallway(distance, (start.getX() - distance), start.getY(), world);
+            horizontalHallway(distance, (start.getX() - distance + 1), start.getY(), world);
         }
         if (direction == "up") {
             verticalHallway(distance, start.getX(), start.getY(), world);
         }
         if (direction == "down") {
-            verticalHallway(distance, start.getX(), (start.getY() - distance), world);
+            verticalHallway(distance, start.getX(), (start.getY() - distance + 1), world);
         }
         if (DirectionsCorner.contains(direction)) {
             cornerHallway(direction, start.getX(), start.getY(), world);
