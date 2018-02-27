@@ -5,7 +5,9 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /** A class to handle hallway generation.
@@ -127,6 +129,27 @@ public class HallwayGenerator {
         }
     }
 
+    /** Creates a dea-end, either vertically or horizontally.
+     *  @param direction is either left, right, up, down
+     */
+    public void deadEnd(Position start, String direction, TETile[][] world) {
+        if (!DirectionsStraight.contains(direction)) {
+            throw new IllegalArgumentException("Cannot place a dead end here. " + direction +
+                    " is not a valid direction to feed into a dead end.");
+        }
+        int horizPos = start.getX();
+        int vertPos = start.getY();
+
+        if (direction == "left" || direction == "right") {
+            for (int y = 0; y < 3; y += 1) {
+                world[horizPos][vertPos - 1 + y] = Tileset.WALL;
+            }
+        } else {
+            for (int x = 0; x < 3; x += 1) {
+                world[horizPos - 1 + x][vertPos] = Tileset.WALL;
+            }
+        }
+    }
 
 
 
@@ -207,5 +230,28 @@ public class HallwayGenerator {
 //        }
 //        return true;
 //    }
+
+    // USED TO BE IN WORLDGENERATOR. UNNEEDED AT THE MOMENT
+//    /** Creates a List of all unlocked doors in the world (signifying places where rooms need
+//     *  to be connected via hallways).
+//     */
+//    private List<Position> unlockedFinder(TETile[][] world) {
+//        List<Position> allUnlocked = new ArrayList<>(20);
+//        int worldW = world.length; // Dynamic size of world
+//        int worldH = world[0].length;
+//
+//        for (int xPos = 0; xPos < worldW; xPos += 1) {
+//            for (int yPos = 0; yPos < worldH; yPos += 1) {
+//                if (world[xPos][yPos].equals(Tileset.UNLOCKED_DOOR)) {
+//                    Position p = new Position(xPos, yPos);
+//                    allUnlocked.add(p);
+//                }
+//            }
+//        }
+//        return allUnlocked;
+//    }
+
+
+
 
 }

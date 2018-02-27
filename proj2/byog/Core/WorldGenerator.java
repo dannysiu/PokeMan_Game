@@ -18,25 +18,49 @@ public class WorldGenerator {
      *  TODO: at the end of world building, check for doors at the world perimeter and set to wall
      */
 
+    String seed;
+    List<String> fromLeftTurns;
+    List<String> fromRightTurns;
+    List<String> fromUpTurns;
+    List<String> fromDownTurns;
 
+    public WorldGenerator(String userSeed) {
+        this.seed = userSeed;
+        fromLeftTurns = new ArrayList<>(2);
+        fromLeftTurns.add("rightUp");
+        fromLeftTurns.add("rightDown");
 
-    /** Creates a List of all unlocked doors in the world (signifying places where rooms need
-     *  to be connected via hallways).
-     */
-    private List<Position> unlockedFinder(TETile[][] world) {
-        List<Position> allUnlocked = new ArrayList<>(20);
-        int worldW = world.length; // Dynamic size of world
-        int worldH = world[0].length;
+        fromRightTurns = new ArrayList<>(2);
+        fromRightTurns.add("leftUp");
+        fromRightTurns.add("leftDown");
 
-        for (int xPos = 0; xPos < worldW; xPos += 1) {
-            for (int yPos = 0; yPos < worldH; yPos += 1) {
-                if (world[xPos][yPos].equals(Tileset.UNLOCKED_DOOR)) {
-                    Position p = new Position(xPos, yPos);
-                    allUnlocked.add(p);
-                }
-            }
-        }
-        return allUnlocked;
+        fromDownTurns = new ArrayList<>(2);
+        fromDownTurns.add("rightUp");
+        fromDownTurns.add("leftUp");
+
+        fromUpTurns = new ArrayList<>(2);
+        fromUpTurns.add("leftDown");
+        fromUpTurns.add("rightDown");
+
+        // TODO: Make a starting random room.
+        // TODO: Make starting WhereToNext objects based on random rooms and where unlocked doors are
     }
+
+    /** A method that is used by WorldGenerator to start making hallways from a room. Will randomly
+     *  determine whether to build a hallway, turn, make a dead-end, or build a room.
+     * NOTE: to start a call to randomHallway, it needs to be given a
+     * @param next = a WhereToNext object that specifies how next piece should be built.
+     * @param seed = a random int, presumably the world seed, to keep randomness pseudo.
+     * @return = a new WhereToNext that randomHallways can use to recursively call itself.
+     */
+    public WhereToNext randomHallways(WhereToNext next, int seed) {
+
+
+
+
+        return null;
+    }
+
+
 
 }
