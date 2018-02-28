@@ -41,11 +41,15 @@ public class Game {
 //        return finalWorldFrame;
 
         TERenderer ter = new TERenderer();
+        ter.initialize(WIDTH, HEIGHT);
 
-        TETile[][] finalWorldFrame = null;
+//
+//        TETile[][] finalWorldFrame = null;
+
+        TETile[][] world = new TETile[WIDTH][HEIGHT];
 
         if (input.startsWith("N")) {
-            TETile[][] world = new TETile[WIDTH][HEIGHT];
+//            TETile[][] world = new TETile[WIDTH][HEIGHT];
             for (int x = 0; x < WIDTH; x += 1) {
                 for (int y = 0; y < HEIGHT; y += 1) {
                     world[x][y] = Tileset.NOTHING;
@@ -56,35 +60,33 @@ public class Game {
             Random RANDOM = new Random(SEED);
 
             RoomGenerator rg = new RoomGenerator();
-            while (rg.getRoomList().isEmpty()) {
+            for (int i = 0; i < 50; i += 1) {   //make up to 50 rooms in the world; some will overlap and fail to exist
                 int posX = RandomUtils.uniform(RANDOM, WIDTH);
                 int posY = RandomUtils.uniform(RANDOM, HEIGHT);
                 Position roomLocation = new Position(posX, posY);
-                int roomWidth = RandomUtils.uniform(RANDOM, 3, WIDTH / 3);
-                int roomHeight = RandomUtils.uniform(RANDOM, 3, HEIGHT / 3);
+                int roomWidth = RandomUtils.uniform(RANDOM, 4, WIDTH/3);
+                int roomHeight = RandomUtils.uniform(RANDOM, 4, HEIGHT/3);
                 rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
             }
 
 
+            HallwayGenerator hg = new HallwayGenerator();
+            hg.connectRoomsStraight(rg.getRoomList(), world);
 
-            finalWorldFrame = world;
+//            finalWorldFrame = world;
         }
 
-        //render here?
-        ter.initialize(WIDTH, HEIGHT);
 
         //Draw the world to the screen
-        ter.renderFrame(finalWorldFrame);
+        ter.renderFrame(world);
 
-        return finalWorldFrame;
+        return world;
+
 
         /**Plan for building the world:
-         * Start with making one room
-         * build hallways at the doors
-         * decide using whereToNext whether to make deadends, rooms, or more hallways
-         * Finish after a certain number of cycles of this
-         *
-         * Question: does a "doorway" tile count as a gap between connecting a room and hallway?
+         * Generate all the rooms
+         * For each room, try to connect to other rooms via one hallway
+         * Make corner intersections
          * */
 
     }
