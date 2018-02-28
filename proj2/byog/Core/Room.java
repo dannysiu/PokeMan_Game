@@ -3,29 +3,29 @@ package byog.Core;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Room {
 
-    public int width;  //dimensions of room
-    public int height;
+    private int width;  //dimensions of room
+    private int height;
 
-    public ArrayList<Position> doorList;
-    public ArrayList<Position> perimeterList;  //stores positions for possible doorways
-    public ArrayList<Position> cornerList;  //cannot make doors where there are corners
+    private ArrayList<Position> doorList;
+    private ArrayList<Position> perimeterList;  //stores positions for possible doorways
+    private ArrayList<Position> cornerList;  //cannot make doors where there are corners
 
 
-    private Position bottomLeft; //these room corner positions will be used to ensure rooms don't overlap
+    private Position bottomLeft; //used to ensure rooms don't overlap
     private Position bottomRight;
     private Position topLeft;
     private Position topRight;
 
-    public int connections;
+    private int connections;
 
     /**
      * Criteria to consider when making a room:
      * Room is smaller than world
-     * Room does not overlap other rooms (can ensure in world generator, or store list of room positions here)
+     * Room does not overlap other rooms (can ensure in world generator, or store
+     * list of room positions here)
      * Where do we start to make the room (corner or center)
      */
 
@@ -88,8 +88,8 @@ public class Room {
                     for (Position corner : cornerList) {
                         if (corner.equals(perim)) {
                             addToPerimList = false;
-                        } else if (corner.getX() == 0 || corner.getX() == worldWidth - 1 ||
-                                corner.getY() == 0 || corner.getY() == worldHeight - 1) {
+                        } else if (corner.getX() == 0 || corner.getX() == worldWidth - 1
+                                || corner.getY() == 0 || corner.getY() == worldHeight - 1) {
                             addToPerimList = false;
                         }
                     }
@@ -118,8 +118,11 @@ public class Room {
         return perimeterList;
     }
 
-    public int isConnected() {
+    public int getConnections() {
         return connections;
+    }
+    public void incrementConnections() {
+        connections += 1;
     }
 
 

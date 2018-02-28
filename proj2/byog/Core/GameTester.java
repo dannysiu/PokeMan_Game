@@ -4,7 +4,7 @@ import byog.TileEngine.TETile;
 
 public class GameTester {
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         if (args.length == 1) {
             Game game = new Game();
             game.playWithInputString(args[0]);

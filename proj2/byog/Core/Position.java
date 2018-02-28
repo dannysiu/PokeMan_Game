@@ -13,8 +13,8 @@ public class Position {
 
     public Position(int coordX, int coordY) {
         if ((coordX < 0) || (coordY < 0)) {
-            throw new IllegalArgumentException("CoordX: " + coordX + " or CoordY: " + coordY +
-            " is outside bounds of an allowed Position.");
+            throw new IllegalArgumentException("CoordX: " + coordX + " or CoordY: " + coordY
+                    + " is outside bounds of an allowed Position.");
         }
         x = coordX;
         y = coordY;
@@ -29,9 +29,9 @@ public class Position {
     }
 
     public double calcDistance(Position p) {
-        double x_dist = (this.getX() - p.getX()) * (this.getX() - p.getX());
-        double y_dist = (this.getY() - p.getY()) * (this.getY() - p.getY());
-        return Math.sqrt(x_dist + y_dist);
+        double xDist = (this.getX() - p.getX()) * (this.getX() - p.getX());
+        double yDist = (this.getY() - p.getY()) * (this.getY() - p.getY());
+        return Math.sqrt(xDist + yDist);
     }
 
     public boolean equals(Position p) {
@@ -61,16 +61,16 @@ public class Position {
         }
 
         if (two.getY() - this.getY() == 0) { // Horizontal alignment
-            for (int x = this.getX() + 1; x <= two.getX(); x += 1) {
-                if (world[x][this.getY()].equals(Tileset.WALL) ||
-                        world[x][this.getY()].equals(Tileset.FLOOR)) {
+            for (int xPos = this.getX() + 1; xPos <= two.getX(); xPos += 1) {
+                if (world[xPos][this.getY()].equals(Tileset.WALL)
+                        || world[xPos][this.getY()].equals(Tileset.FLOOR)) {
                     return false;
                 }
             }
         } else if (two.getX() - this.getX() == 0) { // Vertical alignment
-            for (int y = this.getY() + 1; y <= two.getY(); y += 1) {
-                if (world[this.getX()][y].equals(Tileset.WALL) ||
-                        world[this.getX()][y].equals(Tileset.FLOOR)) {
+            for (int yPos = this.getY() + 1; yPos <= two.getY(); yPos += 1) {
+                if (world[this.getX()][yPos].equals(Tileset.WALL)
+                        || world[this.getX()][yPos].equals(Tileset.FLOOR)) {
                     return false;
                 }
             }
@@ -82,10 +82,9 @@ public class Position {
 
 
     private boolean outOfThisWorld(Position two, TETile[][] world) {
-        if ((two.getX() > world.length) || (two.getY() > world[0].length) ||
-                this.getX() > world.length || this.getY() > world[0].length) {
+        if ((two.getX() > world.length) || (two.getY() > world[0].length)
+                || this.getX() > world.length || this.getY() > world[0].length) {
             // Position two outside world
-            // throw new IllegalArgumentException("Position two is outside the bounds of the world");
             return true;
         }
         return false;

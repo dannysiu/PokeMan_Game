@@ -2,7 +2,11 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-import java.util.*;
+import java.util.Set;
+import java.util.Random;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /** A class to handle hallway generation.
@@ -10,8 +14,8 @@ import java.util.*;
  *  "doorways" (unlocked doors) and create hallways between them.
  */
 public class HallwayGenerator {
-    private Set<String> DirectionsStraight;
-    private Set<String> DirectionsCorner;
+    private Set<String> directionsStraight;
+    private Set<String> directionsCorner;
     private Random randomGenerator;
 
     /**
@@ -20,26 +24,28 @@ public class HallwayGenerator {
     public HallwayGenerator(Random random) {
         randomGenerator = random;
 
-        DirectionsStraight = new HashSet<>();
-        DirectionsCorner = new HashSet<>();
-        DirectionsStraight.add("left");
-        DirectionsStraight.add("right");
-        DirectionsStraight.add("up");
-        DirectionsStraight.add("down");
-        DirectionsCorner.add("leftUp");
-        DirectionsCorner.add("rightUp");
-        DirectionsCorner.add("leftDown");
-        DirectionsCorner.add("rightDown");
+        directionsStraight = new HashSet<>();
+        directionsCorner = new HashSet<>();
+        directionsStraight.add("left");
+        directionsStraight.add("right");
+        directionsStraight.add("up");
+        directionsStraight.add("down");
+        directionsCorner.add("leftUp");
+        directionsCorner.add("rightUp");
+        directionsCorner.add("leftDown");
+        directionsCorner.add("rightDown");
     }
 
     /**
-     * @param allRooms = List of all rooms in world. Try to connect all of them with a straight
+     * @param allRooms = List of all rooms in world. Try to connect all of them straight
      * @param world
      */
-    public void connectRoomsStraight(ArrayList<Room> allRooms, List<Position> allRoomCorners, TETile[][] world) {
-        for (int passes = 0; passes < 10; passes += 1) { // Tries to connect unconnected rooms 3 times
+    public void connectRoomsStraight(ArrayList<Room> allRooms,
+                                     List<Position> allRoomCorners,
+                                     TETile[][] world) {
+        for (int passes = 0; passes < 10; passes += 1) { // Passes = attempts to connect
             for (Room room : allRooms) {
-                if (room.connections < 3) {
+                if (room.getConnections() < 3) {
                     singleRoomConnectMaybe(room, allRoomCorners, world);
                 }
             }
@@ -47,17 +53,18 @@ public class HallwayGenerator {
     }
 
 
-    private void singleRoomConnectMaybe(Room room, List<Position> allRoomCorners, TETile[][] world) {
+    private void singleRoomConnectMaybe(Room room, List<Position> allRoomCorners,
+                                        TETile[][] world) {
         List<Position> perimeter = room.getPerimeterList(); // an ArrayList
         String direction;
 
         for (Position pSpot : perimeter) {
             direction = whereIsOutside(pSpot, world);
-            int distance = canConnect(pSpot, direction, allRoomCorners, world); // negative is cannot connect
+            int distance = canConnect(pSpot, direction, allRoomCorners, world);
 
-            if (distance > 0) {
-                buildHallway(pSpot, distance + 1, direction, world); // might need to make this
-                room.connections += 1; // Turning this off might help connect more rooms
+            if (distance >= 0) { // If distance is negative, cannot connect
+                buildHallway(pSpot, distance + 1, direction, world);
+                room.incrementConnections();
                 break;
             }
         }
@@ -95,15 +102,17 @@ public class HallwayGenerator {
 
 
     /** Checks whether a wall to connect to exists in desired direction.
-     *  Returns an integer that is -1 if it cannot connect and, if it can, will be the distance to the next room.
+     *  Returns an integer that is -1 if it cannot connect and, if it can,
+     *  will be the distance to the next room.
      */
-    private int canConnect(Position start, String direction, List<Position> allRoomCorners, TETile[][] world) {
+    private int canConnect(Position start, String direction,
+                           List<Position> allRoomCorners, TETile[][] world) {
         int increment;
         Position checkIfCorner;
 
         // Checking rightwards of start
-        if (direction == "right") {
-            for (increment = start.getX() + 1; increment < world.length; increment += 1) { //start.getX() + 1
+        if (direction.equals("right")) {
+            for (increment = start.getX() + 1; increment < world.length; increment += 1) {
                 if (world[increment][start.getY()] == Tileset.WALL) {
                     checkIfCorner = new Position(increment, start.getY());
                     for (Position corner : allRoomCorners) {
@@ -111,13 +120,12 @@ public class HallwayGenerator {
                             return -1;
                         }
                     }
-                    return increment - start.getX(); // Only true if can confirm that the wall I hit is not a corner
-                    // break after I hit a wall no matter what, even if it's a corner
+                    return increment - start.getX();
                 }
             }
         }
         // Checking leftwards of start
-        if (direction == "left") {
+        if (direction.equals("left")) {
             for (increment = start.getX() - 1; increment > 0; increment -= 1) { // start.getX() - 1
                 if (world[increment][start.getY()] == Tileset.WALL) {
                     checkIfCorner = new Position(increment, start.getY());
@@ -126,14 +134,14 @@ public class HallwayGenerator {
                             return -1;
                         }
                     }
-                    return start.getX() - increment; // Only true if can confirm that the wall I hit is not a corner
-                  // break after I hit a wall no matter what, even if it's a corner
+                    return start.getX() - increment; // If positive, not a corner
                 }
             }
         }
         // Checking upwards of start
-        if (direction == "up") {
-            for (increment = start.getY() + 1; increment < world[0].length; increment += 1) { //start.getY() + 1
+        if (direction.equals("up")) {
+            for (increment = start.getY() + 1; increment < world[0].length;
+                 increment += 1) { //start.getY() + 1
                 if (world[start.getX()][increment] == Tileset.WALL) {
                     checkIfCorner = new Position(start.getX(), increment);
                     for (Position corner : allRoomCorners) {
@@ -146,7 +154,7 @@ public class HallwayGenerator {
             }
         }
         // Checking downwards of start
-        if (direction == "down") {
+        if (direction.equals("down")) {
             for (increment = start.getY() - 1; increment > 0; increment -= 1) { // start.getY() - 1
                 if (world[start.getX()][increment] == Tileset.WALL) {
                     checkIfCorner = new Position(start.getX(), increment);
@@ -176,23 +184,24 @@ public class HallwayGenerator {
      * @param world = world that hallways are being put in
      */
     public void buildHallway(Position start, int distance, String direction, TETile[][] world) {
-        if ((! DirectionsCorner.contains(direction)) && (! DirectionsStraight.contains(direction))) {
+        if ((!directionsCorner.contains(direction))
+                && (!directionsStraight.contains(direction))) {
             throw new IllegalArgumentException(direction + " is not a valid direction");
         }
 
-        if (direction == "right") {
+        if (direction.equals("right")) {
             horizontalHallway(distance, start.getX(), start.getY(), world);
         }
-        if (direction == "left") {
+        if (direction.equals("left")) {
             horizontalHallway(distance, (start.getX() - distance + 1), start.getY(), world);
         }
-        if (direction == "up") {
+        if (direction.equals("up")) {
             verticalHallway(distance, start.getX(), start.getY(), world);
         }
-        if (direction == "down") {
+        if (direction.equals("down")) {
             verticalHallway(distance, start.getX(), (start.getY() - distance + 1), world);
         }
-        if (DirectionsCorner.contains(direction)) {
+        if (directionsCorner.contains(direction)) {
             cornerHallway(direction, start.getX(), start.getY(), world);
         }
 
@@ -240,22 +249,22 @@ public class HallwayGenerator {
     private void cornerHallway(String direction, int hingeX, int hingeY, TETile[][] world) {
         world[hingeX][hingeY] = Tileset.FLOOR;
 
-        if (direction == "leftUp") { // <^
+        if (direction.equals("leftUp")) { // <^
             world[hingeX][hingeY - 1] = Tileset.WALL;
             world[hingeX + 1][hingeY - 1] = Tileset.WALL;
             world[hingeX + 1][hingeY] = Tileset.WALL;
         }
-        if (direction == "rightUp") { // ^>
+        if (direction.equals("rightUp")) { // ^>
             world[hingeX][hingeY - 1] = Tileset.WALL;
             world[hingeX - 1][hingeY - 1] = Tileset.WALL;
             world[hingeX - 1][hingeY] = Tileset.WALL;
         }
-        if (direction == "rightDown") { // v>
+        if (direction.equals("rightDown")) { // v>
             world[hingeX][hingeY + 1] = Tileset.WALL;
             world[hingeX - 1][hingeY + 1] = Tileset.WALL;
             world[hingeX - 1][hingeY] = Tileset.WALL;
         }
-        if (direction == "leftDown") { // <v
+        if (direction.equals("leftDown")) { // <v
             world[hingeX][hingeY + 1] = Tileset.WALL;
             world[hingeX + 1][hingeY + 1] = Tileset.WALL;
             world[hingeX + 1][hingeY] = Tileset.WALL;
@@ -266,14 +275,14 @@ public class HallwayGenerator {
      *  @param direction is either left, right, up, down
      */
     public void deadEnd(Position start, String direction, TETile[][] world) {
-        if (!DirectionsStraight.contains(direction)) {
-            throw new IllegalArgumentException("Cannot place a dead end here. " + direction +
-                    " is not a valid direction to feed into a dead end.");
+        if (!directionsStraight.contains(direction)) {
+            throw new IllegalArgumentException("Cannot place a dead end here. " + direction
+                    + " is not a valid direction to feed into a dead end.");
         }
         int horizPos = start.getX();
         int vertPos = start.getY();
 
-        if (direction == "left" || direction == "right") {
+        if (direction.equals("left") || direction.equals("right")) {
             for (int y = 0; y < 3; y += 1) {
                 world[horizPos][vertPos - 1 + y] = Tileset.WALL;
             }

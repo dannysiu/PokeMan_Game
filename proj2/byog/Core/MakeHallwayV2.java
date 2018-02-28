@@ -4,7 +4,7 @@ import byog.TileEngine.TETile;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MakeHallway_v2 {
+public class MakeHallwayV2 {
 
 
     /** The second method for making a hallway.
@@ -38,9 +38,9 @@ public class MakeHallway_v2 {
             HallwayGenerator hg = new HallwayGenerator(random);
             hg.buildHallway(p1, Math.abs(distX), directionX, world);
             Position corner = new Position(p1.getX() - distX - 1, p1.getY());
-            if (directionX == "left") {
+            if (directionX.equals("left")) {
                 hg.buildHallway(corner, Math.abs(distY) - 1, directionY, world);
-            } else if (directionX ==  "right") {
+            } else if (directionX.equals("right")) {
                 hg.buildHallway(corner, Math.abs(distY) - 1, directionY, world);
             }
             hallwayBuilt = true;

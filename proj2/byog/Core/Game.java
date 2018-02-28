@@ -7,7 +7,7 @@ import byog.TileEngine.Tileset;
 import java.util.Random;
 
 public class Game {
-    TERenderer ter = new TERenderer();
+    TERenderer ter;
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 30;
@@ -32,7 +32,7 @@ public class Game {
      * @return the 2D TETile[][] representing the state of the world
      */
     public TETile[][] playWithInputString(String input) {
-        // TODO: Fill out this method to run the game using the input passed in,
+        // Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
 
@@ -40,7 +40,7 @@ public class Game {
 //        TETile[][] finalWorldFrame = null;
 //        return finalWorldFrame;
 
-        TERenderer ter = new TERenderer();
+        ter = new TERenderer();
         ter.initialize(WIDTH, HEIGHT);
 
 //
@@ -56,21 +56,22 @@ public class Game {
                 }
             }
 
-            long SEED = Integer.valueOf(input.substring(1, input.length() - 2));
-            Random RANDOM = new Random(SEED);
+            long seed = Integer.valueOf(input.substring(1, input.length() - 2));
+            Random random = new Random(seed);
 
             RoomGenerator rg = new RoomGenerator();
-            for (int i = 0; i < 50; i += 1) {   //make up to 50 rooms in the world; some will overlap and fail to exist
-                int posX = RandomUtils.uniform(RANDOM, WIDTH);
-                int posY = RandomUtils.uniform(RANDOM, HEIGHT);
+            for (int i = 0; i < 50; i += 1) {   // make up to 50 rooms in the world;
+                                                // some will overlap and fail to exist
+                int posX = RandomUtils.uniform(random, WIDTH);
+                int posY = RandomUtils.uniform(random, HEIGHT);
                 Position roomLocation = new Position(posX, posY);
-                int roomWidth = RandomUtils.uniform(RANDOM, 4, WIDTH/3);
-                int roomHeight = RandomUtils.uniform(RANDOM, 4, HEIGHT/3);
+                int roomWidth = RandomUtils.uniform(random, 4, WIDTH / 3);
+                int roomHeight = RandomUtils.uniform(random, 4, HEIGHT / 3);
                 rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
             }
 
 
-            HallwayGenerator hg = new HallwayGenerator(RANDOM);
+            HallwayGenerator hg = new HallwayGenerator(random);
             hg.connectRoomsStraight(rg.getRoomList(), rg.getCornerBlacklist(), world);
 
 //            finalWorldFrame = world;
