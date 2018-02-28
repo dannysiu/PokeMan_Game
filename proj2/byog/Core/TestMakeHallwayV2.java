@@ -37,7 +37,7 @@ public class TestMakeHallwayV2 {
 
 
         // build a turning hallway to connect the rooms
-        MakeHallway_v2 mh = new MakeHallway_v2();
+        MakeHallwayV2 mh = new MakeHallwayV2();
         Room r1 = rg.getRoomList().get(0);
         Room r2 = rg.getRoomList().get(1);
         mh.buildHallway(world, r1, r2);
