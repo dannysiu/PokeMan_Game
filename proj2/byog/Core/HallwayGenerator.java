@@ -1,10 +1,7 @@
 package byog.Core;
 
-import byog.Core.WorldGenerator;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-
-import java.security.InvalidParameterException;
 import java.util.*;
 
 
