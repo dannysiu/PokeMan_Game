@@ -10,7 +10,7 @@ public class Game {
     TERenderer ter;
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
-    public static final int HEIGHT = 30;
+    public static final int HEIGHT = 40;
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -41,7 +41,7 @@ public class Game {
 //        return finalWorldFrame;
 
         ter = new TERenderer();
-        ter.initialize(WIDTH, HEIGHT);
+//        ter.initialize(WIDTH, HEIGHT);
 
 //
 //        TETile[][] finalWorldFrame = null;
@@ -79,7 +79,7 @@ public class Game {
 
 
         //Draw the world to the screen
-        ter.renderFrame(world);
+//        ter.renderFrame(world);
 
         return world;
 

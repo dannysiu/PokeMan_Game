@@ -15,8 +15,8 @@ public class TestRoomsWHallways {
     public static void main(String[] args) {
         //Draw the screen
         TERenderer ter;
-        int worldWidth = 50;
-        int worldHeight = 30;
+        int worldWidth = 80;
+        int worldHeight = 40;
 
         TETile[][] world = new TETile[worldWidth][worldHeight];
         for (int x = 0; x < worldWidth; x += 1) {
