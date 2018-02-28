@@ -59,4 +59,8 @@ public class RoomGenerator {
     public ArrayList<Room> getRoomList() {
         return roomList;
     }
+
+    public static ArrayList<Position> getCornerBlacklist() {
+        return cornerBlacklist;
+    }
 }
