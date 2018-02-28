@@ -40,7 +40,7 @@ public class Game {
 //        TETile[][] finalWorldFrame = null;
 //        return finalWorldFrame;
 
-        ter = new TERenderer();
+//        ter = new TERenderer();
 //        ter.initialize(WIDTH, HEIGHT);
 
 //
@@ -48,7 +48,7 @@ public class Game {
 
         TETile[][] world = new TETile[WIDTH][HEIGHT];
 
-        if (input.startsWith("N")) {
+        if (input.startsWith("N") || input.startsWith("n")) {
 //            TETile[][] world = new TETile[WIDTH][HEIGHT];
             for (int x = 0; x < WIDTH; x += 1) {
                 for (int y = 0; y < HEIGHT; y += 1) {
@@ -56,7 +56,7 @@ public class Game {
                 }
             }
 
-            long seed = Integer.valueOf(input.substring(1, input.length() - 2));
+            long seed = Long.parseLong(input.substring(1, input.length() - 2));
             Random random = new Random(seed);
 
             RoomGenerator rg = new RoomGenerator();
@@ -74,7 +74,6 @@ public class Game {
             HallwayGenerator hg = new HallwayGenerator(random);
             hg.connectRoomsStraight(rg.getRoomList(), rg.getCornerBlacklist(), world);
 
-//            finalWorldFrame = world;
         }
 
 
