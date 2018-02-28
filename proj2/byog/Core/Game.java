@@ -70,8 +70,8 @@ public class Game {
             }
 
 
-            HallwayGenerator hg = new HallwayGenerator();
-            hg.connectRoomsStraight(rg.getRoomList(), world);
+            HallwayGenerator hg = new HallwayGenerator(RANDOM);
+            hg.connectRoomsStraight(rg.getRoomList(), rg.getCornerBlacklist(), world);
 
 //            finalWorldFrame = world;
         }
