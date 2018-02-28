@@ -17,7 +17,7 @@ public class TestHallway {
 
 
 
-    private TETile[][] TestWorldMaker(int width, int height) {
+    private TETile[][] testWorldMaker(int width, int height) {
         TETile[][] world = new TETile[width][height];
         for (int x = 0; x < width; x += 1) {
             for (int y = 0; y < height; y += 1) {
@@ -27,8 +27,8 @@ public class TestHallway {
         return world;
     }
 
-    private TETile[][] TestWorldMakerWithBorder(int width, int height) {
-        TETile[][] world = TestWorldMaker(width, height);
+    private TETile[][] testWorldMakerWithBorder(int width, int height) {
+        TETile[][] world = testWorldMaker(width, height);
 
         for (int x = 0; x < width; x += 1) {
             world[x][0] = Tileset.MOUNTAIN;
@@ -66,7 +66,7 @@ public class TestHallway {
 //
 //
 //        // ~~~ End of change zone for test ~~~
-//        world = tester.TestWorldMaker(width, height);
+//        world = tester.testWorldMaker(width, height);
 //
 ////        hg.connect(start, end, world);
 //
@@ -77,10 +77,10 @@ public class TestHallway {
 
 
     @Test
-    private void TestUnobstructed() {
+    private void testUnobstructed() {
         /** Tests whether unobstructed method in Position class works */
         TestHallway tester = new TestHallway();
-        TETile[][] world = tester.TestWorldMaker(80, 40);
+        TETile[][] world = tester.testWorldMaker(80, 40);
         TERenderer ter = new TERenderer();
         RoomGenerator rg = new RoomGenerator();
 //        HallwayGenerator hg = new HallwayGenerator();
@@ -98,13 +98,13 @@ public class TestHallway {
 
 //    @Test
 //    private void TestBuildHallway() {
-//        /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway.
+//        /** Tests if buildHallway method in HallwayGenerator successfully builds desired hallway.
 //         *  Will use a world with a mountain perimeter to have a visual reference.
 //         */
 //        int width = 80;
 //        int height = 40;
 //        TestHallway tester = new TestHallway();
-//        TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
+//        TETile[][] world = tester.testWorldMakerWithBorder(width, height);
 //        TERenderer ter = new TERenderer();
 //        HallwayGenerator hg = new HallwayGenerator();
 //
@@ -130,65 +130,10 @@ public class TestHallway {
 
 
 
-
-
-    /** DEPRECATED WHERETONEXT CLASS */
-//    @Test
-//    private void TestWhereToNext() {
-//        /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway
-//         *  while using returned WhereToNext object to decide where next hallway goes.
-//         *  Will use a world with a mountain perimeter to have a visual reference.
-//         */
-//        int width = 60;
-//        int height = 40;
-//        TestHallway tester = new TestHallway();
-//        TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
-//        TERenderer ter = new TERenderer();
-//        HallwayGenerator hg = new HallwayGenerator();
-//
-//        Position start = new Position(58, 20);
-//
-//        WhereToNext next1 = hg.buildHallway(start, 5, "left", world);
-//        WhereToNext next2 = hg.buildHallway(next1.getNextPosition(), 5, next1.getNextDirection(), world);
-//
-//        ter.initialize(width, height);
-//        ter.renderFrame(world);
-//    }
-
-/** DEPRECATED WHERETONEXT CLASS*/
-//    @Test
-//    private void TestWhereToNextTurn() {
-//        /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway
-//         *  while using returned WhereToNext object to decide where next hallway goes.
-//         *  Will use a world with a mountain perimeter to have a visual reference.
-//         */
-//        int width = 40;
-//        int height = 20;
-//        TestHallway tester = new TestHallway();
-//        TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
-//        TERenderer ter = new TERenderer();
-//        HallwayGenerator hg = new HallwayGenerator();
-//
-//        Position start = new Position(20, 5);
-//
-//        WhereToNext next1 = hg.buildHallway(start, 7, "up", world);
-//        WhereToNext next2 = hg.buildHallway(next1.getNextPosition(), 0, "rightDown", world);
-//        WhereToNext next3 = hg.buildHallway(next2.getNextPosition(), 10, next2.getNextDirection(), world);
-//        WhereToNext next4 = hg.buildHallway(next3.getNextPosition(), 0, "leftDown", world);
-//        WhereToNext next5 = hg.buildHallway(next4.getNextPosition(), 7, next4.getNextDirection(), world);
-//        WhereToNext next6 = hg.buildHallway(next5.getNextPosition(), 0, "leftUp", world);
-//        hg.buildHallway(next6.getNextPosition(), 5, next6.getNextDirection(), world);
-//
-//        ter.initialize(width, height);
-//        ter.renderFrame(world);
-//    }
-
-
-
     ////////////////////////// MAIN METHOD ///////////////////////////////
 
     /** Visual inspection test. Change width and height declared near beginning to affect world. */
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         TestHallway tester = new TestHallway();
 

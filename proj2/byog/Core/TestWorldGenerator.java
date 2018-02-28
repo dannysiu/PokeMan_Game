@@ -1,6 +1,5 @@
 package byog.Core;
 
-import static org.junit.Assert.*;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
@@ -10,10 +9,10 @@ import java.util.Random;
 
 public class TestWorldGenerator {
 
-    public TestWorldGenerator() {}
+    public TestWorldGenerator() { }
 
 
-    private TETile[][] TestWorldMaker(int width, int height) {
+    private TETile[][] testWorldMaker(int width, int height) {
         TETile[][] world = new TETile[width][height];
         for (int x = 0; x < width; x += 1) {
             for (int y = 0; y < height; y += 1) {
@@ -23,8 +22,8 @@ public class TestWorldGenerator {
         return world;
     }
 
-    private TETile[][] TestWorldMakerWithBorder(int width, int height) {
-        TETile[][] world = TestWorldMaker(width, height);
+    private TETile[][] testWorldMakerWithBorder(int width, int height) {
+        TETile[][] world = testWorldMaker(width, height);
 
         for (int x = 0; x < width; x += 1) {
             world[x][0] = Tileset.MOUNTAIN;
@@ -42,13 +41,13 @@ public class TestWorldGenerator {
     ///////////////////Tests live down here///////////////////////
 
     @Test
-    private void TestRandomHallways() {
+    private void testRandomHallways() {
         /** Tests whether randomHallways method in WorldGenerator
          */
         int width = 60;
         int height = 30;
         TestWorldGenerator tester = new TestWorldGenerator();
-        TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
+        TETile[][] world = tester.testWorldMakerWithBorder(width, height);
         TERenderer ter = new TERenderer();
         Random random = new Random();
         HallwayGenerator hg = new HallwayGenerator(random);
@@ -75,12 +74,12 @@ public class TestWorldGenerator {
     ////////////////////////// MAIN METHOD ///////////////////////////////
 
     /** Visual inspection test. Change width and height declared near beginning to affect world. */
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         TestWorldGenerator tester = new TestWorldGenerator();
 
         // Individual tests above. Comment out as needed
-        tester.TestRandomHallways();
+        tester.testRandomHallways();
 
     }
 }

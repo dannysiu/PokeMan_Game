@@ -1,9 +1,5 @@
 package byog.Core;
 
-import byog.TileEngine.TETile;
-import byog.TileEngine.Tileset;
-import javafx.geometry.Pos;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -66,9 +62,11 @@ public class WorldGeneratorOLD {
 //        if (decision >= 0 && decision < 4) {
 //            int length = RandomUtils.uniform(random, 1, 6);
 //
-//            WhereToNext destination = new WhereToNext(next.getNextDirection(), next.getNextPosition(), length, world);
-//            // I realized I could use WhereToNext constructor to help me get a Position for purpose of checking
-//            // if hallway would be unobstructed or not.
+// WhereToNext destination = new WhereToNext(next.getNextDirection(),
+// next.getNextPosition(), length, world);
+// I realized I could use WhereToNext constructor to help me get a Position
+// for purpose of checking
+//        // if hallway would be unobstructed or not.
 //
 //            Position nextP = next.getNextPosition(); // To make debugging easier
 //            Position destinationP = destination.getNextPosition();
@@ -77,7 +75,7 @@ public class WorldGeneratorOLD {
 //                randomHallways(next, random, world);
 //            }
 //
-//            newNext = hg.buildHallway(next.getNextPosition(), length, next.getNextDirection(), world);
+//        newNext = hg.buildHallway(next.getNextPosition(), length, next.getNextDirection(), world);
 //            randomHallways(newNext, random, world); // Recursively call
 //        }
 //
@@ -98,7 +96,8 @@ public class WorldGeneratorOLD {
 //        }
 //
 //        // Option 3: build room
-//        //  rg.makeRoom(Position start, String direction-hallway-feeding-into-it, TETile[][] world, Random random)
+//  rg.makeRoom(Position start, String direction-hallway-feeding-into-it,
+//  TETile[][] world, Random random)
 //
 //    }
 //

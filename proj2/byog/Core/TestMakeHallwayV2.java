@@ -7,17 +7,17 @@ import java.util.Random;
 
 
 /** Test for making a turning hallway between rooms */
-public class TestMakeHallway_v2 {
+public class TestMakeHallwayV2 {
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         //Draw the screen
         TERenderer ter;
-        int WIDTH = 50;
-        int HEIGHT = 30;
+        int worldWidth = 50;
+        int worldHeight = 30;
 
-        TETile[][] world = new TETile[WIDTH][HEIGHT];
-        for (int x = 0; x < WIDTH; x += 1) {
-            for (int y = 0; y < HEIGHT; y += 1) {
+        TETile[][] world = new TETile[worldWidth][worldHeight];
+        for (int x = 0; x < worldWidth; x += 1) {
+            for (int y = 0; y < worldHeight; y += 1) {
                 world[x][y] = Tileset.NOTHING;
             }
         }
@@ -27,12 +27,12 @@ public class TestMakeHallway_v2 {
         Random randomGenerator = new Random();
         RoomGenerator rg = new RoomGenerator();
         while (rg.getRoomList().size() < 2) {
-            int posX = RandomUtils.uniform(randomGenerator, WIDTH);
-            int posY = RandomUtils.uniform(randomGenerator, HEIGHT);
+            int posX = RandomUtils.uniform(randomGenerator, worldWidth);
+            int posY = RandomUtils.uniform(randomGenerator, worldHeight);
             Position roomLocation = new Position(posX, posY);
-            int roomWidth = RandomUtils.uniform(randomGenerator, 3, WIDTH/3);
-            int roomHeight = RandomUtils.uniform(randomGenerator, 3, HEIGHT/3);
-            rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
+            int roomworldWidth = RandomUtils.uniform(randomGenerator, 3, worldWidth / 3);
+            int roomworldHeight = RandomUtils.uniform(randomGenerator, 3, worldHeight / 3);
+            rg.makeRoom(world, roomLocation, roomworldWidth, roomworldHeight);
         }
 
 
@@ -45,7 +45,7 @@ public class TestMakeHallway_v2 {
 
         ter = new TERenderer();
 
-        ter.initialize(WIDTH, HEIGHT);
+        ter.initialize(worldWidth, worldHeight);
 
         //Draw the world to the screen
         ter.renderFrame(world);

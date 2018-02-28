@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public class WhereToNext {
 
-    private static Set<String> DirectionsStraight;
+    private static Set<String> STRAIGHTDIRECTIONS;
 
     private String newDirection;
     private Position newPosition;
@@ -23,8 +23,8 @@ public class WhereToNext {
     private Boolean noCorner; // True if a corner can't go here (ie. just turned a corner)
 
 
-    /** Constructor for making a WhereToNext object. Returned after each call to buildHallway in order to
-     *  know where next hallway/dead-end/room can be built.
+    /** Constructor for making a WhereToNext object. Returned after each call to buildHallway
+     *  in order to know where next hallway/dead-end/room can be built.
      *
      * @param direction = direction that build was going towards.
      * @param start = position where previous build had started
@@ -32,15 +32,15 @@ public class WhereToNext {
      * @param world
      */
     public WhereToNext(String direction, Position start, int distance, TETile[][] world) {
-        // TODO: use unobstructedHallway method to figure out for corners the next direction
+        // NEED TO: use unobstructedHallway method to figure out for corners the next direction
 
-        DirectionsStraight = new HashSet<>();
-        DirectionsStraight.add("left");
-        DirectionsStraight.add("right");
-        DirectionsStraight.add("up");
-        DirectionsStraight.add("down");
+        STRAIGHTDIRECTIONS = new HashSet<>();
+        STRAIGHTDIRECTIONS.add("left");
+        STRAIGHTDIRECTIONS.add("right");
+        STRAIGHTDIRECTIONS.add("up");
+        STRAIGHTDIRECTIONS.add("down");
 
-        if (DirectionsStraight.contains(direction)) {
+        if (STRAIGHTDIRECTIONS.contains(direction)) {
             newDirection = direction;
             noRoom = false;
             noCorner = false;
@@ -55,20 +55,20 @@ public class WhereToNext {
     }
 
     /** Overloaded WhereToNext constructor for forcing noRoom and noCorner to be true.
-     *  Used for the initial WhereToNext object in a test or immediately after starting off of a room.
+     *  Used for initial WhereToNext object in a test or immediately after starting off of a room.
      */
     public WhereToNext(String direction, Position start, Boolean noCorner,
                        Boolean noRoom, TETile[][] world) {
 
-        DirectionsStraight = new HashSet<>();
-        DirectionsStraight.add("left");
-        DirectionsStraight.add("right");
-        DirectionsStraight.add("up");
-        DirectionsStraight.add("down");
+        STRAIGHTDIRECTIONS = new HashSet<>();
+        STRAIGHTDIRECTIONS.add("left");
+        STRAIGHTDIRECTIONS.add("right");
+        STRAIGHTDIRECTIONS.add("up");
+        STRAIGHTDIRECTIONS.add("down");
 
         int distance = 0;
 
-        if (! DirectionsStraight.contains(direction)) {
+        if (!STRAIGHTDIRECTIONS.contains(direction)) {
             throw new IllegalArgumentException(direction + " is not a valid starting direction.");
         }
         this.newDirection = direction;
@@ -96,21 +96,22 @@ public class WhereToNext {
 
     /** Helper method to return the next Position for WhereToNext object.
      *  This is for straights.
-     *  UPDATE: used to be private, but made public so that WorldGenerator randomHallway algorithm could use it
+     *  UPDATE: used to be private, but made public so that WorldGenerator randomHallway
+     *  algorithm could use it
      */
     public void nextPositionStraight(String direction, Position start, int distance) {
         this.newPosition = new Position(0, 0); // arbitrary
 
-        if (direction == "right") {
+        if (direction.equals("right")) {
             this.newPosition = new Position((start.getX() + distance), start.getY());
         }
-        if (direction == "left") {
+        if (direction.equals("left")) {
             this.newPosition = new Position((start.getX() - distance), start.getY());
         }
-        if (direction == "up") {
+        if (direction.equals("up")) {
             this.newPosition = new Position(start.getX(), (start.getY() + distance));
         }
-        if (direction == "down") {
+        if (direction.equals("down")) {
             this.newPosition = new Position(start.getX(), (start.getY() - distance));
         }
     }
@@ -125,7 +126,7 @@ public class WhereToNext {
         Position goingLeft = new Position(start.getX() - 1, start.getY());
         Position goingRight = new Position(start.getX() + 1, start.getY());
 
-        if (direction == "rightUp") {
+        if (direction.equals("rightUp")) {
             if (start.unobstructedHallway(goingUp, world)) {
                 this.newPosition = goingUp;
                 this.newDirection = "up";
@@ -135,7 +136,7 @@ public class WhereToNext {
             }
 
         }
-        if (direction == "leftUp") {
+        if (direction.equals("leftUp")) {
             if (start.unobstructedHallway(goingUp, world)) {
                 this.newPosition = goingUp;
                 this.newDirection = "up";
@@ -145,7 +146,7 @@ public class WhereToNext {
             }
 
         }
-        if (direction == "rightDown") {
+        if (direction.equals("rightDown")) {
             if (start.unobstructedHallway(goingRight, world)) {
                 this.newPosition = goingRight;
                 this.newDirection = "right";
@@ -155,7 +156,7 @@ public class WhereToNext {
             }
 
         }
-        if (direction == "leftDown") {
+        if (direction.equals("leftDown")) {
             if (start.unobstructedHallway(goingLeft, world)) {
                 this.newPosition = goingLeft;
                 this.newDirection = "left";
