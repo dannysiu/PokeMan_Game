@@ -5,10 +5,8 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 
 /** A class to handle hallway generation.
  *  Assumes that rooms are already created and randomly dispersed in world. Will look for
@@ -17,11 +15,14 @@ import java.util.Set;
 public class HallwayGenerator {
     private Set<String> DirectionsStraight;
     private Set<String> DirectionsCorner;
+    private Random randomGenerator;
 
     /**
      *  Currently no need to have a HG object except for calling methods
      */
-    public HallwayGenerator() {
+    public HallwayGenerator(Random random) {
+        randomGenerator = random;
+
         DirectionsStraight = new HashSet<>();
         DirectionsCorner = new HashSet<>();
         DirectionsStraight.add("left");
@@ -38,28 +39,28 @@ public class HallwayGenerator {
      * @param allRooms = List of all rooms in world. Try to connect all of them with a straight
      * @param world
      */
-    public void connectRoomsStraight(ArrayList<Room> allRooms, TETile[][] world) {
-        for (int passes = 0; passes < 10; passes += 1) { // Tries to connect unconnected rooms 3 times
+    public void connectRoomsStraight(ArrayList<Room> allRooms, List<Position> allRoomCorners, TETile[][] world) {
+        for (int passes = 0; passes < 3; passes += 1) { // Tries to connect unconnected rooms 3 times
             for (Room room : allRooms) {
                 if (! room.connected) {
-                    singleRoomConnectMaybe(room, world);
+                    singleRoomConnectMaybe(room, allRoomCorners, world);
                 }
             }
         }
     }
 
 
-    private void singleRoomConnectMaybe(Room room, TETile[][] world) {
+    private void singleRoomConnectMaybe(Room room, List<Position> allRoomCorners, TETile[][] world) {
         List<Position> perimeter = room.getPerimeterList(); // an ArrayList
         String direction;
 
         for (Position pSpot : perimeter) {
             direction = whereIsOutside(pSpot, world);
-            int distance = canConnect(pSpot, direction, world); // negative is cannot connect
+            int distance = canConnect(pSpot, direction, allRoomCorners, world); // negative is cannot connect
 
             if (distance > 0) {
-                buildHallway(pSpot, distance + 1, direction, world);
-                room.connected = true;
+                buildHallway(pSpot, distance + 1, direction, world); // might need to make this
+//                room.connected = true; // Turning this off might help connect more rooms
                 break;
             }
         }
@@ -99,59 +100,69 @@ public class HallwayGenerator {
     /** Checks whether a wall to connect to exists in desired direction.
      *  Returns an integer that is -1 if it cannot connect and, if it can, will be the distance to the next room.
      */
-    private int canConnect(Position start, String direction, TETile[][] world) {
+    private int canConnect(Position start, String direction, List<Position> allRoomCorners, TETile[][] world) {
         int increment;
+        Position checkIfCorner;
 
         // Checking rightwards of start
-        if (direction == "right") { //TODO
-            for (increment = start.getX() + 1; increment < world.length; increment += 1) {
+        if (direction == "right") {
+            for (increment = start.getX() + 1; increment < world.length; increment += 1) { //start.getX() + 1
                 if (world[increment][start.getY()] == Tileset.WALL) {
-                    if (world[increment][start.getY() + 1] == Tileset.WALL &&
-                            world[increment][start.getY() - 1] == Tileset.WALL) {
-                        return increment - start.getX(); // Only true if can confirm that the wall I hit is not a corner
+                    checkIfCorner = new Position(increment, start.getY());
+                    for (Position corner : allRoomCorners) {
+                        if (checkIfCorner.equals(corner)) {
+                            return -1;
+                        }
                     }
-                    break; // break after I hit a wall no matter what, even if it's a corner
+                    return increment - start.getX(); // Only true if can confirm that the wall I hit is not a corner
+                    // break after I hit a wall no matter what, even if it's a corner
                 }
             }
         }
         // Checking leftwards of start
-        if (direction == "left") { //TODO
-            for (increment = start.getX() - 1; increment > 0; increment -= 1) {
+        if (direction == "left") {
+            for (increment = start.getX() - 1; increment > 0; increment -= 1) { // start.getX() - 1
                 if (world[increment][start.getY()] == Tileset.WALL) {
-                    if (world[increment][start.getY() + 1] == Tileset.WALL &&
-                            world[increment][start.getY() - 1] == Tileset.WALL) {
-                        return start.getX() - increment; // Only true if can confirm that the wall I hit is not a corner
+                    checkIfCorner = new Position(increment, start.getY());
+                    for (Position corner : allRoomCorners) {
+                        if (checkIfCorner.equals(corner)) {
+                            return -1;
+                        }
                     }
-                    break; // break after I hit a wall no matter what, even if it's a corner
+                    return start.getX() - increment; // Only true if can confirm that the wall I hit is not a corner
+                  // break after I hit a wall no matter what, even if it's a corner
                 }
             }
         }
         // Checking upwards of start
-        if (direction == "up") { //TODO
-            for (increment = start.getY() + 1; increment < world[0].length; increment += 1) {
+        if (direction == "up") {
+            for (increment = start.getY() + 1; increment < world[0].length; increment += 1) { //start.getY() + 1
                 if (world[start.getX()][increment] == Tileset.WALL) {
-                    if (world[start.getX() + 1][increment] == Tileset.WALL &&
-                            world[start.getX() - 1][increment] == Tileset.WALL) {
-                        return increment - start.getY();
+                    checkIfCorner = new Position(start.getX(), increment);
+                    for (Position corner : allRoomCorners) {
+                        if (checkIfCorner.equals(corner)) {
+                            return -1;
+                        }
                     }
-                    break;
+                    return increment - start.getY();
                 }
             }
         }
         // Checking downwards of start
-        if (direction == "down") { //TODO
-            for (increment = start.getY() - 1; increment > 0; increment -= 1) {
+        if (direction == "down") {
+            for (increment = start.getY() - 1; increment > 0; increment -= 1) { // start.getY() - 1
                 if (world[start.getX()][increment] == Tileset.WALL) {
-                    if (world[start.getX() + 1][increment] == Tileset.WALL &&
-                            world[start.getX() - 1][increment] == Tileset.WALL) {
-                        return start.getY() - increment;
+                    checkIfCorner = new Position(start.getX(), increment);
+                    for (Position corner : allRoomCorners) {
+                        if (checkIfCorner.equals(corner)) {
+                            return -1;
+                        }
                     }
-                    break;
+                    return start.getY() - increment;
                 }
             }
         }
-        increment = -1;
-        return increment;
+        return -1; // No rooms or hallways to connect to
     }
 
 

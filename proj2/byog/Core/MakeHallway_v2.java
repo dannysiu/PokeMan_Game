@@ -2,6 +2,7 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MakeHallway_v2 {
 
@@ -33,7 +34,8 @@ public class MakeHallway_v2 {
                 directionY = "down";
             }
 
-            HallwayGenerator hg = new HallwayGenerator();
+            Random random = new Random();
+            HallwayGenerator hg = new HallwayGenerator(random);
             hg.buildHallway(p1, Math.abs(distX), directionX, world);
             Position corner = new Position(p1.getX() - distX - 1, p1.getY());
             if (directionX == "left") {

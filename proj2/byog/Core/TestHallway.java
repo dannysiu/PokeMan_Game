@@ -46,34 +46,34 @@ public class TestHallway {
     ///////////////////Tests live down here///////////////////////
 
 
-    @Test
-    private void FirstTestIWrote() {
-        /** Forgot what this test was supposed to do. Moved out of main method
-         *  in order to clean up.
-         *  I believe this test corresponds to an older version of HallwayGenerator, no
-         *  longer works as originally written.
-         */
-
-        // ~~~ Make changes to these variables to change test ~~~
-        TestHallway tester = new TestHallway();
-        TERenderer ter;
-        TETile[][] world;
-        HallwayGenerator hg = new HallwayGenerator();
-        int width = 80;
-        int height = 40;
-        Position start = new Position(10, 10);
-        Position end = new Position(40, 10);
-
-
-        // ~~~ End of change zone for test ~~~
-        world = tester.TestWorldMaker(width, height);
-
-//        hg.connect(start, end, world);
-
-        ter = new TERenderer();
-        ter.initialize(width, height);
-        ter.renderFrame(world);
-    }
+//    @Test
+//    private void FirstTestIWrote() {
+//        /** Forgot what this test was supposed to do. Moved out of main method
+//         *  in order to clean up.
+//         *  I believe this test corresponds to an older version of HallwayGenerator, no
+//         *  longer works as originally written.
+//         */
+//
+//        // ~~~ Make changes to these variables to change test ~~~
+//        TestHallway tester = new TestHallway();
+//        TERenderer ter;
+//        TETile[][] world;
+//        HallwayGenerator hg = new HallwayGenerator();
+//        int width = 80;
+//        int height = 40;
+//        Position start = new Position(10, 10);
+//        Position end = new Position(40, 10);
+//
+//
+//        // ~~~ End of change zone for test ~~~
+//        world = tester.TestWorldMaker(width, height);
+//
+////        hg.connect(start, end, world);
+//
+//        ter = new TERenderer();
+//        ter.initialize(width, height);
+//        ter.renderFrame(world);
+//    }
 
 
     @Test
@@ -96,39 +96,39 @@ public class TestHallway {
 
     }
 
-    @Test
-    private void TestBuildHallway() {
-        /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway.
-         *  Will use a world with a mountain perimeter to have a visual reference.
-         */
-        int width = 80;
-        int height = 40;
-        TestHallway tester = new TestHallway();
-        TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
-        TERenderer ter = new TERenderer();
-        HallwayGenerator hg = new HallwayGenerator();
+//    @Test
+//    private void TestBuildHallway() {
+//        /** Tests whether buildHallway method in HallwayGenerator successfully builds desired hallway.
+//         *  Will use a world with a mountain perimeter to have a visual reference.
+//         */
+//        int width = 80;
+//        int height = 40;
+//        TestHallway tester = new TestHallway();
+//        TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
+//        TERenderer ter = new TERenderer();
+//        HallwayGenerator hg = new HallwayGenerator();
+//
+//        Position startRight = new Position(1, 20);
+//        Position startLeft = new Position(16, 30);
+//        Position startUp = new Position(30, 1);
+//        Position startDown = new Position(45, 32);
+////        Position shouldFail = new Position(20, 35);
+//        Position cornerAxis = new Position(55, 25);
+//
+//
+//        hg.buildHallway(startRight, 20, "right", world);
+//        hg.buildHallway(startLeft, 15, "left", world);
+//        hg.buildHallway(startUp, 7, "up", world);
+//        hg.buildHallway(startDown, 31, "down", world);
+////        hg.buildHallway(shouldFail, 15, "up", world);
+//        hg.buildHallway(cornerAxis, 0, "rightUp", world);
+//
+//        ter.initialize(width, height);
+//        ter.renderFrame(world);
+//    }
 
-        Position startRight = new Position(1, 20);
-        Position startLeft = new Position(16, 30);
-        Position startUp = new Position(30, 1);
-        Position startDown = new Position(45, 32);
-//        Position shouldFail = new Position(20, 35);
-        Position cornerAxis = new Position(55, 25);
 
 
-        hg.buildHallway(startRight, 20, "right", world);
-        hg.buildHallway(startLeft, 15, "left", world);
-        hg.buildHallway(startUp, 7, "up", world);
-        hg.buildHallway(startDown, 31, "down", world);
-//        hg.buildHallway(shouldFail, 15, "up", world);
-        hg.buildHallway(cornerAxis, 0, "rightUp", world);
-
-        ter.initialize(width, height);
-        ter.renderFrame(world);
-    }
-
-
-    
 
 
 

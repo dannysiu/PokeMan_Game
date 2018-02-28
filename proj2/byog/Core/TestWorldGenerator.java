@@ -51,7 +51,7 @@ public class TestWorldGenerator {
         TETile[][] world = tester.TestWorldMakerWithBorder(width, height);
         TERenderer ter = new TERenderer();
         Random random = new Random();
-        HallwayGenerator hg = new HallwayGenerator();
+        HallwayGenerator hg = new HallwayGenerator(random);
         WorldGeneratorOLD wgo = new WorldGeneratorOLD(random);
 
         // Where the magic happens
