@@ -40,9 +40,9 @@ public class HallwayGenerator {
      * @param world
      */
     public void connectRoomsStraight(ArrayList<Room> allRooms, List<Position> allRoomCorners, TETile[][] world) {
-        for (int passes = 0; passes < 3; passes += 1) { // Tries to connect unconnected rooms 3 times
+        for (int passes = 0; passes < 10; passes += 1) { // Tries to connect unconnected rooms 3 times
             for (Room room : allRooms) {
-                if (! room.connected) {
+                if (room.connections < 3) {
                     singleRoomConnectMaybe(room, allRoomCorners, world);
                 }
             }
@@ -60,7 +60,7 @@ public class HallwayGenerator {
 
             if (distance > 0) {
                 buildHallway(pSpot, distance + 1, direction, world); // might need to make this
-//                room.connected = true; // Turning this off might help connect more rooms
+                room.connections += 1; // Turning this off might help connect more rooms
                 break;
             }
         }
@@ -200,8 +200,8 @@ public class HallwayGenerator {
         }
 
         // For debugging
-        System.out.println("I am building a: " + direction + " hallway for: " + distance +
-        " distance starting from position: (" + start.getX() + ", " + start.getY() + ")");
+//        System.out.println("I am building a: " + direction + " hallway for: " + distance +
+//        " distance starting from position: (" + start.getX() + ", " + start.getY() + ")");
 
 //        return new WhereToNext(direction, start, distance, world); // Old approach, used
     }
