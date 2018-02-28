@@ -39,7 +39,7 @@ public class HallwayGenerator {
      * @param world
      */
     public void connectRoomsStraight(ArrayList<Room> allRooms, TETile[][] world) {
-        for (int passes = 0; passes < 3; passes += 1) { // Tries to connect unconnected rooms 3 times
+        for (int passes = 0; passes < 10; passes += 1) { // Tries to connect unconnected rooms 3 times
             for (Room room : allRooms) {
                 if (! room.connected) {
                     singleRoomConnectMaybe(room, world);
@@ -58,7 +58,7 @@ public class HallwayGenerator {
             int distance = canConnect(pSpot, direction, world); // negative is cannot connect
 
             if (distance > 0) {
-                buildHallway(pSpot, distance, direction, world);
+                buildHallway(pSpot, distance + 1, direction, world);
                 room.connected = true;
                 break;
             }

@@ -40,6 +40,8 @@ public class Game {
 //        TETile[][] finalWorldFrame = null;
 //        return finalWorldFrame;
 
+        TERenderer ter = new TERenderer();
+
         TETile[][] finalWorldFrame = null;
 
         if (input.startsWith("N")) {
@@ -63,11 +65,7 @@ public class Game {
                 rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
             }
 
-//            for (Room r : rg.getRoomList()) {  //add doors to all the rooms that exist
-//                r.makeDoors(world, RANDOM);
-//
-//
-//            }
+
 
             finalWorldFrame = world;
         }
