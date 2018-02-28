@@ -88,11 +88,13 @@ public class Room {
                     for (Position corner : cornerList) {
                         if (corner.equals(perim)) {
                             addToPerimList = false;
-                        } else if (corner.getX() == 0 || corner.getX() == worldWidth - 1
-                                || corner.getY() == 0 || corner.getY() == worldHeight - 1) {
-                            addToPerimList = false;
                         }
                     }
+                    if (perim.getX() == 0 || perim.getX() == worldWidth - 1
+                                || perim.getY() == 0 || perim.getY() == worldHeight - 1) {
+                        addToPerimList = false;
+                    }
+
 
                     if (addToPerimList) {
                         perimeterList.add(perim);
@@ -123,6 +125,9 @@ public class Room {
     }
     public void incrementConnections() {
         connections += 1;
+    }
+    public Position getTopLeft() {
+        return topLeft;
     }
 
 

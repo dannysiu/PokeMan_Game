@@ -38,6 +38,10 @@ public class Position {
         return (this.getX() == p.getX() && this.getY() == p.getY());
     }
 
+    public void print() {
+        System.out.println("(" + this.x + ", " + this.y + ")");
+    }
+
 
     /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
      *  Assume that this and @param two are either horizontally aligned or vertically aligned.

@@ -27,7 +27,7 @@ public class TestRoomsWHallways {
 
         //Now for building rooms in world
 
-        Random randomGenerator = new Random();
+        Random randomGenerator = new Random(345289);
 
 
         RoomGenerator rg = new RoomGenerator();

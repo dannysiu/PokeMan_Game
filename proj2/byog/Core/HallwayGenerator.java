@@ -50,20 +50,35 @@ public class HallwayGenerator {
                 }
             }
         }
+//        System.out.println(allRooms.size());
+        for (Room room : allRooms) {
+            if (room.getConnections() == 0) {
+//                room.getTopLeft().print();
+//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                singleRoomConnectMaybe(room, allRoomCorners, world);
+            }
+
+        }
     }
 
 
     private void singleRoomConnectMaybe(Room room, List<Position> allRoomCorners,
                                         TETile[][] world) {
         List<Position> perimeter = room.getPerimeterList(); // an ArrayList
+//        System.out.println(perimeter);
         String direction;
+//        System.out.println("BEN IS COOL");
 
         for (Position pSpot : perimeter) {
+//            System.out.print("A");
             direction = whereIsOutside(pSpot, world);
+//            System.out.println(direction);
             int distance = canConnect(pSpot, direction, allRoomCorners, world);
 
             if (distance >= 0) { // If distance is negative, cannot connect
-                buildHallway(pSpot, distance + 1, direction, world);
+                buildHallway(pSpot, distance, direction, world);
                 room.incrementConnections();
                 break;
             }
@@ -81,21 +96,34 @@ public class HallwayGenerator {
         int pY = perimeterSpot.getY();
 
         // To the left
-        if (world[pX - 1][pY] == Tileset.NOTHING) {
+        if (world[pX + 1][pY] == Tileset.FLOOR) {
             outside = "left";
-        }
-        // To the right
-        if (world[pX + 1][pY] == Tileset.NOTHING) {
+        } else if (world[pX - 1][pY] == Tileset.FLOOR) { // To the right
             outside = "right";
-        }
-        // To the up
-        if (world[pX][pY + 1] == Tileset.NOTHING) {
+        } else if (world[pX][pY - 1] == Tileset.FLOOR) { // To the up
             outside = "up";
-        }
-        // To the down
-        if (world[pX][pY - 1] == Tileset.NOTHING) {
+        } else if (world[pX][pY + 1] == Tileset.FLOOR) { // To the down
             outside = "down";
         }
+
+
+
+//        // To the left
+//        if (world[pX - 1][pY] == Tileset.NOTHING) {
+//            outside = "left";
+//        }
+//        // To the right
+//        else if (world[pX + 1][pY] == Tileset.NOTHING) {
+//            outside = "right";
+//        }
+//        // To the up
+//        else if (world[pX][pY + 1] == Tileset.NOTHING) {
+//            outside = "up";
+//        }
+//        // To the down
+//        else if (world[pX][pY - 1] == Tileset.NOTHING) {
+//            outside = "down";
+//        }
 
         return outside;
     }
@@ -113,13 +141,13 @@ public class HallwayGenerator {
         // Checking rightwards of start
         if (direction.equals("right")) {
             for (increment = start.getX() + 1; increment < world.length; increment += 1) {
-                if (world[increment][start.getY()] == Tileset.WALL) {
-                    checkIfCorner = new Position(increment, start.getY());
-                    for (Position corner : allRoomCorners) {
-                        if (checkIfCorner.equals(corner)) {
-                            return -1;
-                        }
-                    }
+                if (world[increment][start.getY()] == Tileset.FLOOR) {
+//                    checkIfCorner = new Position(increment, start.getY());
+//                    for (Position corner : allRoomCorners) {
+//                        if (checkIfCorner.equals(corner)) {
+//                            return -1;
+//                        }
+//                    }
                     return increment - start.getX();
                 }
             }
@@ -127,42 +155,44 @@ public class HallwayGenerator {
         // Checking leftwards of start
         if (direction.equals("left")) {
             for (increment = start.getX() - 1; increment > 0; increment -= 1) { // start.getX() - 1
-                if (world[increment][start.getY()] == Tileset.WALL) {
-                    checkIfCorner = new Position(increment, start.getY());
-                    for (Position corner : allRoomCorners) {
-                        if (checkIfCorner.equals(corner)) {
-                            return -1;
-                        }
-                    }
+                if (world[increment][start.getY()] == Tileset.FLOOR) {
+//                    checkIfCorner = new Position(increment, start.getY());
+//                    for (Position corner : allRoomCorners) {
+//                        if (checkIfCorner.equals(corner)) {
+//                            return -1;
+//                        }
+//                    }
                     return start.getX() - increment; // If positive, not a corner
                 }
+//                System.out.println(increment + ", " + start.getY());
             }
         }
         // Checking upwards of start
         if (direction.equals("up")) {
             for (increment = start.getY() + 1; increment < world[0].length;
                  increment += 1) { //start.getY() + 1
-                if (world[start.getX()][increment] == Tileset.WALL) {
-                    checkIfCorner = new Position(start.getX(), increment);
-                    for (Position corner : allRoomCorners) {
-                        if (checkIfCorner.equals(corner)) {
-                            return -1;
-                        }
-                    }
+                if (world[start.getX()][increment] == Tileset.FLOOR) {
+//                    checkIfCorner = new Position(start.getX(), increment);
+//                    for (Position corner : allRoomCorners) {
+//                        if (checkIfCorner.equals(corner)) {
+//                            return -1;
+//                        }
+//                    }
                     return increment - start.getY();
                 }
+//                System.out.println(start.getX() + ", " + increment);
             }
         }
         // Checking downwards of start
         if (direction.equals("down")) {
             for (increment = start.getY() - 1; increment > 0; increment -= 1) { // start.getY() - 1
-                if (world[start.getX()][increment] == Tileset.WALL) {
-                    checkIfCorner = new Position(start.getX(), increment);
-                    for (Position corner : allRoomCorners) {
-                        if (checkIfCorner.equals(corner)) {
-                            return -1;
-                        }
-                    }
+                if (world[start.getX()][increment] == Tileset.FLOOR) {
+//                    checkIfCorner = new Position(start.getX(), increment);
+//                    for (Position corner : allRoomCorners) {
+//                        if (checkIfCorner.equals(corner)) {
+//                            return -1;
+//                        }
+//                    }
                     return start.getY() - increment;
                 }
             }
@@ -224,8 +254,12 @@ public class HallwayGenerator {
 
         for (int i = horizPos; i < (horizPos + length); i += 1) {
             world[i][vertPos] = Tileset.FLOOR;
-            world[i][vertPos - 1] = Tileset.WALL;
-            world[i][vertPos + 1] = Tileset.WALL;
+            if (world[i][vertPos - 1] != Tileset.FLOOR) {
+                world[i][vertPos - 1] = Tileset.WALL;
+            }
+            if (world[i][vertPos + 1] != Tileset.FLOOR) {
+                world[i][vertPos + 1] = Tileset.WALL;
+            }
         }
     }
 
@@ -236,8 +270,12 @@ public class HallwayGenerator {
 
         for (int i = vertPos; i < (vertPos + height); i += 1) {
             world[horizPos][i] = Tileset.FLOOR;
-            world[horizPos - 1][i] = Tileset.WALL;
-            world[horizPos + 1][i] = Tileset.WALL;
+            if (world[horizPos - 1][i] != Tileset.FLOOR) {
+                world[horizPos - 1][i] = Tileset.WALL;
+            }
+            if (world[horizPos + 1][i] != Tileset.FLOOR) {
+                world[horizPos + 1][i] = Tileset.WALL;
+            }
         }
     }
 
