@@ -1,4 +1,4 @@
-package byog.Core;
+package byog.Core.Trash;
 
 import java.util.Random;
 
