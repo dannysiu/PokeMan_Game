@@ -1,8 +1,11 @@
-package byog.Core;
+package byog.Core.Trash;
 
 import byog.TileEngine.TETile;
 import java.util.ArrayList;
 import java.util.Random;
+import byog.Core.Position;
+import byog.Core.Room;
+import byog.Core.HallwayGenerator;
 
 public class MakeHallwayV2 {
 

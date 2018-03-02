@@ -62,12 +62,18 @@ public class HallwayGenerator {
     private void singleRoomConnectMaybe(Room room, List<Position> allRoomCorners,
                                         TETile[][] world) {
         List<Position> perimeter = room.getPerimeterList(); // an ArrayList
-
-        // TODO: copy perimeter into an array, then shuffle it with method from RandomUtils.java
-
         String direction;
 
-        for (Position pSpot : perimeter) {
+
+        Position[] perimeterArray = new Position[perimeter.size()];
+        int index = 0;
+        for (Position spot : perimeter) {
+            perimeterArray[index] = spot;
+            index += 1;
+        } // Shuffle the array in order to make hallway connection more random, more interesting
+        byog.Core.RandomUtils.shuffle(randomGenerator, perimeterArray);
+
+        for (Position pSpot : perimeterArray) {
 //            System.out.print("A");
             direction = whereIsOutside(pSpot, world);
 //            System.out.println(direction);
@@ -133,9 +139,8 @@ public class HallwayGenerator {
                            List<Position> allRoomCorners, TETile[][] world) {
         int increment;
         Position checkIfCorner;
+        Position checkNeighbors;
 
-        // TODO: write helper method to check 8 tiles around a Position and return # of specified Tileset
-        // TODO: can use it to only connect hallway if 3+ WALL tiles are around it (keep hallways spaced out)
 
         // Checking rightwards of start
         if (direction.equals("right")) {

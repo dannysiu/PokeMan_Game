@@ -76,25 +76,25 @@ public class TestHallway {
 //    }
 
 
-    @Test
-    private void testUnobstructed() {
-        /** Tests whether unobstructed method in Position class works */
-        TestHallway tester = new TestHallway();
-        TETile[][] world = tester.testWorldMaker(80, 40);
-        TERenderer ter = new TERenderer();
-        RoomGenerator rg = new RoomGenerator();
-//        HallwayGenerator hg = new HallwayGenerator();
-
-        Position roomP = new Position(30, 10);
-        Position start = new Position(29, 10);
-        Position end = new Position(28, 10); // No longer use 2 positions to make hallway
-
-        rg.makeRoom(world, roomP, 20, 20);
-
-        Boolean actual = start.unobstructedHallway(roomP, world);
-        assertFalse(actual);
-
-    }
+//    @Test
+//    private void testUnobstructed() {
+//        /** Tests whether unobstructed method in Position class works */
+//        TestHallway tester = new TestHallway();
+//        TETile[][] world = tester.testWorldMaker(80, 40);
+//        TERenderer ter = new TERenderer();
+//        RoomGenerator rg = new RoomGenerator();
+////        HallwayGenerator hg = new HallwayGenerator();
+//
+//        Position roomP = new Position(30, 10);
+//        Position start = new Position(29, 10);
+//        Position end = new Position(28, 10); // No longer use 2 positions to make hallway
+//
+//        rg.makeRoom(world, roomP, 20, 20);
+//
+//        Boolean actual = start.unobstructedHallway(roomP, world);
+//        assertFalse(actual);
+//
+//    }
 
 //    @Test
 //    private void TestBuildHallway() {

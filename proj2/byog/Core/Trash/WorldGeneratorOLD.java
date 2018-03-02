@@ -1,4 +1,8 @@
-package byog.Core;
+package byog.Core.Trash;
+
+import byog.Core.Position;
+import byog.TileEngine.TETile;
+import byog.TileEngine.Tileset;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,5 +123,64 @@ public class WorldGeneratorOLD {
 //    }
 
 
+//    /** Checks whether there are any WALLS or FLOORS where a hallway is planned.
+//     *  Assume that this and @param two are either horizontally aligned or vertically aligned.
+//     *
+//     *  NOTE: THIS METHOD IS BUGGY AND BAD. DO NOT USE!!!!
+//     *
+//     */
+//    public Boolean unobstructedHallway(Position two, TETile[][] world) {
+//
+//        if (outOfThisWorld(two, world)) {
+//            return false;
+//        }
+//        if (unalignedPositionsForUnobstructed(two)) {
+//            return false;
+//        }
+//
+//        if (this.getX() > two.getX()) { // Allows user to not worry about which Position is "lower"
+//            return two.unobstructedHallway(this, world);
+//        } else if ((this.getX() == two.getX()) && (this.getY() > two.getY())) {
+//            return two.unobstructedHallway(this, world);
+//        }
+//
+//        if (two.getY() - this.getY() == 0) { // Horizontal alignment
+//            for (int xPos = this.getX() + 1; xPos <= two.getX(); xPos += 1) {
+//                if (world[xPos][this.getY()].equals(Tileset.WALL)
+//                        || world[xPos][this.getY()].equals(Tileset.FLOOR)) {
+//                    return false;
+//                }
+//            }
+//        } else if (two.getX() - this.getX() == 0) { // Vertical alignment
+//            for (int yPos = this.getY() + 1; yPos <= two.getY(); yPos += 1) {
+//                if (world[this.getX()][yPos].equals(Tileset.WALL)
+//                        || world[this.getX()][yPos].equals(Tileset.FLOOR)) {
+//                    return false;
+//                }
+//            }
+//        } else {
+//            return true;
+//        }
+//        return true;
+//    }
+//
+//
+//    private boolean outOfThisWorld(Position two, TETile[][] world) {
+//        if ((two.getX() > world.length) || (two.getY() > world[0].length)
+//                || this.getX() > world.length || this.getY() > world[0].length) {
+//            // Position two outside world
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private boolean unalignedPositionsForUnobstructed(Position two) {
+//        if ((two.getX() - this.getX()) != 0 && (two.getY() - this.getY()) != 0) {
+////            throw new IllegalArgumentException("Positions one and two are not horizontally" +
+////                    "aligned or vertically aligned.");
+//            return true;
+//        }
+//        return false;
+//    }
 
 }

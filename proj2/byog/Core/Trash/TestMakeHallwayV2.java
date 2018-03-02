@@ -1,9 +1,13 @@
-package byog.Core;
+package byog.Core.Trash;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import java.util.Random;
+import byog.Core.RoomGenerator;
+import byog.Core.Room;
+import byog.Core.RandomUtils;
+import byog.Core.Position;
 
 
 /** Test for making a turning hallway between rooms */
@@ -40,7 +44,7 @@ public class TestMakeHallwayV2 {
         MakeHallwayV2 mh = new MakeHallwayV2();
         Room r1 = rg.getRoomList().get(0);
         Room r2 = rg.getRoomList().get(1);
-        mh.buildHallway(world, r1, r2);
+//        mh.buildHallway(world, r1, r2,);
 
 
         ter = new TERenderer();

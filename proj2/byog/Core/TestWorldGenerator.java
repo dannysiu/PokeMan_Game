@@ -1,5 +1,6 @@
 package byog.Core;
 
+import byog.Core.Trash.WorldGeneratorOLD;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
@@ -57,7 +58,7 @@ public class TestWorldGenerator {
         Position start = new Position(19, 15);
         Position origin = new Position(18, 15);
         world[origin.getX()][origin.getY()] = Tileset.MOUNTAIN;
-        WhereToNext next = new WhereToNext("right", start, true, true, world);
+//        WhereToNext next = new WhereToNext("right", start, true, true, world);
 
 //        wgo.randomHallways(next, random, world);
         // Where the magic ends
