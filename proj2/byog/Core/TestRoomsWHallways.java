@@ -36,8 +36,8 @@ public class TestRoomsWHallways {
             int posX = RandomUtils.uniform(randomGenerator, worldWidth);
             int posY = RandomUtils.uniform(randomGenerator, worldHeight);
             Position roomLocation = new Position(posX, posY);
-            int roomWidth = RandomUtils.uniform(randomGenerator, 4, worldWidth / 3);
-            int roomHeight = RandomUtils.uniform(randomGenerator, 4, worldHeight / 3);
+            int roomWidth = RandomUtils.uniform(randomGenerator, 4, worldWidth / 4);
+            int roomHeight = RandomUtils.uniform(randomGenerator, 4, worldHeight / 4);
             rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
         }
 

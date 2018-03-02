@@ -18,6 +18,9 @@ public class Game {
     public void playWithKeyboard() {
     }
 
+
+
+
     /**
      * Method used for autograding and testing the game code. The input string will be a series
      * of characters (for example, "n123sswwdasdassadwas", "n123sss:q", "lwww". The game should
@@ -36,15 +39,6 @@ public class Game {
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
 
-////        Original Method backup (in case i need to restart)
-//        TETile[][] finalWorldFrame = null;
-//        return finalWorldFrame;
-
-//        ter = new TERenderer();
-//        ter.initialize(WIDTH, HEIGHT);
-
-//
-//        TETile[][] finalWorldFrame = null;
 
         TETile[][] world = new TETile[WIDTH][HEIGHT];
 
@@ -56,6 +50,7 @@ public class Game {
                 }
             }
 
+            //TODO: update this to also take in direction inputs for character, quitting, loading
             long seed = Long.parseLong(input.substring(1, input.length() - 2));
             Random random = new Random(seed);
 
@@ -65,8 +60,8 @@ public class Game {
                 int posX = RandomUtils.uniform(random, WIDTH);
                 int posY = RandomUtils.uniform(random, HEIGHT);
                 Position roomLocation = new Position(posX, posY);
-                int roomWidth = RandomUtils.uniform(random, 4, WIDTH / 3);
-                int roomHeight = RandomUtils.uniform(random, 4, HEIGHT / 3);
+                int roomWidth = RandomUtils.uniform(random, 4, WIDTH / 4);
+                int roomHeight = RandomUtils.uniform(random, 4, HEIGHT / 4);
                 rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
             }
 
@@ -76,18 +71,8 @@ public class Game {
 
         }
 
-
-        //Draw the world to the screen
-//        ter.renderFrame(world);
-
         return world;
 
-
-        /**Plan for building the world:
-         * Generate all the rooms
-         * For each room, try to connect to other rooms via one hallway
-         * Make corner intersections
-         * */
 
     }
 }
