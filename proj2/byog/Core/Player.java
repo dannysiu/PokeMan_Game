@@ -11,7 +11,8 @@ import java.util.Random;
 public class Player {
 
     boolean gameOver;
-    Position playerLocation;
+    Position playerLocationP;
+    Position playerLocationJ;
     Random randomGenerator;
     TETile[][] worldMap;
     TERenderer renderEngine;
@@ -22,12 +23,14 @@ public class Player {
         this.worldMap = world;
         this.renderEngine = theRenderer;
         gameOver = false;
-        StdDraw.enableDoubleBuffering(); // Necessary?
+//        StdDraw.enableDoubleBuffering(); // Necessary? - doesn't seem like it
 
-        // Set Pikachu on worldMap
+        // Set Pikachu and Boss-Puff on worldMap
         StdDraw.clear(StdDraw.BLACK);
-        playerLocation = setSpawn();
-        worldMap[playerLocation.getX()][playerLocation.getY()] = Tileset.PIKACHU;
+        playerLocationP = setSpawn();
+        playerLocationJ = setSpawn();
+        worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
+        worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
         renderEngine.renderFrame(worldMap);
 
         // Gameplay loop
@@ -69,7 +72,6 @@ public class Player {
             } else {
                 moveMaybe(command);
                 StdDraw.clear(StdDraw.BLACK);
-                //TODO: delete old Pikachu tileset, make sure to render new one
                 renderEngine.renderFrame(worldMap);
             }
 
@@ -81,29 +83,71 @@ public class Player {
 
 
     private void moveMaybe(char command) {
-        int playX = playerLocation.getX();
-        int playY = playerLocation.getY();
-
+        int pikX = playerLocationP.getX();
+        int pikY = playerLocationP.getY();
+        int puffX = playerLocationJ.getX();
+        int puffY = playerLocationJ.getY();
+        
+        // Pikachu (player 1) movements are below
         if (command == 'd' || command == 'D') { // Going right
-            if (worldMap[playX + 1][playY] == Tileset.FLOOR) {
-                playerLocation = new Position(playX + 1, playY);
+            if (worldMap[pikX + 1][pikY] == Tileset.FLOOR) {
+                playerLocationP = new Position(pikX + 1, pikY);
+                worldMap[pikX][pikY] = Tileset.FLOOR; // Change old player position back to floor
+                worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
             }
         }
         if (command == 'a' || command == 'A') { // Going left
-            if (worldMap[playX - 1][playY] == Tileset.FLOOR) {
-                playerLocation = new Position(playX - 1, playY);
+            if (worldMap[pikX - 1][pikY] == Tileset.FLOOR) {
+                playerLocationP = new Position(pikX - 1, pikY);
+                worldMap[pikX][pikY] = Tileset.FLOOR; // Change old player position back to floor
+                worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
             }
         }
         if (command == 'w' || command == 'W') { // Going up
-            if (worldMap[playX][playY + 1] == Tileset.FLOOR) {
-                playerLocation = new Position(playX, playY + 1);
+            if (worldMap[pikX][pikY + 1] == Tileset.FLOOR) {
+                playerLocationP = new Position(pikX, pikY + 1);
+                worldMap[pikX][pikY] = Tileset.FLOOR; // Change old player position back to floor
+                worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
             }
         }
         if (command == 's' || command == 'S') { // Going down
-            if (worldMap[playX][playY - 1] == Tileset.FLOOR) {
-                playerLocation = new Position(playX, playY - 1);
+            if (worldMap[pikX][pikY - 1] == Tileset.FLOOR) {
+                playerLocationP = new Position(pikX, pikY - 1);
+                worldMap[pikX][pikY] = Tileset.FLOOR; // Change old player position back to floor
+                worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
             }
         }
+        
+        // Boss-Puff movements (player 2) are below
+        if (command == 'l' || command == 'L') { // Going right
+            if (worldMap[puffX + 1][puffY] == Tileset.FLOOR) {
+                playerLocationJ = new Position(puffX + 1, puffY);
+                worldMap[puffX][puffY] = Tileset.FLOOR; // Change old player position back to floor
+                worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
+            }
+        }
+        if (command == 'j' || command == 'J') { // Going left
+            if (worldMap[puffX - 1][puffY] == Tileset.FLOOR) {
+                playerLocationJ = new Position(puffX - 1, puffY);
+                worldMap[puffX][puffY] = Tileset.FLOOR; // Change old player position back to floor
+                worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
+            }
+        }
+        if (command == 'i' || command == 'I') { // Going up
+            if (worldMap[puffX][puffY + 1] == Tileset.FLOOR) {
+                playerLocationJ = new Position(puffX, puffY + 1);
+                worldMap[puffX][puffY] = Tileset.FLOOR; // Change old player position back to floor
+                worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
+            }
+        }
+        if (command == 'k' || command == 'K') { // Going down
+            if (worldMap[puffX][puffY - 1] == Tileset.FLOOR) {
+                playerLocationJ = new Position(puffX, puffY - 1);
+                worldMap[puffX][puffY] = Tileset.FLOOR; // Change old player position back to floor
+                worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
+            }
+        }
+        
     }
 
 }

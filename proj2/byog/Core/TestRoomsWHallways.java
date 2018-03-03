@@ -55,6 +55,8 @@ public class TestRoomsWHallways {
 
         //Draw the world to the screen
         ter.renderFrame(world);
+
+        Player testPlayer = new Player(randomGenerator, ter, world);
     }
 
 }

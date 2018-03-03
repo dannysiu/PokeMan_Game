@@ -36,6 +36,7 @@ public class Tileset {
 
     // Custom content!
     public static final TETile PIKACHU = new TETile('P', Color.yellow, Color.black, "Pikachu");
+    public static final TETile JIGGLYPUFF = new TETile('J', Color.pink, Color.black, "It's Boss Puff!");
     public static final TETile TAXES = new TETile('T', Color.white, Color.black, "taxes...");
     public static final TETile BRIEFCASE = new TETile('B', Color.darkGray, Color.black, "My briefcase!");
 }
