@@ -62,9 +62,9 @@ public class TestRoomsWHallways {
         //Draw the world to the screen
         ter.renderFrame(world);
 
-        Font font = new Font("Monaco", Font.BOLD, 16);
-        StdDraw.setFont(font);
-        StdDraw.textLeft(1, worldHeight, "Testing testing testing please show up");
+//        StdDraw.setFont(testFont);
+        StdDraw.setPenColor(Color.white);
+        StdDraw.textLeft(1, worldHeight , "Testing testing testing please show up");
         StdDraw.show();
 
 //        Player testPlayer = new Player(randomGenerator, ter, world);
