@@ -6,6 +6,8 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import org.junit.Test;
 
+import java.util.Random;
+
 /** For testing the HallwayGenerator.java class. Most tests will have to be by visual inspection */
 public class TestHallway {
 
@@ -96,36 +98,37 @@ public class TestHallway {
 //
 //    }
 
-//    @Test
-//    private void TestBuildHallway() {
-//        /** Tests if buildHallway method in HallwayGenerator successfully builds desired hallway.
-//         *  Will use a world with a mountain perimeter to have a visual reference.
-//         */
-//        int width = 80;
-//        int height = 40;
-//        TestHallway tester = new TestHallway();
-//        TETile[][] world = tester.testWorldMakerWithBorder(width, height);
-//        TERenderer ter = new TERenderer();
-//        HallwayGenerator hg = new HallwayGenerator();
-//
-//        Position startRight = new Position(1, 20);
-//        Position startLeft = new Position(16, 30);
-//        Position startUp = new Position(30, 1);
-//        Position startDown = new Position(45, 32);
-////        Position shouldFail = new Position(20, 35);
-//        Position cornerAxis = new Position(55, 25);
-//
-//
-//        hg.buildHallway(startRight, 20, "right", world);
-//        hg.buildHallway(startLeft, 15, "left", world);
-//        hg.buildHallway(startUp, 7, "up", world);
-//        hg.buildHallway(startDown, 31, "down", world);
-////        hg.buildHallway(shouldFail, 15, "up", world);
-//        hg.buildHallway(cornerAxis, 0, "rightUp", world);
-//
-//        ter.initialize(width, height);
-//        ter.renderFrame(world);
-//    }
+    @Test
+    public void TestBuildHallway() {
+        /** Tests if buildHallway method in HallwayGenerator successfully builds desired hallway.
+         *  Will use a world with a mountain perimeter to have a visual reference.
+         */
+        int width = 80;
+        int height = 40;
+        TestHallway tester = new TestHallway();
+        TETile[][] world = tester.testWorldMakerWithBorder(width, height);
+        TERenderer ter = new TERenderer();
+        Random random = new Random();
+        HallwayGenerator hg = new HallwayGenerator(random);
+
+        Position startRight = new Position(1, 20);
+        Position startLeft = new Position(16, 30);
+        Position startUp = new Position(30, 1);
+        Position startDown = new Position(45, 32);
+//        Position shouldFail = new Position(20, 35);
+        Position cornerAxis = new Position(55, 25);
+
+
+        hg.buildHallway(startRight, 20, "right", world);
+        hg.buildHallway(startLeft, 15, "left", world);
+        hg.buildHallway(startUp, 7, "up", world);
+        hg.buildHallway(startDown, 31, "down", world);
+//        hg.buildHallway(shouldFail, 15, "up", world);
+        hg.buildHallway(cornerAxis, 0, "rightUp", world);
+
+        ter.initialize(width, height + 2, 0, 0);
+        ter.renderFrame(world);
+    }
 
 
 
@@ -138,7 +141,7 @@ public class TestHallway {
         TestHallway tester = new TestHallway();
 
         // Individual tests above. Comment out as needed
-//        tester.TestBuildHallway();
+        tester.TestBuildHallway();
 //        tester.TestWhereToNext();
 //        tester.TestWhereToNextTurn();
 

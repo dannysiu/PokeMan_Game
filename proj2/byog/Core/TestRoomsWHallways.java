@@ -3,7 +3,9 @@ package byog.Core;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
+import edu.princeton.cs.introcs.StdDraw;
 
+import java.awt.*;
 import java.util.Random;
 
 
@@ -26,8 +28,8 @@ public class TestRoomsWHallways {
         }
 
         //Now for building rooms in world
-
-        Random randomGenerator = new Random();
+        // Seed goes here
+        Random randomGenerator = new Random(7089789);
 
 
         RoomGenerator rg = new RoomGenerator();
@@ -51,12 +53,21 @@ public class TestRoomsWHallways {
 
         ter = new TERenderer();
 
-        ter.initialize(worldWidth, worldHeight);
+        ter.initialize(worldWidth, worldHeight + 1, 0, 0);
+
+        Font testFont = new Font("Monaco", Font.BOLD, 20);
+//        StdDraw.line(0, worldHeight, worldWidth, worldHeight);
+
 
         //Draw the world to the screen
         ter.renderFrame(world);
 
-        Player testPlayer = new Player(randomGenerator, ter, world);
+        Font font = new Font("Monaco", Font.BOLD, 16);
+        StdDraw.setFont(font);
+        StdDraw.textLeft(1, worldHeight, "Testing testing testing please show up");
+        StdDraw.show();
+
+//        Player testPlayer = new Player(randomGenerator, ter, world);
     }
 
 }

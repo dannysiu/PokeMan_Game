@@ -5,6 +5,7 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -61,6 +62,7 @@ public class Player {
 
     private void playerInput() {
         while (!gameOver) {
+
             if (!StdDraw.hasNextKeyTyped()) {
                 continue;
             }
@@ -68,14 +70,12 @@ public class Player {
             char command = StdDraw.nextKeyTyped();
             if (command == 'q' || command == 'Q') {
                 gameOver = true;
-                continue;
+                System.exit(0);
             } else {
                 moveMaybe(command);
                 StdDraw.clear(StdDraw.BLACK);
                 renderEngine.renderFrame(worldMap);
             }
-
-//            drawFrame(input);
 
 
         }
