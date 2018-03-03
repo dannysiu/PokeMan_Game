@@ -4,6 +4,7 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
+import org.junit.Test;
 
 import java.awt.*;
 import java.util.Random;
@@ -14,6 +15,10 @@ public class TestRoomsWHallways {
     /** Visual inspection test. Check that rooms and doorways are made correctly.
      *  Simulate making many rooms to save time when checking and check room interactions.
      *  */
+
+
+
+
     public static void main(String[] args) {
         //Draw the screen
         TERenderer ter;
@@ -31,7 +36,7 @@ public class TestRoomsWHallways {
         // Seed goes here
         Random randomGenerator = new Random(7089789);
 
-        Game.playNewGame(randomGenerator, world);
+//        Game.playNewGame(randomGenerator, world); // only works if static; not static right now
 
         //All of the below code has been moved into the Game.playNewGame method
 

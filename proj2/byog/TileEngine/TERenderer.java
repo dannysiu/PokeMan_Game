@@ -96,10 +96,6 @@ public class TERenderer {
                 world[x][y].draw(x + xOffset, y + yOffset);
             }
         }
-        //HUD functionality
-        StdDraw.setPenColor(Color.white);
-        StdDraw.line(0, numYTiles, numXTiles, numYTiles);
-        //End of HUD functionality
 
         StdDraw.show();
     }

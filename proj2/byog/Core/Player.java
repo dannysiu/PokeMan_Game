@@ -5,7 +5,6 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -76,8 +75,6 @@ public class Player {
                 StdDraw.clear(StdDraw.BLACK);
                 renderEngine.renderFrame(worldMap);
             }
-
-
         }
     }
 
@@ -147,7 +144,6 @@ public class Player {
                 worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
             }
         }
-        
     }
 
 }

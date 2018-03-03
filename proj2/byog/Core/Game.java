@@ -8,6 +8,8 @@ import edu.princeton.cs.introcs.StdDraw;
 import java.awt.Color;
 import java.awt.Font;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -15,13 +17,32 @@ public class Game {
     public static final int WIDTH = 80;
     public static final int HEIGHT = 40;
 
-
-
+//    private static List<Character> movementCommands = new ArrayList<>();
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
+
+//        // Pikachu movements
+//        movementCommands.add('a');
+//        movementCommands.add('A');
+//        movementCommands.add('s');
+//        movementCommands.add('S');
+//        movementCommands.add('d');
+//        movementCommands.add('D');
+//        movementCommands.add('w');
+//        movementCommands.add('W');
+//        // Boss-puff movements
+//        movementCommands.add('j');
+//        movementCommands.add('J');
+//        movementCommands.add('k');
+//        movementCommands.add('K');
+//        movementCommands.add('l');
+//        movementCommands.add('L');
+//        movementCommands.add('i');
+//        movementCommands.add('I');
+
 
         TETile[][] world = new TETile[WIDTH][HEIGHT];
         for (int x = 0; x < WIDTH; x += 1) {
@@ -165,7 +186,7 @@ public class Game {
     }
 
 
-    public static void playNewGame(Random random, TETile[][] world) {
+    public void playNewGame(Random random, TETile[][] world) {
         // TODO: insert Ben's code for playing New Game
 
         boolean gameOver = false;
@@ -178,7 +199,6 @@ public class Game {
         rg.populateRooms(world);
         hg.connectRoomsStraight(rg.getRoomList(), world);
 
-        ter = new TERenderer();
         ter.initialize(world.length, world[0].length + 3, 0, 0);
         ter.renderFrame(world);
         // Finished drawing world map
@@ -187,8 +207,16 @@ public class Game {
         Player player = new Player(random, ter, world);
         // Finished adding players
 
+
+        StdDraw.enableDoubleBuffering();
         // Gameplay loop
         while (!gameOver) {
+            // Drawing HUD
+            updateHUD(world);
+//            StdDraw.pause(20);
+            ter.renderFrame(world);
+            // End of drawing HUD
+
 
             if (!StdDraw.hasNextKeyTyped()) {
                 continue;
@@ -199,18 +227,94 @@ public class Game {
                 gameOver = true;
                 // TODO: add save functionality
                 System.exit(0);
-            } else {
+            } else { //if (movementCommands.contains(command))
                 player.moveMaybe(command);
-                StdDraw.clear(StdDraw.BLACK);
                 ter.renderFrame(world);
             }
 
-
         }
         // End of gameplay loop
+    }
+
+
+    private String tilePointer(TETile[][] world) {
+        String answer;
+
+        int mouseX = (int) Math.round(StdDraw.mouseX());
+        int mouseY = (int) Math.round(StdDraw.mouseY());
+
+        if (mouseX > world.length - 1 || mouseY > world[0].length - 1) {
+            answer = " ";
+        } else {
+            TETile spot = world[mouseX][mouseY];
+            answer = spot.description();
+        }
+        return answer;
+    }
+
+
+    private void updateHUD(TETile[][] world) {
+        String currTilePointed = tilePointer(world);
+        StdDraw.setPenColor(Color.white);
+        StdDraw.line(0, world[0].length, world.length, world[0].length);
+        StdDraw.textLeft(1, world[0].length + 2, currTilePointed);
+
+        // Place holders for future potential pikachu and jigglypuff stuff
+        StdDraw.setPenColor(Color.yellow);
+        StdDraw.textRight(world.length - 2, world[0].length + 2, "Pikachu status: ");
+        StdDraw.setPenColor(Color.pink);
+        StdDraw.textRight(world.length - 2, world[0].length + 1, "Boss-Puff status: ");
+        //
+        StdDraw.show();
+    }
+
+
+
+
+
+
+
+
+    /////////////////////// FOR TESTING /////////////////////////////////////
+    public static void main(String[] args) {
+
+        //Draw the screen
+        int worldWidth = 80;
+        int worldHeight = 40;
+
+        TETile[][] world = new TETile[worldWidth][worldHeight];
+        for (int x = 0; x < worldWidth; x += 1) {
+            for (int y = 0; y < worldHeight; y += 1) {
+                world[x][y] = Tileset.NOTHING;
+            }
+        }
+
+//        // Pikachu movements
+//        movementCommands.add('a');
+//        movementCommands.add('A');
+//        movementCommands.add('s');
+//        movementCommands.add('S');
+//        movementCommands.add('d');
+//        movementCommands.add('D');
+//        movementCommands.add('w');
+//        movementCommands.add('W');
+//        // Boss-puff movements
+//        movementCommands.add('j');
+//        movementCommands.add('J');
+//        movementCommands.add('k');
+//        movementCommands.add('K');
+//        movementCommands.add('l');
+//        movementCommands.add('L');
+//        movementCommands.add('i');
+//        movementCommands.add('I');
+
+        // Seed goes here
+        Random random = new Random();
+
+        Game testGame = new Game();
+        testGame.playNewGame(random, world);
 
 
     }
-
 
 }
