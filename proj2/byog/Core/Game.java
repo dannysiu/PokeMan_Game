@@ -3,6 +3,10 @@ package byog.Core;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
+import edu.princeton.cs.introcs.StdDraw;
+
+import java.awt.Color;
+import java.awt.Font;
 
 import java.util.Random;
 
@@ -17,6 +21,31 @@ public class Game {
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
+
+        TETile[][] world = new TETile[WIDTH][HEIGHT];
+
+        StdDraw.clear(StdDraw.BLACK);
+        StdDraw.setCanvasSize(WIDTH * 8, HEIGHT* 8);
+        Font font = new Font("Monaco", Font.BOLD, 35);
+        StdDraw.setFont(font);
+        StdDraw.setXscale(0, WIDTH);
+        StdDraw.setYscale(0, HEIGHT);
+        StdDraw.text(WIDTH / 2, HEIGHT / 2, "CS 61B");
+        StdDraw.show();
+
+
+
+//        StdDraw.drawFrame("Round " + round + "! Good luck!");
+//        StdDraw.pause(1500);
+//
+//
+//        input =
+//
+//        if (input.startsWith("N") || input.startsWith("n")) {
+//            playWithInputString(input);
+//
+//
+//        }
     }
 
 

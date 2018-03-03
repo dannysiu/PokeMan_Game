@@ -34,12 +34,13 @@ public class Position {
         return Math.sqrt(xDist + yDist);
     }
 
-    public boolean equals(Position p) {
+    public boolean equals(Object x) {
+        Position p = (Position) x;
         return (this.getX() == p.getX() && this.getY() == p.getY());
     }
 
-    public void print() {
-        System.out.println("(" + this.x + ", " + this.y + ")");
+    public String toString() {
+        return "(" + this.x + ", " + this.y + ")";
     }
 
     /** Given a particular Tileset, this method should return the # of that tileset that exist
