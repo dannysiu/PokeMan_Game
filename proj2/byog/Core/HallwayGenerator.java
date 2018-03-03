@@ -41,26 +41,24 @@ public class HallwayGenerator {
      * @param world
      */
     public void connectRoomsStraight(ArrayList<Room> allRooms,
-                                     List<Position> allRoomCorners,
                                      TETile[][] world) {
         for (int passes = 0; passes < 10; passes += 1) { // Passes = attempts to connect
             for (Room room : allRooms) {
                 if (room.getConnections() < 3) {
-                    singleRoomConnectMaybe(room, allRoomCorners, world);
+                    singleRoomConnectMaybe(room, world);
                 }
             }
         }
         for (Room room : allRooms) {
             if (room.getConnections() == 0) {
-                singleRoomConnectMaybe(room, allRoomCorners, world);
+                singleRoomConnectMaybe(room, world);
             }
 
         }
     }
 
 
-    private void singleRoomConnectMaybe(Room room, List<Position> allRoomCorners,
-                                        TETile[][] world) {
+    private void singleRoomConnectMaybe(Room room, TETile[][] world) {
         List<Position> perimeter = room.getPerimeterList(); // an ArrayList
         String direction;
 
@@ -77,7 +75,7 @@ public class HallwayGenerator {
 //            System.out.print("A");
             direction = whereIsOutside(pSpot, world);
 //            System.out.println(direction);
-            int distance = canConnect(pSpot, direction, allRoomCorners, world);
+            int distance = canConnect(pSpot, direction, world);
 
             if (distance >= 0) { // If distance is negative, cannot connect
                 buildHallway(pSpot, distance, direction, world);
@@ -135,8 +133,7 @@ public class HallwayGenerator {
      *  Returns an integer that is -1 if it cannot connect and, if it can,
      *  will be the distance to the next room.
      */
-    private int canConnect(Position start, String direction,
-                           List<Position> allRoomCorners, TETile[][] world) {
+    private int canConnect(Position start, String direction, TETile[][] world) {
         int increment;
         Position checkIfCorner;
         Position checkNeighbors;

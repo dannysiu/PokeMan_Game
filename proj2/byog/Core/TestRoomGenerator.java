@@ -27,7 +27,7 @@ public class TestRoomGenerator {
         Random randomGenerator = new Random();
 
 
-        RoomGenerator rg = new RoomGenerator();
+        RoomGenerator rg = new RoomGenerator(randomGenerator);
         //make up to 50 rooms in the world; some will overlap and fail to exist
         for (int i = 0; i < 50; i += 1) {
             int posX = RandomUtils.uniform(randomGenerator, worldWidth);

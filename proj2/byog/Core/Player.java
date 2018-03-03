@@ -34,9 +34,8 @@ public class Player {
         worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
         renderEngine.renderFrame(worldMap);
 
-        // Gameplay loop
-        playerInput();
-
+        // For purpose of testing
+//        playerInput();
 
     }
 
@@ -60,6 +59,7 @@ public class Player {
     }
 
 
+    // Deprecated: moved gameplay loop into Game.java class
     private void playerInput() {
         while (!gameOver) {
 
@@ -82,7 +82,7 @@ public class Player {
     }
 
 
-    private void moveMaybe(char command) {
+    public void moveMaybe(char command) {
         int pikX = playerLocationP.getX();
         int pikY = playerLocationP.getY();
         int puffX = playerLocationJ.getX();

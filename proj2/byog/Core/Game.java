@@ -11,7 +11,6 @@ import java.awt.Font;
 import java.util.Random;
 
 public class Game {
-    TERenderer ter;
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 40;
@@ -25,6 +24,12 @@ public class Game {
     public void playWithKeyboard() {
 
         TETile[][] world = new TETile[WIDTH][HEIGHT];
+        for (int x = 0; x < WIDTH; x += 1) {
+            for (int y = 0; y < HEIGHT; y += 1) {
+                world[x][y] = Tileset.NOTHING;
+            }
+        }
+
         drawMenu();
 
         String typing = "";
@@ -116,22 +121,14 @@ public class Game {
 
             //TODO: update this to also take in direction inputs for character, quitting, loading
             long seed = Long.parseLong(input.substring(1, input.length() - 2));
-            Random random = new Random(seed);
+            Random randomGenerator = new Random(seed);
 
-            RoomGenerator rg = new RoomGenerator();
-            for (int i = 0; i < 50; i += 1) {   // make up to 50 rooms in the world;
-                                                // some will overlap and fail to exist
-                int posX = RandomUtils.uniform(random, WIDTH);
-                int posY = RandomUtils.uniform(random, HEIGHT);
-                Position roomLocation = new Position(posX, posY);
-                int roomWidth = RandomUtils.uniform(random, 4, WIDTH / 4);
-                int roomHeight = RandomUtils.uniform(random, 4, HEIGHT / 4);
-                rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
-            }
+            RoomGenerator rg = new RoomGenerator(randomGenerator);
+            rg.populateRooms(world);
 
 
-            HallwayGenerator hg = new HallwayGenerator(random);
-            hg.connectRoomsStraight(rg.getRoomList(), rg.getCornerBlacklist(), world);
+            HallwayGenerator hg = new HallwayGenerator(randomGenerator);
+            hg.connectRoomsStraight(rg.getRoomList(), world);
 
         }
 
@@ -168,8 +165,51 @@ public class Game {
     }
 
 
-    public void playNewGame() {
-        // insert Ben's code for playing New Game
+    public static void playNewGame(Random random, TETile[][] world) {
+        // TODO: insert Ben's code for playing New Game
+
+        boolean gameOver = false;
+        TERenderer ter = new TERenderer();
+
+        // Drawing the world map
+        RoomGenerator rg = new RoomGenerator(random);
+        HallwayGenerator hg = new HallwayGenerator(random);
+
+        rg.populateRooms(world);
+        hg.connectRoomsStraight(rg.getRoomList(), world);
+
+        ter = new TERenderer();
+        ter.initialize(world.length, world[0].length + 3, 0, 0);
+        ter.renderFrame(world);
+        // Finished drawing world map
+
+        // Adding players to world map
+        Player player = new Player(random, ter, world);
+        // Finished adding players
+
+        // Gameplay loop
+        while (!gameOver) {
+
+            if (!StdDraw.hasNextKeyTyped()) {
+                continue;
+            }
+
+            char command = StdDraw.nextKeyTyped();
+            if (command == 'q' || command == 'Q') {
+                gameOver = true;
+                // TODO: add save functionality
+                System.exit(0);
+            } else {
+                player.moveMaybe(command);
+                StdDraw.clear(StdDraw.BLACK);
+                ter.renderFrame(world);
+            }
+
+
+        }
+        // End of gameplay loop
+
+
     }
 
 

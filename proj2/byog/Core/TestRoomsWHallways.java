@@ -31,42 +31,29 @@ public class TestRoomsWHallways {
         // Seed goes here
         Random randomGenerator = new Random(7089789);
 
+        Game.playNewGame(randomGenerator, world);
 
-        RoomGenerator rg = new RoomGenerator();
-        //make up to 50 rooms in the world; some will overlap and fail to exist
-        for (int i = 0; i < 50; i += 1) {
-            int posX = RandomUtils.uniform(randomGenerator, worldWidth);
-            int posY = RandomUtils.uniform(randomGenerator, worldHeight);
-            Position roomLocation = new Position(posX, posY);
-            int roomWidth = RandomUtils.uniform(randomGenerator, 4, worldWidth / 4);
-            int roomHeight = RandomUtils.uniform(randomGenerator, 4, worldHeight / 4);
-            rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
-        }
+        //All of the below code has been moved into the Game.playNewGame method
 
-
-
-
-        HallwayGenerator hg = new HallwayGenerator(randomGenerator);
-        hg.connectRoomsStraight(rg.getRoomList(), rg.getCornerBlacklist(), world);
-
-
-
-        ter = new TERenderer();
-
-        ter.initialize(worldWidth, worldHeight + 1, 0, 0);
-
-        Font testFont = new Font("Monaco", Font.BOLD, 20);
-//        StdDraw.line(0, worldHeight, worldWidth, worldHeight);
-
-
-        //Draw the world to the screen
-        ter.renderFrame(world);
-
-//        StdDraw.setFont(testFont);
-        StdDraw.setPenColor(Color.white);
-        StdDraw.textLeft(1, worldHeight , "Testing testing testing please show up");
-        StdDraw.show();
-
+//        RoomGenerator rg = new RoomGenerator(randomGenerator);
+//        //make up to 50 rooms in the world; some will overlap and fail to exist
+//        for (int i = 0; i < 50; i += 1) {
+//            int posX = RandomUtils.uniform(randomGenerator, worldWidth);
+//            int posY = RandomUtils.uniform(randomGenerator, worldHeight);
+//            Position roomLocation = new Position(posX, posY);
+//            int roomWidth = RandomUtils.uniform(randomGenerator, 4, worldWidth / 4);
+//            int roomHeight = RandomUtils.uniform(randomGenerator, 4, worldHeight / 4);
+//            rg.makeRoom(world, roomLocation, roomWidth, roomHeight);
+//        }
+//        HallwayGenerator hg = new HallwayGenerator(randomGenerator);
+//        hg.connectRoomsStraight(rg.getRoomList(), world);
+//
+//
+//
+//        ter = new TERenderer();
+//        ter.initialize(worldWidth, worldHeight + 3, 0, 0);
+//        //Draw the world to the screen
+//
 //        Player testPlayer = new Player(randomGenerator, ter, world);
     }
 

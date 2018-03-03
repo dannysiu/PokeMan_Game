@@ -29,7 +29,7 @@ public class TestMakeHallwayV2 {
         //Now for building 2 rooms in world
 
         Random randomGenerator = new Random();
-        RoomGenerator rg = new RoomGenerator();
+        RoomGenerator rg = new RoomGenerator(randomGenerator);
         while (rg.getRoomList().size() < 2) {
             int posX = RandomUtils.uniform(randomGenerator, worldWidth);
             int posY = RandomUtils.uniform(randomGenerator, worldHeight);
