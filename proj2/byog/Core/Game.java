@@ -5,6 +5,7 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
 
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -24,6 +25,7 @@ public class Game {
      */
     public void playWithKeyboard() {
 
+        //TODO: Delete maybe, if not needed
 //        // Pikachu movements
 //        movementCommands.add('a');
 //        movementCommands.add('A');
@@ -71,6 +73,14 @@ public class Game {
                 //make window
                 //call playNewGame(); if valid seed
 
+//                drawSeedWindow();
+                String s = JOptionPane.showInputDialog("Type in your seed: ");
+                long seed = Long.parseLong(s);
+                Random random = new Random(seed);
+
+                Game testGame = new Game();
+                testGame.playNewGame(random, world);
+
 
 
             } else if (input == 'l' || input == 'L') {
@@ -85,27 +95,6 @@ public class Game {
             typing += input;
         }
     }
-
-
-
-//        while (input.length() < n) {
-//            if (!StdDraw.hasNextKeyTyped()) {
-//                continue;
-//            }
-//            char key = StdDraw.nextKeyTyped();
-//            input += String.valueOf(key);
-//            drawFrame(input);
-//        }
-
-
-
-
-//
-//        if (input.startsWith("N") || input.startsWith("n")) {
-//            playWithInputString(input);
-//
-//
-//        }
 
 
 
@@ -183,6 +172,22 @@ public class Game {
 
         StdDraw.show();
 
+    }
+
+    public void drawSeedWindow() {
+//        StdDraw.setCanvasSize(WIDTH * 4, HEIGHT* 4);
+//        StdDraw.clear(StdDraw.BLACK);
+//
+//        Font font = new Font("Monaco", Font.PLAIN, 18);
+//        StdDraw.setXscale(0, WIDTH);
+//        StdDraw.setYscale(0, HEIGHT);
+//
+//        StdDraw.setFont(font);
+//        StdDraw.text(WIDTH / 2, 3 * HEIGHT / 4, "Type in your seed:");
+//        StdDraw.show();
+
+//        JOptionPane.showInputDialog("Type in your seed: ");
+        String s = (String) JOptionPane.showInputDialog("Type in your seed: ");
     }
 
 
