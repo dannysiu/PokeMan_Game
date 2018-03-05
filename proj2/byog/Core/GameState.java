@@ -33,6 +33,7 @@ public class GameState implements java.io.Serializable {
 
     public void gameLoop() {
         boolean gameOver = false;
+        boolean quitPrimed = false;
         TERenderer ter = new TERenderer();
         ter.initialize(world.length, world[0].length + 3, 0, 0);
 
@@ -52,13 +53,17 @@ public class GameState implements java.io.Serializable {
             }
 
             char command = StdDraw.nextKeyTyped();
-            if (command == 'q' || command == 'Q') {
+            if (command == ':') {
+                quitPrimed = true;
+            }
+            if (quitPrimed && command == 'q' || command == 'Q') {
                 gameOver = true;
                 SaveAndLoad.saveGame(this);
 
                 System.exit(0);
 
             } else { //if (movementCommands.contains(command))
+                quitPrimed = false;
                 player.moveMaybe(command);
                 ter.renderFrame(world);
             }
