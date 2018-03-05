@@ -11,6 +11,7 @@ import java.awt.Font;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
 
 import java.io.File;
@@ -66,26 +67,11 @@ public class Game implements java.io.Serializable {
                 System.exit(0);
                 break;
             } else if (input == 'n' || input == 'N') {
-                /** TODO: Pop out a window to get the seed,
-                 * if valid, then call Ben's code for playing the Game using the seed
-                 * I think we should put his code in the playNewGame method in this class
-                 * */
-
-                //make window
-                //call playNewGame(); if valid seed
-
-//                drawSeedWindow();
-//                String s = JOptionPane.showInputDialog("Type in your seed: ");
-
-//                StdDraw.enableDoubleBuffering();
-
                 long seed = drawSeedWindow();
                 Random random = new Random(seed);
 
                 Game testGame = new Game();
                 testGame.playNewGame(random, world);
-
-
 
             } else if (input == 'l' || input == 'L') {
                 /** TODO: Load the previous game that was terminated
@@ -131,17 +117,24 @@ public class Game implements java.io.Serializable {
 
 
             //find seed within user input (used local method)
-            int seedEnd = findEndOfSeedIndex(input.substring(1, input.length()));
+            int seedEnd = findEndOfSeedIndex(input.substring(1));
+//            try {
+                long seed = Long.parseLong(input.substring(1, seedEnd));
+//            } catch (java.lang.NumberFormatException e) {
+//                System.out.println("Seed may only contain numbers ");
+//            }
 
-            long seed = Long.parseLong(input.substring(1, seedEnd));
             Random randomGenerator = new Random(seed);
 
             // Find player movements. Remove :Q from movement commands, if typed.
-            String playerMoves = input.substring(seedEnd + 1, input.length());
-            String lastKeys = playerMoves.substring(playerMoves.length() - 2, playerMoves.length());
-            if (lastKeys.equals(":Q") || lastKeys.equals(":q")) {
-                playerMoves = input.substring(seedEnd, input.length() - 2);
+            String playerMoves = input.substring(seedEnd);
+            if (!playerMoves.equals("")) {
+                String lastKeys = playerMoves.substring(playerMoves.length() - 2, playerMoves.length());
+                if (lastKeys.equals(":Q") || lastKeys.equals(":q")) {
+                    playerMoves = input.substring(seedEnd, input.length() - 2);
+                }
             }
+
 
             //TODO: Use moveMaybe for players to update their positions on the loaded world
             //TODO: Enable loading the last world
@@ -153,6 +146,11 @@ public class Game implements java.io.Serializable {
             HallwayGenerator hg = new HallwayGenerator(randomGenerator);
             hg.connectRoomsStraight(rg.getRoomList(), world);
 
+        } else if (input.startsWith("L") || input.startsWith("l")){
+            //TODO: load last game
+
+        } else {
+            throw new RuntimeException("Input must start with 'n' or 'l'");
         }
 
         return world;
@@ -179,6 +177,26 @@ public class Game implements java.io.Serializable {
         } else {
             throw new RuntimeException("Missing 's'. Don't know where the seed ends.");
         }
+
+        /** Check that seed only contains numbers */
+//        boolean hasOnlyNums = false;
+//        String seed = input.substring(0, endOfSeed);
+//        char[] numbers = {'1','2','3','4','5','6','7','8','9','0'};
+
+//        for (char c : seed.toCharArray()) {
+//            System.out.println(c);
+//            for (char n : numbers) {
+//                if (n == c) {
+//                    hasOnlyNums = true;
+//                    break;
+//                }
+//            }
+//            if (!hasOnlyNums) {
+//                throw new RuntimeException("Seed can only contain numbers.");
+//            }
+//        }
+
+
         return endOfSeed;
     }
 
