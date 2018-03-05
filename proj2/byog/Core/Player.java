@@ -8,8 +8,9 @@ import edu.princeton.cs.introcs.StdDraw;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Player {
+public class Player implements java.io.Serializable {
 
+    private static final long serialVersionUID = 3457898234751111L;
     boolean gameOver;
     Position playerLocationP;
     Position playerLocationJ;

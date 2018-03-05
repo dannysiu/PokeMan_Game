@@ -259,7 +259,6 @@ public class Game implements java.io.Serializable {
     public void playNewGame(Random random, TETile[][] world) {
         // TODO: insert Ben's code for playing New Game
 
-        boolean gameOver = false;
         TERenderer ter = new TERenderer();
 
         // Drawing the world map
@@ -277,84 +276,13 @@ public class Game implements java.io.Serializable {
         Player player = new Player(random, ter, world);
         // Finished adding players
 
-
-        StdDraw.enableDoubleBuffering();
-        // Gameplay loop
-        while (!gameOver) {
-            // Drawing HUD
-            updateHUD(world);
-//            StdDraw.pause(20);
-            ter.renderFrame(world);
-            // End of drawing HUD
+        // Activate game-play loop
+        GameState readyToPlay = new GameState(random, player, world);
+        readyToPlay.gameLoop();
 
 
-            if (!StdDraw.hasNextKeyTyped()) {
-                continue;
-            }
 
-            char command = StdDraw.nextKeyTyped();
-            if (command == 'q' || command == 'Q') {
-                gameOver = true;
-                // TODO: add save functionality
-                //-------
-                //example serializing file
-                //look at example SaveDemo for inspiration
-//                File f = new File("tempSavedGame.ser");
-//                try {
-//                    FileOutputStream fileOut = new FileOutputStream("tempSavedGame.ser");
-//                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-//                    out.writeObject(e);
-//                    out.close();
-//                    fileOut.close();
-//                    System.out.printf("Serialized data is saved in /tmp/employee.ser");
-//                } catch (IOException i) {
-//                    i.printStackTrace();
-//                }
-
-                //--------------
-                System.exit(0);
-
-            } else { //if (movementCommands.contains(command))
-                player.moveMaybe(command);
-                ter.renderFrame(world);
-            }
-
-        }
-        // End of gameplay loop
     }
-
-
-    private String tilePointer(TETile[][] world) {
-        String answer;
-
-        int mouseX = (int) Math.round(StdDraw.mouseX());
-        int mouseY = (int) Math.round(StdDraw.mouseY());
-
-        if (mouseX > world.length - 1 || mouseY > world[0].length - 1) {
-            answer = " ";
-        } else {
-            TETile spot = world[mouseX][mouseY];
-            answer = spot.description();
-        }
-        return answer;
-    }
-
-
-    private void updateHUD(TETile[][] world) {
-        String currTilePointed = tilePointer(world);
-        StdDraw.setPenColor(Color.white);
-        StdDraw.line(0, world[0].length, world.length, world[0].length);
-        StdDraw.textLeft(1, world[0].length + 2, currTilePointed);
-
-        // Place holders for future potential pikachu and jigglypuff stuff
-        StdDraw.setPenColor(Color.yellow);
-        StdDraw.textRight(world.length - 2, world[0].length + 2, "Pikachu status: ");
-        StdDraw.setPenColor(Color.pink);
-        StdDraw.textRight(world.length - 2, world[0].length + 1, "Boss-Puff status: ");
-        //
-        StdDraw.show();
-    }
-
 
 
 
