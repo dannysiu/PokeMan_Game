@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
@@ -298,8 +299,9 @@ public class Game implements java.io.Serializable {
                 //-------
                 //example serializing file
                 //look at example SaveDemo for inspiration
+//                File f = new File("tempSavedGame.ser");
 //                try {
-//                    FileOutputStream fileOut = new FileOutputStream("tempSavedGame.tmp");
+//                    FileOutputStream fileOut = new FileOutputStream("tempSavedGame.ser");
 //                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
 //                    out.writeObject(e);
 //                    out.close();
