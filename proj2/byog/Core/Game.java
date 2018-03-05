@@ -216,6 +216,8 @@ public class Game implements java.io.Serializable {
     public long drawSeedWindow() {
 
         //draw window with instructions
+        StdDraw.setCanvasSize(WIDTH * 8, HEIGHT* 8);
+
         String seed = "";
         updateSeedWindow(seed);
 
@@ -237,8 +239,7 @@ public class Game implements java.io.Serializable {
 
     public void updateSeedWindow(String s) {
 
-        StdDraw.setCanvasSize(WIDTH * 8, HEIGHT* 8);
-        StdDraw.clear(StdDraw.BLUE);
+        StdDraw.clear(StdDraw.BOOK_LIGHT_BLUE);
 
         Font font1 = new Font("Monaco", Font.PLAIN, 18);
         Font font2 = new Font("Monaco", Font.PLAIN, 18);
@@ -256,32 +257,6 @@ public class Game implements java.io.Serializable {
         StdDraw.show();
 
     }
-
-    //--------------------------
-    //code inspiration for updating seed window typing
-
-//    public String solicitNCharsInput(int n) {
-//        String input = "";
-//        drawFrame(input);
-//
-//        while (input.length() < n) {
-//            if (!StdDraw.hasNextKeyTyped()) {
-//                continue;
-//            }
-//            char key = StdDraw.nextKeyTyped();
-//            input += String.valueOf(key);
-//            drawFrame(input);
-//        }
-//        StdDraw.pause(500);
-//        return input;
-//    }
-//
-
-
-    //----------------------
-
-
-
 
 
     public static void playNewGame(Random random, TETile[][] world) {
