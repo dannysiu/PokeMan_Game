@@ -49,7 +49,7 @@ public class GameState implements java.io.Serializable {
             char command = StdDraw.nextKeyTyped();
             if (command == 'q' || command == 'Q') {
                 gameOver = true;
-                // TODO: add save functionality
+                SaveAndLoad.saveGame(this);
 
                 System.exit(0);
 

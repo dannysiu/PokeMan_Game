@@ -52,12 +52,7 @@ public class Game implements java.io.Serializable {
 //        movementCommands.add('I');
 
 
-        TETile[][] world = new TETile[WIDTH][HEIGHT];
-        for (int x = 0; x < WIDTH; x += 1) {
-            for (int y = 0; y < HEIGHT; y += 1) {
-                world[x][y] = Tileset.NOTHING;
-            }
-        }
+        TETile[][] world = initializeWorld();
 
         drawMenu();
 
@@ -127,16 +122,10 @@ public class Game implements java.io.Serializable {
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
 
-
         TETile[][] world = new TETile[WIDTH][HEIGHT];
 
         if (input.startsWith("N") || input.startsWith("n")) {
-//            TETile[][] world = new TETile[WIDTH][HEIGHT];
-            for (int x = 0; x < WIDTH; x += 1) {
-                for (int y = 0; y < HEIGHT; y += 1) {
-                    world[x][y] = Tileset.NOTHING;
-                }
-            }
+            world = initializeWorld();
 
             //TODO: update this to also take in direction inputs for character, quitting, loading
             long seed = Long.parseLong(input.substring(1, input.length() - 2));
@@ -151,6 +140,17 @@ public class Game implements java.io.Serializable {
 
         }
 
+        return world;
+    }
+
+
+    public static TETile[][] initializeWorld() {
+        TETile[][] world = new TETile[WIDTH][HEIGHT];
+        for (int x = 0; x < WIDTH; x += 1) {
+            for (int y = 0; y < HEIGHT; y += 1) {
+                world[x][y] = Tileset.NOTHING;
+            }
+        }
         return world;
     }
 
@@ -256,8 +256,7 @@ public class Game implements java.io.Serializable {
 
 
 
-    public void playNewGame(Random random, TETile[][] world) {
-        // TODO: insert Ben's code for playing New Game
+    public static void playNewGame(Random random, TETile[][] world) {
 
         TERenderer ter = new TERenderer();
 
@@ -280,11 +279,32 @@ public class Game implements java.io.Serializable {
         GameState readyToPlay = new GameState(random, player, world);
         readyToPlay.gameLoop();
 
-
-
     }
 
+    /** Overloads above method to instead return the TETile[][] world after setup */
+    public static GameState playNewGame(Random random, TETile[][] world, String noLoadCode) {
 
+        TERenderer ter = new TERenderer();
+
+        // Drawing the world map
+        RoomGenerator rg = new RoomGenerator(random);
+        HallwayGenerator hg = new HallwayGenerator(random);
+
+        rg.populateRooms(world);
+        hg.connectRoomsStraight(rg.getRoomList(), world);
+
+        ter.initialize(world.length, world[0].length + 3, 0, 0);
+        ter.renderFrame(world);
+        // Finished drawing world map
+
+        // Adding players to world map
+        Player player = new Player(random, ter, world);
+        // Finished adding players
+
+        // Activate game-play loop
+        GameState readyToPlay = new GameState(random, player, world);
+        return readyToPlay;
+    }
 
 
 
