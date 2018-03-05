@@ -128,8 +128,23 @@ public class Game implements java.io.Serializable {
             world = initializeWorld();
 
             //TODO: update this to also take in direction inputs for character, quitting, loading
-            long seed = Long.parseLong(input.substring(1, input.length() - 2));
+
+
+            //find seed within user input (used local method)
+            int seedEnd = findEndOfSeedIndex(input.substring(1, input.length()));
+
+            long seed = Long.parseLong(input.substring(1, seedEnd));
             Random randomGenerator = new Random(seed);
+
+            // Find player movements. Remove :Q from movement commands, if typed.
+            String playerMoves = input.substring(seedEnd + 1, input.length());
+            String lastKeys = playerMoves.substring(playerMoves.length() - 2, playerMoves.length());
+            if (lastKeys.equals(":Q") || lastKeys.equals(":q")) {
+                playerMoves = input.substring(seedEnd, input.length() - 2);
+            }
+
+            //TODO: Use moveMaybe for players to update their positions on the loaded world
+            //TODO: Enable loading the last world
 
             RoomGenerator rg = new RoomGenerator(randomGenerator);
             rg.populateRooms(world);
@@ -152,6 +167,19 @@ public class Game implements java.io.Serializable {
             }
         }
         return world;
+    }
+
+
+    public int findEndOfSeedIndex(String input) {
+        int endOfSeed;
+        if (input.contains("s")) {
+            endOfSeed = input.indexOf("s");
+        } else if (input.contains("S")) {
+            endOfSeed = input.indexOf("S");
+        } else {
+            throw new RuntimeException("Missing 's'. Don't know where the seed ends.");
+        }
+        return endOfSeed;
     }
 
 
