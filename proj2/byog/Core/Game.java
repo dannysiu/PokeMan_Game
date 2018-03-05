@@ -13,7 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Game {
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+public class Game implements java.io.Serializable {
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 40;
@@ -74,8 +79,11 @@ public class Game {
                 //call playNewGame(); if valid seed
 
 //                drawSeedWindow();
-                String s = JOptionPane.showInputDialog("Type in your seed: ");
-                long seed = Long.parseLong(s);
+//                String s = JOptionPane.showInputDialog("Type in your seed: ");
+
+//                StdDraw.enableDoubleBuffering();
+
+                long seed = drawSeedWindow();
                 Random random = new Random(seed);
 
                 Game testGame = new Game();
@@ -174,21 +182,77 @@ public class Game {
 
     }
 
-    public void drawSeedWindow() {
-//        StdDraw.setCanvasSize(WIDTH * 4, HEIGHT* 4);
-//        StdDraw.clear(StdDraw.BLACK);
-//
-//        Font font = new Font("Monaco", Font.PLAIN, 18);
-//        StdDraw.setXscale(0, WIDTH);
-//        StdDraw.setYscale(0, HEIGHT);
-//
-//        StdDraw.setFont(font);
-//        StdDraw.text(WIDTH / 2, 3 * HEIGHT / 4, "Type in your seed:");
-//        StdDraw.show();
 
-//        JOptionPane.showInputDialog("Type in your seed: ");
-        String s = (String) JOptionPane.showInputDialog("Type in your seed: ");
+    // @source Inspired by Josh Hug's Memory Game solution and displaying the user's typing
+    public long drawSeedWindow() {
+
+        //draw window with instructions
+        String seed = "";
+        updateSeedWindow(seed);
+
+        //simulate player typing the seed in real time
+        while (!seed.endsWith("s") && !seed.endsWith("S")) {
+            if (StdDraw.hasNextKeyTyped()) {
+                char next = StdDraw.nextKeyTyped();
+                seed += next;
+                updateSeedWindow(seed);
+            }
+        }
+
+        return Long.parseLong(seed.substring(0,seed.length()-2));
+
+//        DEPRECATED code: need to use STD Draw for graphics
+//        String s = (String) JOptionPane.showInputDialog("Type in your seed: ");
     }
+
+
+    public void updateSeedWindow(String s) {
+
+        StdDraw.setCanvasSize(WIDTH * 8, HEIGHT* 8);
+        StdDraw.clear(StdDraw.BLUE);
+
+        Font font1 = new Font("Monaco", Font.PLAIN, 18);
+        Font font2 = new Font("Monaco", Font.PLAIN, 18);
+        StdDraw.setXscale(0, WIDTH);
+        StdDraw.setYscale(0, HEIGHT);
+
+        StdDraw.setFont(font1);
+        StdDraw.text(WIDTH / 2, 3 * HEIGHT / 4, "Type in your seed:");
+
+
+        //show the text that user types in
+        StdDraw.setFont(font2);
+        StdDraw.text(WIDTH / 2, HEIGHT / 2, s);
+
+        StdDraw.show();
+
+    }
+
+    //--------------------------
+    //code inspiration for updating seed window typing
+
+//    public String solicitNCharsInput(int n) {
+//        String input = "";
+//        drawFrame(input);
+//
+//        while (input.length() < n) {
+//            if (!StdDraw.hasNextKeyTyped()) {
+//                continue;
+//            }
+//            char key = StdDraw.nextKeyTyped();
+//            input += String.valueOf(key);
+//            drawFrame(input);
+//        }
+//        StdDraw.pause(500);
+//        return input;
+//    }
+//
+
+
+    //----------------------
+
+
+
 
 
     public void playNewGame(Random random, TETile[][] world) {
@@ -231,7 +295,23 @@ public class Game {
             if (command == 'q' || command == 'Q') {
                 gameOver = true;
                 // TODO: add save functionality
+                //-------
+                //example serializing file
+                //look at example SaveDemo for inspiration
+//                try {
+//                    FileOutputStream fileOut = new FileOutputStream("tempSavedGame.tmp");
+//                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//                    out.writeObject(e);
+//                    out.close();
+//                    fileOut.close();
+//                    System.out.printf("Serialized data is saved in /tmp/employee.ser");
+//                } catch (IOException i) {
+//                    i.printStackTrace();
+//                }
+
+                //--------------
                 System.exit(0);
+
             } else { //if (movementCommands.contains(command))
                 player.moveMaybe(command);
                 ter.renderFrame(world);
