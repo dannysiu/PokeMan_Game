@@ -8,16 +8,26 @@ public class TestSaveAndLoad {
 /** For testing the save and load functionality of the game */
 
 
+    public static GameState getSavedGameIfWorks() {
+        return SaveAndLoad.loadGame();
+    }
+
+
     public static void main(String[] args) {
 
         // Change seed here
-        Random random = new Random(1234);
+        Random random = new Random(343289473);
 
         TETile[][] world = Game.initializeWorld();
 
-        GameState testGame = new GameState()
+        GameState testGame;
+        // For making a new game
+//        testGame = Game.playNewGame(random, world, "testing testing");
+        // For loading a previous game
+        testGame = getSavedGameIfWorks();
 
 
+        testGame.gameLoop();
 
     }
 }

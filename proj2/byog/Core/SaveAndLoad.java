@@ -18,6 +18,7 @@ public class SaveAndLoad {
 
     /**
      * Save the current game state (with world updated and random carried over)
+     * @source the SaveDemo provided to us in the skeleton.
      */
     public static void saveGame(GameState currGame) {
         File file = new File("./lastGame.txt");
@@ -68,7 +69,8 @@ public class SaveAndLoad {
         // If no file to load, will instead instantiate a new game and provide it
         Random noLoadRandom = new Random();
         TETile[][] noLoadWorld = Game.initializeWorld();
-        GameState newGame = Game.playNewGame(noLoadRandom, noLoadWorld, "No file to load");
+        GameState newGame = Game.playNewGame(noLoadRandom, noLoadWorld, "No file to load. " +
+                "Creating a random new game instead.");
         return newGame;
     }
 }

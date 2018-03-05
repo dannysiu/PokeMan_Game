@@ -276,7 +276,7 @@ public class Game implements java.io.Serializable {
         // Finished adding players
 
         // Activate game-play loop
-        GameState readyToPlay = new GameState(random, player, world);
+        GameState readyToPlay = new GameState(random, player, ter, world);
         readyToPlay.gameLoop();
 
     }
@@ -302,7 +302,7 @@ public class Game implements java.io.Serializable {
         // Finished adding players
 
         // Activate game-play loop
-        GameState readyToPlay = new GameState(random, player, world);
+        GameState readyToPlay = new GameState(random, player, ter, world);
         return readyToPlay;
     }
 

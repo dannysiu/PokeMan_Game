@@ -18,19 +18,24 @@ public class GameState implements java.io.Serializable {
     TETile[][] world;
     Random randomGenerator;
     Player player;
+    TERenderer renderEngine;
     private static final long serialVersionUID = 7488474396728367324L;
 
 
-    public GameState(Random random, Player playerObject, TETile[][] initialWorldState) {
+    public GameState(Random random, Player playerObject, TERenderer ter, TETile[][] initialWorldState) {
         this.randomGenerator = random;
         this.world = initialWorldState;
         this.player = playerObject;
+        this.renderEngine = ter;
+        renderEngine.initialize(world.length, world[0].length + 3, 0, 0);
     }
 
 
     public void gameLoop() {
         boolean gameOver = false;
         TERenderer ter = new TERenderer();
+        ter.initialize(world.length, world[0].length + 3, 0, 0);
+
 
         StdDraw.enableDoubleBuffering();
         // Gameplay loop

@@ -7,7 +7,8 @@ import byog.TileEngine.Tileset;
  * For example, store positions for the corners of rooms and doorways for hallway connection
  * */
 
-public class Position {
+public class Position implements java.io.Serializable {
+    private static final long serialVersionUID = 748847483673212345L;
     private int x;
     private int y;
 
