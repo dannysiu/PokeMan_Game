@@ -32,33 +32,12 @@ public class Game implements java.io.Serializable {
      */
     public void playWithKeyboard() {
 
-        //TODO: Delete maybe, if not needed
-//        // Pikachu movements
-//        movementCommands.add('a');
-//        movementCommands.add('A');
-//        movementCommands.add('s');
-//        movementCommands.add('S');
-//        movementCommands.add('d');
-//        movementCommands.add('D');
-//        movementCommands.add('w');
-//        movementCommands.add('W');
-//        // Boss-puff movements
-//        movementCommands.add('j');
-//        movementCommands.add('J');
-//        movementCommands.add('k');
-//        movementCommands.add('K');
-//        movementCommands.add('l');
-//        movementCommands.add('L');
-//        movementCommands.add('i');
-//        movementCommands.add('I');
-
-
         TETile[][] world = initializeWorld();
 
         drawMenu();
 
         String typing = "";
-        while (typing.length() < 50000000) {  //only exit the program
+        while (typing.length() < 50000000) {
             if (!StdDraw.hasNextKeyTyped()) {
                 continue;
             }
@@ -76,6 +55,8 @@ public class Game implements java.io.Serializable {
             } else if (input == 'l' || input == 'L') {
                 /** TODO: Load the previous game that was terminated
                  * and its random seed*/
+                SaveAndLoad.loadGame();
+
             } else {
                 Font font = new Font("Monaco", Font.PLAIN, 12);
                 StdDraw.setFont(font);
@@ -109,51 +90,76 @@ public class Game implements java.io.Serializable {
         // drawn if the same inputs had been given to playWithKeyboard().
 
         TETile[][] world = new TETile[WIDTH][HEIGHT];
+        GameState gs;
+        String playerMoves;
+        Random randomGenerator;
 
+        //Make a new world using the seed from input
         if (input.startsWith("N") || input.startsWith("n")) {
             world = initializeWorld();
 
             //TODO: update this to also take in direction inputs for character, quitting, loading
 
 
-            //find seed within user input (used local method)
+            //find the seed and player moves within user input
             int seedEnd = findEndOfSeedIndex(input.substring(1));
-//            try {
+            try {
                 long seed = Long.parseLong(input.substring(1, seedEnd));
-//            } catch (java.lang.NumberFormatException e) {
-//                System.out.println("Seed may only contain numbers ");
-//            }
+                randomGenerator = new Random(seed);
+                playerMoves = input.substring(seedEnd);
 
-            Random randomGenerator = new Random(seed);
-
-            // Find player movements. Remove :Q from movement commands, if typed.
-            String playerMoves = input.substring(seedEnd);
-            if (!playerMoves.equals("")) {
-                String lastKeys = playerMoves.substring(playerMoves.length() - 2, playerMoves.length());
-                if (lastKeys.equals(":Q") || lastKeys.equals(":q")) {
-                    playerMoves = input.substring(seedEnd, input.length() - 2);
-                }
+            } catch (java.lang.NumberFormatException e) {
+                throw new java.lang.NumberFormatException("Seed may only contain numbers ");
             }
 
-
-            //TODO: Use moveMaybe for players to update their positions on the loaded world
-            //TODO: Enable loading the last world
-
-            RoomGenerator rg = new RoomGenerator(randomGenerator);
-            rg.populateRooms(world);
-
-
-            HallwayGenerator hg = new HallwayGenerator(randomGenerator);
-            hg.connectRoomsStraight(rg.getRoomList(), world);
-
+        //Or load the last game
         } else if (input.startsWith("L") || input.startsWith("l")){
-            //TODO: load last game
+            gs = SaveAndLoad.loadGame();
+            randomGenerator = gs.getRandom();
+            playerMoves = input.substring(1);
 
         } else {
             throw new RuntimeException("Input must start with 'n' or 'l'");
         }
 
+
+        /** TODO: edit updateGameState to call method which returns GameState
+         *  and makes players move using the string passed in
+         *  Set equal to world for returning
+         */
+
+        Game testGame = new Game();
+        testGame.updateGameState(randomGenerator, world, playerMoves);
+
+
+
+
         return world;
+    }
+
+
+    public void updateGameState(Random random, TETile[][] world, String movements) {
+        TERenderer ter = new TERenderer();
+
+        // Drawing the world map
+        RoomGenerator rg = new RoomGenerator(random);
+        HallwayGenerator hg = new HallwayGenerator(random);
+
+        rg.populateRooms(world);
+        hg.connectRoomsStraight(rg.getRoomList(), world);
+
+        ter.initialize(world.length, world[0].length + 3, 0, 0);
+        ter.renderFrame(world);
+        // Finished drawing world map
+
+        // Adding players to world map
+        Player player = new Player(random, ter, world);
+        // Finished adding players
+
+        // TODO: Activate game-loading with player movements rendered
+        //pass in string movements!!
+//        GameState readyToLoad = new GameState(random, player, ter, world);
+
     }
 
 
@@ -178,27 +184,10 @@ public class Game implements java.io.Serializable {
             throw new RuntimeException("Missing 's'. Don't know where the seed ends.");
         }
 
-        /** Check that seed only contains numbers */
-//        boolean hasOnlyNums = false;
-//        String seed = input.substring(0, endOfSeed);
-//        char[] numbers = {'1','2','3','4','5','6','7','8','9','0'};
-
-//        for (char c : seed.toCharArray()) {
-//            System.out.println(c);
-//            for (char n : numbers) {
-//                if (n == c) {
-//                    hasOnlyNums = true;
-//                    break;
-//                }
-//            }
-//            if (!hasOnlyNums) {
-//                throw new RuntimeException("Seed can only contain numbers.");
-//            }
-//        }
-
-
         return endOfSeed;
     }
+
+
 
 
     public void drawMenu() {
@@ -250,8 +239,6 @@ public class Game implements java.io.Serializable {
 
         return Long.parseLong(seed.substring(0,seed.length()-2));
 
-//        DEPRECATED code: need to use STD Draw for graphics
-//        String s = (String) JOptionPane.showInputDialog("Type in your seed: ");
     }
 
 
