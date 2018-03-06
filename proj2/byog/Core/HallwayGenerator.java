@@ -72,9 +72,7 @@ public class HallwayGenerator {
         byog.Core.RandomUtils.shuffle(randomGenerator, perimeterArray);
 
         for (Position pSpot : perimeterArray) {
-//            System.out.print("A");
             direction = whereIsOutside(pSpot, world);
-//            System.out.println(direction);
             int distance = canConnect(pSpot, direction, world);
 
             if (distance >= 0) { // If distance is negative, cannot connect
@@ -95,8 +93,7 @@ public class HallwayGenerator {
         int pX = perimeterSpot.getX();
         int pY = perimeterSpot.getY();
 
-        // To the left
-        if (world[pX + 1][pY] == Tileset.FLOOR) {
+        if (world[pX + 1][pY] == Tileset.FLOOR) {  // To the left
             outside = "left";
         } else if (world[pX - 1][pY] == Tileset.FLOOR) { // To the right
             outside = "right";
@@ -105,25 +102,6 @@ public class HallwayGenerator {
         } else if (world[pX][pY + 1] == Tileset.FLOOR) { // To the down
             outside = "down";
         }
-
-
-
-//        // To the left
-//        if (world[pX - 1][pY] == Tileset.NOTHING) {
-//            outside = "left";
-//        }
-//        // To the right
-//        else if (world[pX + 1][pY] == Tileset.NOTHING) {
-//            outside = "right";
-//        }
-//        // To the up
-//        else if (world[pX][pY + 1] == Tileset.NOTHING) {
-//            outside = "up";
-//        }
-//        // To the down
-//        else if (world[pX][pY - 1] == Tileset.NOTHING) {
-//            outside = "down";
-//        }
 
         return outside;
     }
@@ -143,12 +121,6 @@ public class HallwayGenerator {
         if (direction.equals("right")) {
             for (increment = start.getX() + 1; increment < world.length; increment += 1) {
                 if (world[increment][start.getY()] == Tileset.FLOOR) {
-//                    checkIfCorner = new Position(increment, start.getY());
-//                    for (Position corner : allRoomCorners) {
-//                        if (checkIfCorner.equals(corner)) {
-//                            return -1;
-//                        }
-//                    }
                     return increment - start.getX();
                 }
             }
@@ -157,12 +129,6 @@ public class HallwayGenerator {
         if (direction.equals("left")) {
             for (increment = start.getX() - 1; increment > 0; increment -= 1) { // start.getX() - 1
                 if (world[increment][start.getY()] == Tileset.FLOOR) {
-//                    checkIfCorner = new Position(increment, start.getY());
-//                    for (Position corner : allRoomCorners) {
-//                        if (checkIfCorner.equals(corner)) {
-//                            return -1;
-//                        }
-//                    }
                     return start.getX() - increment; // If positive, not a corner
                 }
 //                System.out.println(increment + ", " + start.getY());
@@ -173,27 +139,14 @@ public class HallwayGenerator {
             for (increment = start.getY() + 1; increment < world[0].length;
                  increment += 1) { //start.getY() + 1
                 if (world[start.getX()][increment] == Tileset.FLOOR) {
-//                    checkIfCorner = new Position(start.getX(), increment);
-//                    for (Position corner : allRoomCorners) {
-//                        if (checkIfCorner.equals(corner)) {
-//                            return -1;
-//                        }
-//                    }
                     return increment - start.getY();
                 }
-//                System.out.println(start.getX() + ", " + increment);
             }
         }
         // Checking downwards of start
         if (direction.equals("down")) {
             for (increment = start.getY() - 1; increment > 0; increment -= 1) { // start.getY() - 1
                 if (world[start.getX()][increment] == Tileset.FLOOR) {
-//                    checkIfCorner = new Position(start.getX(), increment);
-//                    for (Position corner : allRoomCorners) {
-//                        if (checkIfCorner.equals(corner)) {
-//                            return -1;
-//                        }
-//                    }
                     return start.getY() - increment;
                 }
             }
@@ -234,7 +187,7 @@ public class HallwayGenerator {
         }
         if (directionsCorner.contains(direction)) {
             cornerHallway(direction, start.getX(), start.getY(), world);
-        }
+    }
 
         // For debugging
 //        System.out.println("I am building a: " + direction + " hallway for: " + distance +
@@ -282,7 +235,7 @@ public class HallwayGenerator {
 
     /** Creates an L corner connecting hallways.
      *  @param direction is either leftUp, rightUp, rightDown, leftDown
-     *  @param hingeX is the hoirzontal position of floor piece where hallway changes directions
+     *  @param hingeX is the horizontal position of floor piece where hallway changes directions
      *  @param hingeY is the vertical position of floor piece where hallway changes directions
      */
     private void cornerHallway(String direction, int hingeX, int hingeY, TETile[][] world) {
@@ -374,8 +327,6 @@ public class HallwayGenerator {
 //        }
 //        return allUnlocked;
 //    }
-
-
 
 
 }

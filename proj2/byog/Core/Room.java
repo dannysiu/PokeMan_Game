@@ -9,7 +9,6 @@ public class Room {
     private int width;  //dimensions of room
     private int height;
 
-    private ArrayList<Position> doorList;
     private ArrayList<Position> perimeterList;  //stores positions for possible doorways
     private ArrayList<Position> cornerList;  //cannot make doors where there are corners
 
@@ -26,7 +25,7 @@ public class Room {
      * Room is smaller than world
      * Room does not overlap other rooms (can ensure in world generator, or store
      * list of room positions here)
-     * Where do we start to make the room (corner or center)
+     * Where we start to make the room (corner or center)
      */
 
     /**
@@ -36,7 +35,6 @@ public class Room {
      * @param p     position of bottom left corner of room
      * @param w     width of room
      * @param h     height of room
-     * @param -use  for any extra parameters. Ex.add doors later -> will need to change wall tiles
      * @source inspiration for comment format + some ideas from josh hug
      */
 
@@ -45,7 +43,6 @@ public class Room {
         height = h;
         connections = 0;
 
-        doorList = new ArrayList<Position>(2);
         perimeterList = new ArrayList<Position>(10);
         cornerList = new ArrayList<Position>(4);
 
@@ -70,7 +67,6 @@ public class Room {
         // draw the PERIMETER of the room with wall tiles
         // the room is filled with floor tiles, so will only place walls where not equal floor
         // add positions to perimeter list for future door creation, EXCLUDING CORNERS
-        // **will need to add doors later
         int worldWidth = world.length;
         int worldHeight = world[0].length;
 
@@ -108,10 +104,6 @@ public class Room {
 
     /** These are methods for getting lists of positions in order to make hallway connections
      * */
-    public ArrayList<Position> getDoorList() { //hallways connect door locations
-        return doorList;
-    }
-
     public ArrayList<Position> getCornerList() { //hallways not allowed at corner locations
         return cornerList;
     }
@@ -125,9 +117,6 @@ public class Room {
     }
     public void incrementConnections() {
         connections += 1;
-    }
-    public Position getTopLeft() {
-        return topLeft;
     }
 
 

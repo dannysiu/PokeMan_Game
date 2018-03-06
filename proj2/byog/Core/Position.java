@@ -1,7 +1,6 @@
 package byog.Core;
 
 import byog.TileEngine.TETile;
-import byog.TileEngine.Tileset;
 
 /** Use this class to create and store positions for our game objects
  * For example, store positions for the corners of rooms and doorways for hallway connection

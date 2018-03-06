@@ -1,6 +1,5 @@
 package byog.Core;
 
-import static org.junit.Assert.*;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
@@ -99,7 +98,7 @@ public class TestHallway {
 //    }
 
     @Test
-    public void TestBuildHallway() {
+    public void testBuildHallway() {
         /** Tests if buildHallway method in HallwayGenerator successfully builds desired hallway.
          *  Will use a world with a mountain perimeter to have a visual reference.
          */
@@ -141,7 +140,7 @@ public class TestHallway {
         TestHallway tester = new TestHallway();
 
         // Individual tests above. Comment out as needed
-        tester.TestBuildHallway();
+        tester.testBuildHallway();
 //        tester.TestWhereToNext();
 //        tester.TestWhereToNextTurn();
 
