@@ -51,8 +51,8 @@ public class SaveAndLoad {
                 os.close();
                 return currGame;
             } catch (FileNotFoundException e) {
-                System.out.println("File not found. Have you played this game before? " +
-                        "I'd try playing it. It's a lot of fun.");
+                System.out.println("File not found. Have you played this game before? "
+                        + "I'd try playing it. It's a lot of fun.");
                 System.exit(0);
             } catch (IOException e) {
                 System.out.println(e);

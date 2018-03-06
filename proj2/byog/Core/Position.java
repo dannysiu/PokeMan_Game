@@ -34,10 +34,11 @@ public class Position implements java.io.Serializable {
         return Math.sqrt(xDist + yDist);
     }
 
-    public boolean equals(Object x) {
-        Position p = (Position) x;
-        return (this.getX() == p.getX() && this.getY() == p.getY());
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        Position p = (Position) obj;
+//        return (this.getX() == p.getX() && this.getY() == p.getY());
+//    }
 
     public String toString() {
         return "(" + this.x + ", " + this.y + ")";

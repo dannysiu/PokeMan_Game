@@ -187,7 +187,7 @@ public class HallwayGenerator {
         }
         if (directionsCorner.contains(direction)) {
             cornerHallway(direction, start.getX(), start.getY(), world);
-    }
+        }
 
         // For debugging
 //        System.out.println("I am building a: " + direction + " hallway for: " + distance +

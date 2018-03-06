@@ -1,8 +1,5 @@
 package byog.Core.Trash;
 
-import byog.Core.Position;
-import byog.TileEngine.TETile;
-import byog.TileEngine.Tileset;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +135,8 @@ public class WorldGeneratorOLD {
 //            return false;
 //        }
 //
-//        if (this.getX() > two.getX()) { // Allows user to not worry about which Position is "lower"
+//        if (this.getX() > two.getX()) { // Allows user to not worry about
+// which Position is "lower"
 //            return two.unobstructedHallway(this, world);
 //        } else if ((this.getX() == two.getX()) && (this.getY() > two.getY())) {
 //            return two.unobstructedHallway(this, world);

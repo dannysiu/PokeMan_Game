@@ -74,7 +74,8 @@ package byog.Core.Trash;
 //
 //    ////////////////////////// MAIN METHOD ///////////////////////////////
 //
-//    /** Visual inspection test. Change width and height declared near beginning to affect world. */
+//    /** Visual inspection test. Change width and height declared near
+// beginning to affect world. */
 //    public static void main(String[] args) {
 //
 //        TestWorldGenerator tester = new TestWorldGenerator();

@@ -81,7 +81,8 @@ public class GameState implements java.io.Serializable {
 
         boolean quitPrimed = false;
 
-        for (char command : inputString.toCharArray()) { // Change this to account for the string. Maybe a for loop?
+        for (char command : inputString.toCharArray()) { // Change this to account for the string.
+            // Maybe a for loop?
 
             if (command == ':') {
                 quitPrimed = true;

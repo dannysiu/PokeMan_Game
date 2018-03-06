@@ -40,7 +40,6 @@ public class Player implements java.io.Serializable {
         this.worldMap = world;
 
         // Set Pikachu and Boss-Puff on worldMap
-        StdDraw.clear(StdDraw.BLACK);
         playerLocationP = setSpawn();
         playerLocationJ = setSpawn();
         worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;

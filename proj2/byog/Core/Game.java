@@ -100,7 +100,7 @@ public class Game implements java.io.Serializable {
             }
 
         //Or load the last game
-        } else if (input.startsWith("L") || input.startsWith("l")){
+        } else if (input.startsWith("L") || input.startsWith("l")) {
             gs = SaveAndLoad.loadGame();
             playerMoves = input.substring(1);
 
@@ -142,7 +142,7 @@ public class Game implements java.io.Serializable {
 
 
     public void drawMenu() {
-        StdDraw.setCanvasSize(WIDTH * 16, HEIGHT* 16);
+        StdDraw.setCanvasSize(WIDTH * 16, HEIGHT * 16);
         StdDraw.clear(StdDraw.BOOK_LIGHT_BLUE);
 
 
@@ -174,7 +174,7 @@ public class Game implements java.io.Serializable {
     public long drawSeedWindow() {
 
         //draw window with instructions
-        StdDraw.setCanvasSize(WIDTH * 8, HEIGHT* 8);
+        StdDraw.setCanvasSize(WIDTH * 8, HEIGHT * 8);
 
         String seed = "";
         updateSeedWindow(seed);
@@ -188,7 +188,7 @@ public class Game implements java.io.Serializable {
             }
         }
 
-        return Long.parseLong(seed.substring(0,seed.length()-2));
+        return Long.parseLong(seed.substring(0, seed.length() - 2));
 
     }
 
