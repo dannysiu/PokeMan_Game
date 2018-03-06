@@ -18,11 +18,12 @@ import java.awt.Color;
 
 public class Tileset {
     public static final TETile PLAYER = new TETile('@', Color.white, Color.black, "player");
-    public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
-            "wall");
-    public static final TETile FLOOR = new TETile('·', new Color(128, 192, 128), Color.black,
-            "floor");
-    public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "nothing");
+//    public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
+//            "wall");
+//    public static final TETile FLOOR = new TETile('·', new Color(128, 192, 128), Color.black,
+//            "floor");
+    public static final TETile NOTHING = new TETile('█', new Color(89, 192, 128),
+        new Color(89, 192, 128), "nothing");
     public static final TETile GRASS = new TETile('"', Color.green, Color.black, "grass");
     public static final TETile WATER = new TETile('≈', Color.blue, Color.black, "water");
     public static final TETile FLOWER = new TETile('❀', Color.magenta, Color.pink, "flower");
@@ -35,14 +36,30 @@ public class Tileset {
     public static final TETile TREE = new TETile('♠', Color.green, Color.black, "tree");
 
     // Custom content!
-    public static final TETile PIKACHU = new TETile('P', Color.yellow, Color.black,
-            "Pikachu");
-    public static final TETile JIGGLYPUFF = new TETile('J', Color.pink, Color.black,
-            "It's Boss Puff!");
+//    public static final TETile PIKACHU = new TETile('P', Color.yellow, Color.black,
+//            "Pikachu");
+//    public static final TETile JIGGLYPUFF = new TETile('J', Color.pink, Color.black,
+//            "It's Boss Puff!");
     public static final TETile TAXES = new TETile('T', Color.white, Color.black,
             "taxes...");
     public static final TETile BRIEFCASE = new TETile('B', Color.darkGray, Color.black,
             "My briefcase!");
+
+    public static final TETile PIKACHU = new TETile('P', Color.yellow, Color.black,
+            "Pikachu", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\pika_sprite_small.png");
+    public static final TETile JIGGLYPUFF = new TETile('J', Color.pink, Color.black,
+            "It's Boss Puff!", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\boss_puff.png");
+    public static final TETile FLOOR = new TETile('·', new Color(128, 192, 128), Color.black,
+            "floor", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\grass.png");
+    public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
+            "wall", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\forest.png");
+
+//    TETile(char character, Color textColor, Color backgroundColor, String description,
+//           String filepath)
 }
 
 
