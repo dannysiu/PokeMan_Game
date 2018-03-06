@@ -60,12 +60,12 @@ public class GameState implements java.io.Serializable {
             char command = StdDraw.nextKeyTyped();
             if (command == ':') {
                 quitPrimed = true;
-            }
-            if (quitPrimed && command == 'q' || command == 'Q') {
-                gameOver = true;
-                SaveAndLoad.saveGame(this);
-                endGameMenu();
-
+            } else if (quitPrimed) {
+                if (command == 'q' || command == 'Q') {
+                    gameOver = true;
+                    SaveAndLoad.saveGame(this);
+                    endGameMenu();
+                }
             } else { //if (movementCommands.contains(command))
                 quitPrimed = false;
                 player.moveMaybe(command);
@@ -86,11 +86,11 @@ public class GameState implements java.io.Serializable {
 
             if (command == ':') {
                 quitPrimed = true;
-            }
-            if (quitPrimed && command == 'q' || command == 'Q') {
-                SaveAndLoad.saveGame(this);
-                return world;
-
+            } else if (quitPrimed) {
+                if (command == 'q' || command == 'Q') {
+                    SaveAndLoad.saveGame(this);
+                    return world;
+                }
             } else { //if (movementCommands.contains(command))
                 quitPrimed = false;
                 player.moveMaybe(command);
