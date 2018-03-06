@@ -4,21 +4,17 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import edu.princeton.cs.introcs.StdDraw;
 
-import java.awt.*;
-import java.io.File;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.awt.Font;
+import java.awt.Color;
 import java.util.Random;
 
 
 public class GameState implements java.io.Serializable {
 
-    TETile[][] world;
-    Random randomGenerator;
-    Player player;
-    TERenderer renderEngine;
+    private TETile[][] world;
+    private Random randomGenerator;
+    private Player player;
+    private TERenderer renderEngine;
     private static final long serialVersionUID = 7488474396728367324L;
 
 
@@ -26,11 +22,13 @@ public class GameState implements java.io.Serializable {
         this.randomGenerator = random;
         this.world = initialWorldState;
         this.player = playerObject;
-        this.renderEngine = ter;
+        this.renderEngine = ter; // Deprecated, unneeded
         renderEngine.initialize(world.length, world[0].length + 3, 0, 0);
     }
 
-
+    /** Method used to start the gamplay loop for keyboard games.
+     *  Updates HUD and player movements as necessary, drawing world state for each change.
+     */
     public void gameLoop() {
         boolean gameOver = false;
         boolean quitPrimed = false;
@@ -59,8 +57,8 @@ public class GameState implements java.io.Serializable {
             if (quitPrimed && command == 'q' || command == 'Q') {
                 gameOver = true;
                 SaveAndLoad.saveGame(this);
-
-                System.exit(0);
+                endGameMenu();
+//                System.exit(0);
 
             } else { //if (movementCommands.contains(command))
                 quitPrimed = false;
@@ -72,6 +70,35 @@ public class GameState implements java.io.Serializable {
         // End of gameplay loop
     }
 
+
+
+    /** Method used to process and execute string commands from a string input game */
+    public void gamePlayWithString(String inputString) {
+
+        boolean quitPrimed = false;
+        boolean gameOver = false; // todo: might not be necessary
+
+        while (true) { // Change this to account for the string. Maybe a for loop?
+
+            char command = StdDraw.nextKeyTyped(); // TODO: change this for string
+            if (command == ':') {
+                quitPrimed = true;
+            }
+            if (quitPrimed && command == 'q' || command == 'Q') {
+                gameOver = true;
+                SaveAndLoad.saveGame(this);
+
+                System.exit(0);
+
+            } else { //if (movementCommands.contains(command))
+                quitPrimed = false;
+                player.moveMaybe(command);
+            }
+        }
+    }
+
+
+    /** For locating position of mouse and updating HUD accordingly */
     private String tilePointer(TETile[][] world) {
         String answer;
 
@@ -88,6 +115,7 @@ public class GameState implements java.io.Serializable {
     }
 
 
+    /** For updating the HUD at the top of the draw window */
     private void updateHUD(TETile[][] world) {
         String currTilePointed = tilePointer(world);
         StdDraw.setPenColor(Color.white);
@@ -96,11 +124,55 @@ public class GameState implements java.io.Serializable {
 
         // Place holders for future potential pikachu and jigglypuff stuff
         StdDraw.setPenColor(Color.yellow);
-        StdDraw.textRight(world.length - 2, world[0].length + 2, "Pikachu status: ");
+        StdDraw.textLeft(7 * world.length / 10, world[0].length + 2, "Pika-Man status: slacking off...");
         StdDraw.setPenColor(Color.pink);
-        StdDraw.textRight(world.length - 2, world[0].length + 1, "Boss-Puff status: ");
+        StdDraw.textLeft(7 * world.length / 10, world[0].length + 1, "Boss-Puff status: angry!");
         //
         StdDraw.show();
     }
 
+
+    private void endGameMenu() {
+        int worldWidth = Game.WIDTH;
+        int worldHeight = Game.HEIGHT;
+
+        // Start drawing menu
+        StdDraw.setCanvasSize(worldWidth * 16, worldHeight * 16);
+        StdDraw.clear(StdDraw.PINK);
+
+        Font font1 = new Font("Helvetica", Font.BOLD, 45);
+        Font font2 = new Font("Monaco", Font.BOLD, 30);
+
+        StdDraw.setXscale(0, worldWidth);
+        StdDraw.setYscale(0, worldHeight);
+
+        StdDraw.setFont(font1);
+        StdDraw.text(worldWidth / 2, 3 * worldHeight / 4, "Game Over!");
+        StdDraw.setFont(font2);
+        StdDraw.textLeft(worldWidth / 5, worldHeight / 3, "For Main Menu:  M");
+        StdDraw.textRight(4 * worldWidth / 5, worldHeight / 3, "To Quit Game:  Q");
+
+        StdDraw.show();
+        // End of drawing menu
+
+        // Wait for keyboard input
+        Game game = new Game();
+        while (true) {  //only exit the program
+            if (!StdDraw.hasNextKeyTyped()) {
+                continue;
+            }
+            char input = StdDraw.nextKeyTyped();
+            if (input == 'q' || input == 'Q') {
+                System.exit(0);
+                break;
+            } else if (input == 'm' || input == 'M') {
+                game.playWithKeyboard();
+            }
+        }
+        // End of keyboard input
+    }
+
+    public TETile[][] getWorld() {
+        return world;
+    }
 }
