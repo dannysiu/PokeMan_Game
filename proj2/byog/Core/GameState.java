@@ -18,13 +18,22 @@ public class GameState implements java.io.Serializable {
     private static final long serialVersionUID = 7488474396728367324L;
 
 
-    public GameState(Random random, Player playerObject, TERenderer ter, TETile[][] initialWorldState) {
+    public GameState(Random random, Player playerObject, TERenderer ter,
+                     TETile[][] initialWorldState) {
         this.randomGenerator = random;
         this.world = initialWorldState;
         this.player = playerObject;
-        this.renderEngine = ter; // Deprecated, unneeded
-        renderEngine.initialize(world.length, world[0].length + 3, 0, 0);
+        this.renderEngine = ter;
+//        renderEngine.initialize(world.length, world[0].length + 3, 0, 0);
     }
+
+    /** Version without renderer for playing with input string */
+    public GameState(Random random, Player playerObject, TETile[][] initialWorldState) {
+        this.randomGenerator = random;
+        this.world = initialWorldState;
+        this.player = playerObject;
+    }
+
 
     /** Method used to start the gamplay loop for keyboard games.
      *  Updates HUD and player movements as necessary, drawing world state for each change.
@@ -40,11 +49,9 @@ public class GameState implements java.io.Serializable {
         // Gameplay loop
         while (!gameOver) {
             // Drawing HUD
-            updateHUD(world);
-//            StdDraw.pause(20);
+            updateHUD();
             ter.renderFrame(world);
             // End of drawing HUD
-
 
             if (!StdDraw.hasNextKeyTyped()) {
                 continue;
@@ -58,48 +65,44 @@ public class GameState implements java.io.Serializable {
                 gameOver = true;
                 SaveAndLoad.saveGame(this);
                 endGameMenu();
-//                System.exit(0);
 
             } else { //if (movementCommands.contains(command))
                 quitPrimed = false;
                 player.moveMaybe(command);
                 ter.renderFrame(world);
             }
-
         }
         // End of gameplay loop
     }
 
 
-
     /** Method used to process and execute string commands from a string input game */
-    public void gamePlayWithString(String inputString) {
+    public TETile[][] gamePlayWithString(String inputString) {
 
         boolean quitPrimed = false;
-        boolean gameOver = false; // todo: might not be necessary
 
-        while (true) { // Change this to account for the string. Maybe a for loop?
+        for (char command : inputString.toCharArray()) { // Change this to account for the string. Maybe a for loop?
 
-            char command = StdDraw.nextKeyTyped(); // TODO: change this for string
             if (command == ':') {
                 quitPrimed = true;
             }
             if (quitPrimed && command == 'q' || command == 'Q') {
-                gameOver = true;
                 SaveAndLoad.saveGame(this);
-
-                System.exit(0);
+                return world;
 
             } else { //if (movementCommands.contains(command))
                 quitPrimed = false;
                 player.moveMaybe(command);
             }
         }
+        return world;
     }
 
 
+    //////////////////// Helper methods below ///////////////////////
+
     /** For locating position of mouse and updating HUD accordingly */
-    private String tilePointer(TETile[][] world) {
+    private String tilePointer() {
         String answer;
 
         int mouseX = Math.toIntExact(Math.round(StdDraw.mouseX() - 0.5));
@@ -116,17 +119,19 @@ public class GameState implements java.io.Serializable {
 
 
     /** For updating the HUD at the top of the draw window */
-    private void updateHUD(TETile[][] world) {
-        String currTilePointed = tilePointer(world);
+    private void updateHUD() {
+        String currTilePointed = tilePointer();
         StdDraw.setPenColor(Color.white);
         StdDraw.line(0, world[0].length, world.length, world[0].length);
         StdDraw.textLeft(1, world[0].length + 2, currTilePointed);
 
         // Place holders for future potential pikachu and jigglypuff stuff
         StdDraw.setPenColor(Color.yellow);
-        StdDraw.textLeft(7 * world.length / 10, world[0].length + 2, "Pika-Man status: slacking off...");
+        StdDraw.textLeft(7 * world.length / 10, world[0].length + 2,
+                "Pika-Man status: slacking off...");
         StdDraw.setPenColor(Color.pink);
-        StdDraw.textLeft(7 * world.length / 10, world[0].length + 1, "Boss-Puff status: angry!");
+        StdDraw.textLeft(7 * world.length / 10, world[0].length + 1,
+                "Boss-Puff status: angry!");
         //
         StdDraw.show();
     }
@@ -174,5 +179,8 @@ public class GameState implements java.io.Serializable {
 
     public TETile[][] getWorld() {
         return world;
+    }
+    public Random getRandom() {
+        return randomGenerator;
     }
 }

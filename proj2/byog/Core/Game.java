@@ -4,21 +4,9 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
-
-import javax.swing.*;
-import java.awt.Color;
 import java.awt.Font;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
 import java.util.Random;
 
-import java.io.File;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 public class Game implements java.io.Serializable {
     /* Feel free to change the width and height. */
@@ -50,12 +38,13 @@ public class Game implements java.io.Serializable {
                 Random random = new Random(seed);
 
                 Game testGame = new Game();
-                testGame.playNewGame(random, world);
+                GameState gs = testGame.playNewGame(random, world);
+                gs.gameLoop();
 
             } else if (input == 'l' || input == 'L') {
-                /** TODO: Load the previous game that was terminated
-                 * and its random seed*/
-                SaveAndLoad.loadGame();
+
+                GameState prevGame = SaveAndLoad.loadGame();
+                prevGame.gameLoop();
 
             } else {
                 Font font = new Font("Monaco", Font.PLAIN, 12);
@@ -89,7 +78,7 @@ public class Game implements java.io.Serializable {
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
 
-        TETile[][] world = new TETile[WIDTH][HEIGHT];
+        TETile[][] world;
         GameState gs;
         String playerMoves;
         Random randomGenerator;
@@ -98,15 +87,13 @@ public class Game implements java.io.Serializable {
         if (input.startsWith("N") || input.startsWith("n")) {
             world = initializeWorld();
 
-            //TODO: update this to also take in direction inputs for character, quitting, loading
-
-
             //find the seed and player moves within user input
             int seedEnd = findEndOfSeedIndex(input.substring(1));
             try {
                 long seed = Long.parseLong(input.substring(1, seedEnd));
                 randomGenerator = new Random(seed);
                 playerMoves = input.substring(seedEnd);
+                gs = playNewGame(randomGenerator, world, "new string game");
 
             } catch (java.lang.NumberFormatException e) {
                 throw new java.lang.NumberFormatException("Seed may only contain numbers ");
@@ -115,53 +102,17 @@ public class Game implements java.io.Serializable {
         //Or load the last game
         } else if (input.startsWith("L") || input.startsWith("l")){
             gs = SaveAndLoad.loadGame();
-            randomGenerator = gs.getRandom();
             playerMoves = input.substring(1);
 
         } else {
             throw new RuntimeException("Input must start with 'n' or 'l'");
         }
 
-
-        /** TODO: edit updateGameState to call method which returns GameState
-         *  and makes players move using the string passed in
-         *  Set equal to world for returning
-         */
-
-        Game testGame = new Game();
-        testGame.updateGameState(randomGenerator, world, playerMoves);
-
-
-
-
-        return world;
+        return gs.gamePlayWithString(playerMoves);
     }
 
 
-    public void updateGameState(Random random, TETile[][] world, String movements) {
-        TERenderer ter = new TERenderer();
-
-        // Drawing the world map
-        RoomGenerator rg = new RoomGenerator(random);
-        HallwayGenerator hg = new HallwayGenerator(random);
-
-        rg.populateRooms(world);
-        hg.connectRoomsStraight(rg.getRoomList(), world);
-
-        ter.initialize(world.length, world[0].length + 3, 0, 0);
-        ter.renderFrame(world);
-        // Finished drawing world map
-
-        // Adding players to world map
-        Player player = new Player(random, ter, world);
-        // Finished adding players
-
-        // TODO: Activate game-loading with player movements rendered
-        //pass in string movements!!
-//        GameState readyToLoad = new GameState(random, player, ter, world);
-
-    }
-
+    ////////////////////////// Helper methods below /////////////////////////
 
     public static TETile[][] initializeWorld() {
         TETile[][] world = new TETile[WIDTH][HEIGHT];
@@ -264,33 +215,7 @@ public class Game implements java.io.Serializable {
     }
 
 
-    public static void playNewGame(Random random, TETile[][] world) {
-
-        TERenderer ter = new TERenderer();
-
-        // Drawing the world map
-        RoomGenerator rg = new RoomGenerator(random);
-        HallwayGenerator hg = new HallwayGenerator(random);
-
-        rg.populateRooms(world);
-        hg.connectRoomsStraight(rg.getRoomList(), world);
-
-        ter.initialize(world.length, world[0].length + 3, 0, 0);
-        ter.renderFrame(world);
-        // Finished drawing world map
-
-        // Adding players to world map
-        Player player = new Player(random, ter, world);
-        // Finished adding players
-
-        // Activate game-play loop
-        GameState readyToPlay = new GameState(random, player, ter, world);
-        readyToPlay.gameLoop();
-
-    }
-
-    /** Overloads above method to instead return the TETile[][] world after setup */
-    public static GameState playNewGame(Random random, TETile[][] world, String noLoadCode) {
+    public static GameState playNewGame(Random random, TETile[][] world) {
 
         TERenderer ter = new TERenderer();
 
@@ -314,6 +239,27 @@ public class Game implements java.io.Serializable {
         return readyToPlay;
     }
 
+    /** Overloads above method to not instantiate any Renderer windows.
+     *  @param noLoadCode exists only to differentiate this overloaded version with no rendering
+     */
+    public static GameState playNewGame(Random random, TETile[][] world, String noLoadCode) {
+
+        // Drawing the world map
+        RoomGenerator rg = new RoomGenerator(random);
+        HallwayGenerator hg = new HallwayGenerator(random);
+
+        rg.populateRooms(world);
+        hg.connectRoomsStraight(rg.getRoomList(), world);
+        // Finished drawing world map
+
+        // Adding players to world map
+        Player player = new Player(random, world);
+        // Finished adding players
+
+        // Activate game-play loop
+        GameState readyToPlay = new GameState(random, player, world);
+        return readyToPlay;
+    }
 
 
 

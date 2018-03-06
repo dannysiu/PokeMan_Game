@@ -1,9 +1,6 @@
 package byog.Core;
 
-//Might need these?
-import byog.SaveDemo.World;
 import byog.TileEngine.TETile;
-
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -69,8 +66,7 @@ public class SaveAndLoad {
         // If no file to load, will instead instantiate a new game and provide it
         Random noLoadRandom = new Random();
         TETile[][] noLoadWorld = Game.initializeWorld();
-        GameState newGame = Game.playNewGame(noLoadRandom, noLoadWorld, "No file to load. " +
-                "Creating a random new game instead.");
+        GameState newGame = Game.playNewGame(noLoadRandom, noLoadWorld);
         return newGame;
     }
 }

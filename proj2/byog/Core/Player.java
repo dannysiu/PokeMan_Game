@@ -23,8 +23,6 @@ public class Player implements java.io.Serializable {
         this.randomGenerator = random;
         this.worldMap = world;
         this.renderEngine = theRenderer;
-//        gameOver = false;
-//        StdDraw.enableDoubleBuffering(); // Necessary? - doesn't seem like it
 
         // Set Pikachu and Boss-Puff on worldMap
         StdDraw.clear(StdDraw.BLACK);
@@ -33,11 +31,22 @@ public class Player implements java.io.Serializable {
         worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
         worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
         renderEngine.renderFrame(worldMap);
-
-        // For purpose of testing
-//        playerInput();
-
     }
+
+    /** Version without renderer (for playing with strings) */
+    public Player(Random random, TETile[][] world) {
+
+        this.randomGenerator = random;
+        this.worldMap = world;
+
+        // Set Pikachu and Boss-Puff on worldMap
+        StdDraw.clear(StdDraw.BLACK);
+        playerLocationP = setSpawn();
+        playerLocationJ = setSpawn();
+        worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
+        worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
+    }
+
 
     /** Selects a random FLOOR to spawn the player at */
     private Position setSpawn() {
