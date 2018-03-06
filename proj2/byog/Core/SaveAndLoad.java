@@ -47,9 +47,9 @@ public class SaveAndLoad {
             try {
                 FileInputStream fs = new FileInputStream(file);
                 ObjectInputStream os = new ObjectInputStream(fs);
-                GameState currGame = (GameState) os.readObject();
+                GameState prevGame = (GameState) os.readObject();
                 os.close();
-                return currGame;
+                return prevGame;
             } catch (FileNotFoundException e) {
                 System.out.println("File not found. Have you played this game before? "
                         + "I'd try playing it. It's a lot of fun.");
@@ -64,9 +64,12 @@ public class SaveAndLoad {
 
         }
         // If no file to load, will instead instantiate a new game and provide it
+        System.exit(0); // For clarification: do not start a game if no game to load
+
+        // For sake of compiler, so that it can return something. Code should never reach here
         Random noLoadRandom = new Random();
         TETile[][] noLoadWorld = Game.initializeWorld();
-        GameState newGame = Game.playNewGame(noLoadRandom, noLoadWorld);
-        return newGame;
+        GameState falseGame = Game.playNewGame(noLoadRandom, noLoadWorld);
+        return falseGame;
     }
 }

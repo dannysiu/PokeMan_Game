@@ -14,7 +14,7 @@ public class GameState implements java.io.Serializable {
     private TETile[][] world;
     private Random randomGenerator;
     private Player player;
-    private TERenderer renderEngine;
+//    private TERenderer renderEngine;
     private static final long serialVersionUID = 7488474396728367324L;
 
 
@@ -23,7 +23,7 @@ public class GameState implements java.io.Serializable {
         this.randomGenerator = random;
         this.world = initialWorldState;
         this.player = playerObject;
-        this.renderEngine = ter;
+//        this.renderEngine = ter;
 //        renderEngine.initialize(world.length, world[0].length + 3, 0, 0);
     }
 

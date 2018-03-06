@@ -285,48 +285,4 @@ public class HallwayGenerator {
         }
     }
 
-
-
-
-
-
-    //////////////////DEPRECATED AND TRASH CONTENT///////////////////////
-    // Uncomment this code if needed again.
-
-
-
-//    /** Creates a hallway to connect two unlocked doors. Calls horizontal, vertical,
-//     *  and corner constructors as necessary.
-//     */
-//    public void connect(Position one, Position two, TETile[][] world) {
-//        /**
-//         *  REMEMBER: corner directions are: leftUp, rightUp, leftDown, rightDown
-//         *  What if I made HallwayGenerator recursive?
-//         */
-//
-//        WhereToStart spot = new WhereToStart(one, two);
-//
-//    }
-
-    // USED TO BE IN WORLDGENERATOR. UNNEEDED AT THE MOMENT
-//    /** Creates a List of all unlocked doors in the world (signifying places where rooms need
-//     *  to be connected via hallways).
-//     */
-//    private List<Position> unlockedFinder(TETile[][] world) {
-//        List<Position> allUnlocked = new ArrayList<>(20);
-//        int worldW = world.length; // Dynamic size of world
-//        int worldH = world[0].length;
-//
-//        for (int xPos = 0; xPos < worldW; xPos += 1) {
-//            for (int yPos = 0; yPos < worldH; yPos += 1) {
-//                if (world[xPos][yPos].equals(Tileset.UNLOCKED_DOOR)) {
-//                    Position p = new Position(xPos, yPos);
-//                    allUnlocked.add(p);
-//                }
-//            }
-//        }
-//        return allUnlocked;
-//    }
-
-
 }
