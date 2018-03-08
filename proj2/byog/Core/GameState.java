@@ -49,7 +49,7 @@ public class GameState implements java.io.Serializable {
         // Gameplay loop
         while (!gameOver) {
             // Drawing HUD
-            updateHUD();
+            updateHUD(player);
             ter.renderFrame(world);
             // End of drawing HUD
 
@@ -65,6 +65,10 @@ public class GameState implements java.io.Serializable {
                     gameOver = true;
                     SaveAndLoad.saveGame(this);
                     endGameMenu();
+                } else if (command == 'w' || command == 'W') {
+                    gameOver = true;
+                    SaveAndLoad.saveGame(this);
+                    winnerGameMenu(player);
                 }
             } else { //if (movementCommands.contains(command))
                 quitPrimed = false;
@@ -120,7 +124,7 @@ public class GameState implements java.io.Serializable {
 
 
     /** For updating the HUD at the top of the draw window */
-    private void updateHUD() {
+    private void updateHUD(Player players) {
         String currTilePointed = tilePointer();
         StdDraw.setPenColor(Color.white);
         StdDraw.line(0, world[0].length, world.length, world[0].length);
@@ -129,10 +133,10 @@ public class GameState implements java.io.Serializable {
         // Place holders for future potential pikachu and jigglypuff stuff
         StdDraw.setPenColor(Color.yellow);
         StdDraw.textLeft(7 * world.length / 10, world[0].length + 2,
-                "Pika-Man status: slacking off...");
+                "Pika-Man score: " + players.scoreP1);
         StdDraw.setPenColor(Color.pink);
         StdDraw.textLeft(7 * world.length / 10, world[0].length + 1,
-                "Boss-Puff status: angry!");
+                "Boss-Puff score: " + players.scoreP2);
         //
         StdDraw.show();
     }
@@ -157,6 +161,80 @@ public class GameState implements java.io.Serializable {
         StdDraw.setFont(font2);
         StdDraw.textLeft(worldWidth / 5, worldHeight / 3, "For Main Menu:  M");
         StdDraw.textRight(4 * worldWidth / 5, worldHeight / 3, "To Quit Game:  Q");
+
+        StdDraw.show();
+        // End of drawing menu
+
+        // Wait for keyboard input
+        Game game = new Game();
+        while (true) {  //only exit the program
+            if (!StdDraw.hasNextKeyTyped()) {
+                continue;
+            }
+            char input = StdDraw.nextKeyTyped();
+            if (input == 'q' || input == 'Q') {
+                System.exit(0);
+                break;
+            } else if (input == 'm' || input == 'M') {
+                game.playWithKeyboard();
+            }
+        }
+        // End of keyboard input
+    }
+
+    private void winnerGameMenu(Player players) {
+        int worldWidth = Game.WIDTH;
+        int worldHeight = Game.HEIGHT;
+
+        // Start drawing menu
+        StdDraw.setCanvasSize(worldWidth * 16, worldHeight * 16);
+        StdDraw.clear(StdDraw.YELLOW);
+
+        Font font1 = new Font("Helvetica", Font.BOLD, 40);
+        Font font2 = new Font("Helvetica", Font.BOLD, 55);
+        Font font3 = new Font("Monaco", Font.BOLD, 30);
+
+        StdDraw.setXscale(0, worldWidth);
+        StdDraw.setYscale(0, worldHeight);
+
+        String winner;
+        String filepath = "";
+        if (players.scoreP1 > players.scoreP2) {
+            winner = "Pika-Man";
+            filepath = "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl" +
+                    "\\proj2\\byog\\Core\\images\\dancing_pikachu.png";
+        } else if (players.scoreP2 > players.scoreP1) {
+            winner = "Boss-Puff";
+            filepath = "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl" +
+                    "\\proj2\\byog\\Core\\images\\happy_jigglypuff.png";
+        } else {
+            winner = "Everybody";
+            filepath = "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl" +
+                    "\\proj2\\byog\\Core\\images\\stacked_goofy_pokemon.png";
+        }
+
+        String filepath2 = "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl" +
+                "\\proj2\\byog\\Core\\images\\celebrating_ash.png";
+
+
+
+        StdDraw.picture(10, worldHeight / 2, filepath);
+        StdDraw.picture(worldWidth - 10, worldHeight / 2, filepath2);
+
+
+        StdDraw.setFont(font1);
+        StdDraw.text(worldWidth / 2, 7 * worldHeight / 8, "Congratulations!!");
+        StdDraw.setFont(font2);
+        StdDraw.text(worldWidth / 2, 5 * worldHeight / 8, winner + " wins!!");
+        StdDraw.setFont(font3);
+        StdDraw.text(worldWidth / 2, 7 * worldHeight / 16, "Pika-Man's score: " + players.scoreP1);
+        StdDraw.text(worldWidth / 2, 6 * worldHeight / 16, "Boss-Puff's score: " + players.scoreP2);
+        StdDraw.textLeft(worldWidth / 5, worldHeight / 5, "For Main Menu:  M");
+        StdDraw.textRight(4 * worldWidth / 5, worldHeight / 5, "To Quit Game:  Q");
+
+
+
+
 
         StdDraw.show();
         // End of drawing menu

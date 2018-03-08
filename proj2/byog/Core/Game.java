@@ -161,7 +161,7 @@ public class Game implements java.io.Serializable {
         StdDraw.setYscale(0, HEIGHT);
 
         StdDraw.setFont(font1);
-        StdDraw.text(WIDTH / 2, 3 * HEIGHT / 4, "Pika-Man");
+        StdDraw.text(WIDTH / 2, 3 * HEIGHT / 4, "Poke-Man");
         StdDraw.setFont(font2);
         StdDraw.text(WIDTH / 2, 2 * HEIGHT / 3, "CS 61B Project 2");
         StdDraw.setFont(font3);
