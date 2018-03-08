@@ -12,8 +12,11 @@ public class Game implements java.io.Serializable {
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 40;
+    protected Player player1;
+    protected Player player2;
 
 //    private static List<Character> movementCommands = new ArrayList<>();
+
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -21,6 +24,7 @@ public class Game implements java.io.Serializable {
     public void playWithKeyboard() {
 
         TETile[][] world = initializeWorld();
+        TETile[][] characterWindow = initializeWorld();
 
         drawMenu();
 
@@ -36,6 +40,10 @@ public class Game implements java.io.Serializable {
             } else if (input == 'n' || input == 'N') {
                 long seed = drawSeedWindow();
                 Random random = new Random(seed);
+
+                //TODO: draw Character Window to select characters
+                //choose player 1 and 2 here (1 first, 2 after)
+                //then, use selections to place in the game constructor and use for game
 
                 Game testGame = new Game();
                 GameState gs = testGame.playNewGame(random, world);
@@ -215,6 +223,11 @@ public class Game implements java.io.Serializable {
     }
 
 
+
+
+
+    ////////////////////** Game playing methods*////////////////////////
+
     public static GameState playNewGame(Random random, TETile[][] world) {
 
         TERenderer ter = new TERenderer();
@@ -222,9 +235,11 @@ public class Game implements java.io.Serializable {
         // Drawing the world map
         RoomGenerator rg = new RoomGenerator(random);
         HallwayGenerator hg = new HallwayGenerator(random);
+        ItemGenerator ig = new ItemGenerator(random);
 
         rg.populateRooms(world);
         hg.connectRoomsStraight(rg.getRoomList(), world);
+        ig.addFruit(world);
 
         ter.initialize(world.length, world[0].length + 3, 0, 0);
         ter.renderFrame(world);
@@ -277,25 +292,6 @@ public class Game implements java.io.Serializable {
                 world[x][y] = Tileset.NOTHING;
             }
         }
-
-//        // Pikachu movements
-//        movementCommands.add('a');
-//        movementCommands.add('A');
-//        movementCommands.add('s');
-//        movementCommands.add('S');
-//        movementCommands.add('d');
-//        movementCommands.add('D');
-//        movementCommands.add('w');
-//        movementCommands.add('W');
-//        // Boss-puff movements
-//        movementCommands.add('j');
-//        movementCommands.add('J');
-//        movementCommands.add('k');
-//        movementCommands.add('K');
-//        movementCommands.add('l');
-//        movementCommands.add('L');
-//        movementCommands.add('i');
-//        movementCommands.add('I');
 
         // Seed goes here
         Random random = new Random();

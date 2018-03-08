@@ -28,8 +28,8 @@ public class Player implements java.io.Serializable {
         StdDraw.clear(StdDraw.BLACK);
         playerLocationP = setSpawn();
         playerLocationJ = setSpawn();
-        worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
-        worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
+        worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.BULBASAUR;
+        worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.CLEFAIRY;
         renderEngine.renderFrame(worldMap);
     }
 
@@ -42,8 +42,8 @@ public class Player implements java.io.Serializable {
         // Set Pikachu and Boss-Puff on worldMap
         playerLocationP = setSpawn();
         playerLocationJ = setSpawn();
-        worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.PIKACHU;
-        worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.JIGGLYPUFF;
+        worldMap[playerLocationP.getX()][playerLocationP.getY()] = Tileset.BULBASAUR;
+        worldMap[playerLocationJ.getX()][playerLocationJ.getY()] = Tileset.CLEFAIRY;
     }
 
 

@@ -36,27 +36,48 @@ public class Tileset {
     public static final TETile TREE = new TETile('♠', Color.green, Color.black, "tree");
 
     // Custom content!
-//    public static final TETile PIKACHU = new TETile('P', Color.yellow, Color.black,
-//            "Pikachu");
-//    public static final TETile JIGGLYPUFF = new TETile('J', Color.pink, Color.black,
-//            "It's Boss Puff!");
-    public static final TETile TAXES = new TETile('T', Color.white, Color.black,
-            "taxes...");
-    public static final TETile BRIEFCASE = new TETile('B', Color.darkGray, Color.black,
-            "My briefcase!");
+//    public static final TETile TAXES = new TETile('T', Color.white, Color.black,
+//            "taxes...");
+//    public static final TETile BRIEFCASE = new TETile('B', Color.darkGray, Color.black,
+//            "My briefcase!");
 
+    //Game Characters
     public static final TETile PIKACHU = new TETile('P', Color.yellow, Color.black,
             "Pikachu", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
             "proj2\\byog\\Core\\images\\pika_sprite_small.png");
     public static final TETile JIGGLYPUFF = new TETile('J', Color.pink, Color.black,
             "It's Boss Puff!", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
             "proj2\\byog\\Core\\images\\boss_puff.png");
+    public static final TETile BULBASAUR = new TETile('B', Color.green, Color.gray,
+            "Bulbasaur", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\bulbasaur.png");
+    public static final TETile CHARMANDER = new TETile('C', Color.red, Color.black,
+            "Charmander", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\charmander.png");
+    public static final TETile SQUIRTLE = new TETile('S', Color.blue, Color.gray,
+            "Squirtle", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\squirtle.png");
+    public static final TETile VULPIX = new TETile('V', new Color(192, 95, 8), Color.white,
+            "Vulpix", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\vulpix.png");
+    public static final TETile CLEFAIRY = new TETile('C', Color.pink, Color.white,
+            "Clefairy", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\clefairy.png");
+
+
+    //Pokemon World
     public static final TETile FLOOR = new TETile('·', new Color(128, 192, 128), Color.black,
             "floor", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\grass.png");
+            "proj2\\byog\\Core\\images\\grass2.png");
     public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
             "wall", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
             "proj2\\byog\\Core\\images\\forest.png");
+
+    //Food Items
+    public static final TETile FRUIT = new TETile('F', new Color(216, 128, 128), Color.darkGray,
+            "razzberry", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\razzberry.png");
+
 
 //    TETile(char character, Color textColor, Color backgroundColor, String description,
 //           String filepath)
