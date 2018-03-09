@@ -199,24 +199,21 @@ public class GameState implements java.io.Serializable {
 
         String winner;
         String filepath = "";
+        String currDir = System.getProperty("user.dir");
+        String imageDir = currDir + "\\byog\\Core\\images\\";
+
         if (players.scoreP1 > players.scoreP2) {
             winner = "Pika-Man";
-            filepath = "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl" +
-                    "\\proj2\\byog\\Core\\images\\dancing_pikachu.png";
+            filepath = imageDir + "dancing_pikachu.png";
         } else if (players.scoreP2 > players.scoreP1) {
             winner = "Boss-Puff";
-            filepath = "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl" +
-                    "\\proj2\\byog\\Core\\images\\happy_jigglypuff.png";
+            filepath = imageDir + "happy_jigglypuff.png";
         } else {
             winner = "Everybody";
-            filepath = "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl" +
-                    "\\proj2\\byog\\Core\\images\\stacked_goofy_pokemon.png";
+            filepath = imageDir + "stacked_goofy_pokemon.png";
         }
 
-        String filepath2 = "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl" +
-                "\\proj2\\byog\\Core\\images\\celebrating_ash.png";
-
-
+        String filepath2 = imageDir + "celebrating_ash.png";
 
         StdDraw.picture(10, worldHeight / 2, filepath);
         StdDraw.picture(worldWidth - 10, worldHeight / 2, filepath2);

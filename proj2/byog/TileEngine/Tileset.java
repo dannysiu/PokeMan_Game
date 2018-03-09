@@ -41,52 +41,44 @@ public class Tileset {
 //    public static final TETile BRIEFCASE = new TETile('B', Color.darkGray, Color.black,
 //            "My briefcase!");
 
+
+    static String currDir = System.getProperty("user.dir");
+    static String imageDir = currDir + "\\byog\\Core\\images\\";
+
     //Game Characters
     public static final TETile PIKACHU = new TETile('P', Color.yellow, Color.black,
-            "Pikachu", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\pika_sprite_small.png");
+            "Pikachu", imageDir + "pika_sprite_small.png");
     public static final TETile JIGGLYPUFF = new TETile('J', Color.pink, Color.black,
-            "It's Boss Puff!", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\boss_puff.png");
+            "It's Boss Puff!", imageDir + "boss_puff.png");
     public static final TETile BULBASAUR = new TETile('B', Color.green, Color.gray,
-            "Bulbasaur", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\bulbasaur.png");
+            "Bulbasaur", imageDir + "bulbasaur.png");
     public static final TETile CHARMANDER = new TETile('C', Color.red, Color.black,
-            "Charmander", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\charmander.png");
+            "Charmander", imageDir + "charmander.png");
     public static final TETile SQUIRTLE = new TETile('S', Color.blue, Color.gray,
-            "Squirtle", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\squirtle.png");
+            "Squirtle", imageDir + "squirtle.png");
     public static final TETile VULPIX = new TETile('V', new Color(192, 95, 8), Color.white,
-            "Vulpix", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\vulpix.png");
+            "Vulpix", imageDir + "vulpix.png");
     public static final TETile CLEFAIRY = new TETile('C', Color.pink, Color.white,
-            "Clefairy", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\clefairy.png");
+            "Clefairy", imageDir + "clefairy.png");
 
 
     //Pokemon World
     public static final TETile FLOOR = new TETile('·', new Color(128, 192, 128), Color.black,
-            "floor", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\grass2.png");
+            "floor", imageDir + "grass2.png");
     public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
-            "wall", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\forest.png");
+            "wall", imageDir + "forest.png");
 //    public static final TETile WATER = new TETile('█', new Color(89, 192, 128),
 //            new Color(89, 192, 128), "nothing");
 
 
     //Items and Traps
     public static final TETile RAZZBERRY = new TETile('F', new Color(216, 128, 128), Color.darkGray,
-            "Razz-berry", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\razzberry.png");
+            "Razz-berry", imageDir + "razzberry.png");
     public static final TETile PINAPBERRY = new TETile('P', Color.ORANGE, Color.darkGray,
-            "Pinap-berry", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\pinapberry.png");
+            "Pinap-berry", imageDir + "pinapberry.png");
 
     public static final TETile POKEBALL = new TETile('B', new Color(216, 20, 15), Color.darkGray,
-            "Pokeball Trap!", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
-            "proj2\\byog\\Core\\images\\pokeball.png");
+            "Pokeball Trap!", imageDir + "pokeball.png");
 
 
 //    TETile(char character, Color textColor, Color backgroundColor, String description,
