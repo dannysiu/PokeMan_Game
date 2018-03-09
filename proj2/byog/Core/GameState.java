@@ -130,6 +130,12 @@ public class GameState implements java.io.Serializable {
         StdDraw.line(0, world[0].length, world.length, world[0].length);
         StdDraw.textLeft(1, world[0].length + 2, currTilePointed);
 
+        // Instructions for the players to end the game properly
+        StdDraw.textLeft(4 * world.length / 11, world[0].length + 2,
+                "Type ':w' to find the winner.");
+        StdDraw.textLeft(4 * world.length / 11, world[0].length + 1,
+                "Type ':q' to quit the current game.");
+
         // Place holders for future potential pikachu and jigglypuff stuff
         StdDraw.setPenColor(Color.yellow);
         StdDraw.textLeft(7 * world.length / 10, world[0].length + 2,
@@ -181,6 +187,7 @@ public class GameState implements java.io.Serializable {
         }
         // End of keyboard input
     }
+
 
     private void winnerGameMenu(Player players) {
         int worldWidth = Game.WIDTH;

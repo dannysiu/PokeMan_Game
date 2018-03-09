@@ -12,6 +12,7 @@ public class ItemGenerator {
     Random randomGenerator;
     private static int fruitCount;
     private static int trapCount;
+    private static int obstacleCount;
 
     /**
      * Object will be used to add items to within the rooms and hallways
@@ -63,6 +64,23 @@ public class ItemGenerator {
             if (world[posX][posY] == Tileset.FLOOR) {
                 world[posX][posY] = Tileset.POKEBALL;
                 trapCount += 1;
+            }
+        }
+    }
+
+    /** Randomly place obstacles within the world */
+    public void addObstacles(TETile[][] world) {
+        int worldWidth = world.length;
+        int worldHeight = world[0].length;
+
+        while (obstacleCount < 25) {
+            int posX = RandomUtils.uniform(randomGenerator, worldWidth);
+            int posY = RandomUtils.uniform(randomGenerator, worldHeight);
+//            Position fruitLocation = new Position(posX, posY);
+
+            if (world[posX][posY] == Tileset.FLOOR) {
+                world[posX][posY] = Tileset.WATER;
+                obstacleCount += 1;
             }
         }
     }

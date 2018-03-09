@@ -45,6 +45,8 @@ public class Game implements java.io.Serializable {
                 //choose player 1 and 2 here (1 first, 2 after)
                 //then, use selections to place in the game constructor and use for game
 
+                drawObjectiveWindow();
+
                 Game testGame = new Game();
                 GameState gs = testGame.playNewGame(random, world);
                 gs.gameLoop();
@@ -223,6 +225,59 @@ public class Game implements java.io.Serializable {
     }
 
 
+    public void drawObjectiveWindow() {
+        StdDraw.setCanvasSize(WIDTH * 16, HEIGHT * 16);
+        StdDraw.clear(StdDraw.BOOK_LIGHT_BLUE);
+
+        Font font1 = new Font("Helvetica", Font.BOLD, 40);
+        Font font2 = new Font("Monaco", Font.BOLD, 30);
+        Font font3 = new Font("Monaco", Font.PLAIN, 18);
+        StdDraw.setXscale(0, WIDTH);
+        StdDraw.setYscale(0, HEIGHT);
+
+
+        //Show instructions to play the game
+        StdDraw.setFont(font1);
+        StdDraw.text(WIDTH / 2, 4 * HEIGHT / 5 + 4, "How To Play:");
+        StdDraw.setFont(font2);
+        StdDraw.text(3 * WIDTH / 5, 4 * HEIGHT / 6 + 3, "Eat the Berries for Points");
+        StdDraw.text(3 * WIDTH / 5, 3 * HEIGHT / 6 + 3, "Avoid the Pokeball Traps");
+        StdDraw.text(3 * WIDTH / 5, 4 * HEIGHT / 11 + 3, "Run around Bodies of Water");
+        StdDraw.text(WIDTH / 2, 4 * HEIGHT / 11 - 3, "Highest Score wins!!");
+        StdDraw.setFont(font3);
+        StdDraw.text(WIDTH / 2, HEIGHT / 5 - 1, "Hit 'P' when ready to play");
+
+
+        //Show picture of tiles to help explain the game
+        String currDir = System.getProperty("user.dir");
+        String imageDir = currDir + "\\byog\\Core\\images\\";
+
+        StdDraw.picture(WIDTH - 55, 4 * HEIGHT / 6 + 3, imageDir + "razz-berry_big.png");
+        StdDraw.picture(WIDTH - 50, 4 * HEIGHT / 6 + 3, imageDir + "pinapberry_big.png");
+        StdDraw.picture(WIDTH - 50, 3 * HEIGHT / 6 + 3, imageDir + "pokeball_big.png");
+        StdDraw.picture(WIDTH - 50, 4 * HEIGHT / 11 + 3, imageDir + "water_big.png");
+
+        StdDraw.setFont(font2);
+        StdDraw.text(WIDTH - 53, 9 * HEIGHT / 12 + 1, "+5");
+        StdDraw.text(WIDTH - 48, 9 * HEIGHT / 12 + 1, "+10");
+        StdDraw.text(WIDTH - 48, 7 * HEIGHT / 12 + 2, "-2");
+
+
+        StdDraw.show();
+
+
+        //Wait for the user to finish reading instructions and press P when ready to play
+        char input = ' ';
+        while ((input != 'p' && input != 'P')) {
+            if (!StdDraw.hasNextKeyTyped()) {
+                continue;
+            }
+            input = StdDraw.nextKeyTyped();
+        }
+
+    }
+
+
 
 
 
@@ -241,6 +296,7 @@ public class Game implements java.io.Serializable {
         hg.connectRoomsStraight(rg.getRoomList(), world);
         ig.addFruit(world);
         ig.addTraps(world);
+        ig.addObstacles(world);
 
         ter.initialize(world.length, world[0].length + 3, 0, 0);
         ter.renderFrame(world);
