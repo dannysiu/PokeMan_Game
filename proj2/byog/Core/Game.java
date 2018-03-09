@@ -240,6 +240,7 @@ public class Game implements java.io.Serializable {
         rg.populateRooms(world);
         hg.connectRoomsStraight(rg.getRoomList(), world);
         ig.addFruit(world);
+        ig.addTraps(world);
 
         ter.initialize(world.length, world[0].length + 3, 0, 0);
         ter.renderFrame(world);

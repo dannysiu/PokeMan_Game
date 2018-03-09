@@ -72,11 +72,21 @@ public class Tileset {
     public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
             "wall", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
             "proj2\\byog\\Core\\images\\forest.png");
+//    public static final TETile WATER = new TETile('█', new Color(89, 192, 128),
+//            new Color(89, 192, 128), "nothing");
 
-    //Food Items
-    public static final TETile FRUIT = new TETile('F', new Color(216, 128, 128), Color.darkGray,
-            "razzberry", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+
+    //Items and Traps
+    public static final TETile RAZZBERRY = new TETile('F', new Color(216, 128, 128), Color.darkGray,
+            "Razz-berry", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
             "proj2\\byog\\Core\\images\\razzberry.png");
+    public static final TETile PINAPBERRY = new TETile('P', Color.ORANGE, Color.darkGray,
+            "Pinap-berry", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\pinapberry.png");
+
+    public static final TETile POKEBALL = new TETile('B', new Color(216, 20, 15), Color.darkGray,
+            "Pokeball Trap!", "C:\\Users\\chat2\\Documents\\Spring 2018\\CS 61B\\sp18-proj2-axr-bfl\\" +
+            "proj2\\byog\\Core\\images\\pokeball.png");
 
 
 //    TETile(char character, Color textColor, Color backgroundColor, String description,

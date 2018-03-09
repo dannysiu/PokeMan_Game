@@ -79,9 +79,11 @@ public class Player implements java.io.Serializable {
         
         // Pikachu (player 1) movements are below
         if (command == 'd' || command == 'D') { // Going right
-            if ((worldMap[pikX + 1][pikY].equals(Tileset.FLOOR)) || worldMap[pikX + 1][pikY].equals(Tileset.FRUIT)) {
-                if (worldMap[pikX + 1][pikY].equals(Tileset.FRUIT)) {
+            if (!(worldMap[pikX + 1][pikY].equals(Tileset.WATER)) && !(worldMap[pikX + 1][pikY].equals(Tileset.WALL))) {
+                if (worldMap[pikX + 1][pikY].equals(Tileset.RAZZBERRY)) {
                     scoreP1 += 5;
+                } else if (worldMap[pikX + 1][pikY].equals(Tileset.PINAPBERRY)) {
+                    scoreP1 += 10;
                 }
                 playerLocationP = new Position(pikX + 1, pikY);
                 worldMap[pikX][pikY] = Tileset.FLOOR; // Change old player position back to floor
@@ -89,9 +91,11 @@ public class Player implements java.io.Serializable {
             }
         }
         if (command == 'a' || command == 'A') { // Going left
-            if ((worldMap[pikX - 1][pikY].equals(Tileset.FLOOR)) || worldMap[pikX - 1][pikY].equals(Tileset.FRUIT)) {
-                if (worldMap[pikX - 1][pikY].equals(Tileset.FRUIT)) {
+            if (!(worldMap[pikX - 1][pikY].equals(Tileset.WATER)) && !(worldMap[pikX - 1][pikY].equals(Tileset.WALL))) {
+                if (worldMap[pikX - 1][pikY].equals(Tileset.RAZZBERRY)) {
                     scoreP1 += 5;
+                } else if (worldMap[pikX - 1][pikY].equals(Tileset.PINAPBERRY)) {
+                    scoreP1 += 10;
                 }
                 playerLocationP = new Position(pikX - 1, pikY);
                 worldMap[pikX][pikY] = Tileset.FLOOR; // Change old player position back to floor
@@ -99,9 +103,11 @@ public class Player implements java.io.Serializable {
             }
         }
         if (command == 'w' || command == 'W') { // Going up
-            if (worldMap[pikX][pikY + 1].equals(Tileset.FLOOR) || worldMap[pikX][pikY + 1].equals(Tileset.FRUIT)) {
-                if (worldMap[pikX][pikY + 1].equals(Tileset.FRUIT)) {
+            if (!(worldMap[pikX][pikY + 1].equals(Tileset.WATER)) && !(worldMap[pikX][pikY + 1].equals(Tileset.WALL))) {
+                if (worldMap[pikX][pikY + 1].equals(Tileset.RAZZBERRY)) {
                     scoreP1 += 5;
+                } else if (worldMap[pikX][pikY + 1].equals(Tileset.PINAPBERRY)) {
+                    scoreP1 += 10;
                 }
                 playerLocationP = new Position(pikX, pikY + 1);
                 worldMap[pikX][pikY] = Tileset.FLOOR; // Change old player position back to floor
@@ -109,9 +115,11 @@ public class Player implements java.io.Serializable {
             }
         }
         if (command == 's' || command == 'S') { // Going down
-            if (worldMap[pikX][pikY - 1].equals(Tileset.FLOOR) || worldMap[pikX][pikY - 1].equals(Tileset.FRUIT)) {
-                if (worldMap[pikX][pikY - 1].equals(Tileset.FRUIT)) {
+            if (!(worldMap[pikX][pikY - 1].equals(Tileset.WATER)) && !(worldMap[pikX][pikY - 1].equals(Tileset.WALL))) {
+                if (worldMap[pikX][pikY - 1].equals(Tileset.RAZZBERRY)) {
                     scoreP1 += 5;
+                } else if (worldMap[pikX][pikY - 1].equals(Tileset.PINAPBERRY)) {
+                    scoreP1 += 10;
                 }
                 playerLocationP = new Position(pikX, pikY - 1);
                 worldMap[pikX][pikY] = Tileset.FLOOR; // Change old player position back to floor
@@ -121,9 +129,11 @@ public class Player implements java.io.Serializable {
         
         // Boss-Puff movements (player 2) are below
         if (command == 'l' || command == 'L') { // Going right
-            if (worldMap[puffX + 1][puffY].equals(Tileset.FLOOR) || worldMap[puffX + 1][puffY].equals(Tileset.FRUIT)) {
-                if (worldMap[puffX + 1][puffY].equals(Tileset.FRUIT)) {
+            if (!worldMap[puffX + 1][puffY].equals(Tileset.WATER) && !worldMap[puffX + 1][puffY].equals(Tileset.WALL)) {
+                if (worldMap[puffX + 1][puffY].equals(Tileset.RAZZBERRY)) {
                     scoreP2 += 5;
+                } else if (worldMap[puffX + 1][puffY].equals(Tileset.PINAPBERRY)) {
+                    scoreP2 += 10;
                 }
                 playerLocationJ = new Position(puffX + 1, puffY);
                 worldMap[puffX][puffY] = Tileset.FLOOR; // Change old player position back to floor
@@ -131,9 +141,11 @@ public class Player implements java.io.Serializable {
             }
         }
         if (command == 'j' || command == 'J') { // Going left
-            if (worldMap[puffX - 1][puffY].equals(Tileset.FLOOR) || worldMap[puffX - 1][puffY].equals(Tileset.FRUIT)) {
-                if (worldMap[puffX - 1][puffY].equals(Tileset.FRUIT)) {
+            if (!worldMap[puffX - 1][puffY].equals(Tileset.WATER) && !worldMap[puffX - 1][puffY].equals(Tileset.WALL)) {
+                if (worldMap[puffX - 1][puffY].equals(Tileset.RAZZBERRY)) {
                     scoreP2 += 5;
+                } else if (worldMap[puffX - 1][puffY].equals(Tileset.PINAPBERRY)) {
+                    scoreP2 += 10;
                 }
                 playerLocationJ = new Position(puffX - 1, puffY);
                 worldMap[puffX][puffY] = Tileset.FLOOR; // Change old player position back to floor
@@ -141,9 +153,11 @@ public class Player implements java.io.Serializable {
             }
         }
         if (command == 'i' || command == 'I') { // Going up
-            if (worldMap[puffX][puffY + 1].equals(Tileset.FLOOR) || worldMap[puffX][puffY + 1].equals(Tileset.FRUIT)) {
-                if (worldMap[puffX][puffY + 1].equals(Tileset.FRUIT)) {
+            if (!worldMap[puffX][puffY + 1].equals(Tileset.WATER) && !worldMap[puffX][puffY + 1].equals(Tileset.WALL)) {
+                if (worldMap[puffX][puffY + 1].equals(Tileset.RAZZBERRY)) {
                     scoreP2 += 5;
+                } else if (worldMap[puffX][puffY + 1].equals(Tileset.PINAPBERRY)) {
+                    scoreP2 += 10;
                 }
                 playerLocationJ = new Position(puffX, puffY + 1);
                 worldMap[puffX][puffY] = Tileset.FLOOR; // Change old player position back to floor
@@ -151,9 +165,11 @@ public class Player implements java.io.Serializable {
             }
         }
         if (command == 'k' || command == 'K') { // Going down
-            if (worldMap[puffX][puffY - 1].equals(Tileset.FLOOR) || worldMap[puffX][puffY - 1].equals(Tileset.FRUIT)) {
-                if (worldMap[puffX][puffY - 1].equals(Tileset.FRUIT)) {
+            if (!worldMap[puffX][puffY - 1].equals(Tileset.WATER) && !worldMap[puffX][puffY - 1].equals(Tileset.WALL)) {
+                if (worldMap[puffX][puffY - 1].equals(Tileset.RAZZBERRY)) {
                     scoreP2 += 5;
+                } else if (worldMap[puffX][puffY - 1].equals(Tileset.PINAPBERRY)) {
+                    scoreP2 += 10;
                 }
                 playerLocationJ = new Position(puffX, puffY - 1);
                 worldMap[puffX][puffY] = Tileset.FLOOR; // Change old player position back to floor
