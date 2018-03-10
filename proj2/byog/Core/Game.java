@@ -41,7 +41,7 @@ public class Game implements java.io.Serializable {
                 long seed = drawSeedWindow();
                 Random random = new Random(seed);
 
-                //TODO: draw Character Window to select characters
+                //Later, draw Character Window to select characters
                 //choose player 1 and 2 here (1 first, 2 after)
                 //then, use selections to place in the game constructor and use for game
 
